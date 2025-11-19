@@ -6,6 +6,8 @@ import { BASE_PATH } from "../lib/constants";
 import index from "./index.route";
 import media from "./media/media.index";
 
+import post from "./post/post.index";
+import product from "./product/product.index";
 import system from "./system/system.index";
 import tasks from "./tasks/tasks.index";
 
@@ -14,7 +16,9 @@ export function registerRoutes(app: AppOpenAPI) {
     .route("/", index)
     .route("/tasks", tasks)
     .route("/system", system)
-    .route("/media", media);
+    .route("/media", media)
+    .route("/posts", post)
+    .route("/products", product);
 }
 
 // stand alone router type used for api client
