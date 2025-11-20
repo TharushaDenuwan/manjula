@@ -53,11 +53,7 @@ export function ContactSidebar() {
 
   return (
     <div className="fixed right-6 bottom-6 z-50 hidden md:block">
-      <div
-        className="relative"
-        onMouseEnter={() => setIsExpanded(true)}
-        onMouseLeave={() => setIsExpanded(false)}
-      >
+      <div className="relative">
         {/* Expanded Social Icons */}
         <div className="absolute bottom-0 right-0 flex flex-col gap-2 mb-20">
           {socialLinks.map((link, index) => {
@@ -76,12 +72,12 @@ export function ContactSidebar() {
                   ${link.color}
                   hover:shadow-xl
                   transition-all duration-300 ease-out
-                  ${isExpanded ? "opacity-100 translate-x-0 scale-100" : "opacity-0 translate-x-8 scale-95 pointer-events-none"}
+                  ${isExpanded ? "opacity-100 translate-y-0 scale-100 pointer-events-auto" : "opacity-0 translate-y-4 scale-95 pointer-events-none"}
                 `}
                 title={link.title}
                 aria-label={link.ariaLabel}
                 style={{
-                  transitionDelay: isExpanded ? `${index * 50}ms` : "0ms",
+                  transitionDelay: isExpanded ? `${index * 50}ms` : `${(socialLinks.length - index - 1) * 30}ms`,
                 }}
               >
                 <Icon className="w-5 h-5 text-[#D4AF37] group-hover:text-white transition-colors duration-300 flex-shrink-0" />
@@ -95,6 +91,7 @@ export function ContactSidebar() {
 
         {/* Main Toggle Button */}
         <button
+          onClick={() => setIsExpanded(!isExpanded)}
           className={`
             flex items-center justify-center gap-2
             w-auto min-w-[140px] h-12 px-4 rounded-lg
@@ -107,6 +104,7 @@ export function ContactSidebar() {
           `}
           aria-label="Toggle social media"
           title="Contact & Social Media"
+          aria-expanded={isExpanded}
         >
           <div className="flex flex-col gap-1 items-center justify-center">
             <div className={`w-4 h-0.5 bg-white transition-all duration-300 ${isExpanded ? "rotate-45 translate-y-1" : ""}`} />
