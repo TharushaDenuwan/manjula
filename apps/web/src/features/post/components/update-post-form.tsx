@@ -1,0 +1,248 @@
+"use client";
+import { useCallback, useId, useEffect } from "react";
+import { z } from "zod";
+
+import { Button } from "@repo/ui/components/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from "@repo/ui/components/dialog";
+import { Input } from "@repo/ui/components/input";
+import { useAppForm } from "@repo/ui/components/tanstack-form";
+import { Textarea } from "@repo/ui/components/textarea";
+
+import { toast } from "sonner";
+import {
+  updatePost,
+  type UpdatePostSchema,
+  type PostResponse
+} from "../actions/update-post.action";
+
+const updatePostSchema = z.object({
+  postTitle: z.string().min(1, "Post title is required").optional(),
+  postImageUrl: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  startDate: z.string().nullable().optional(),
+  endDate: z.string().nullable().optional()
+});
+
+interface UpdatePostFormProps {
+  post: PostResponse;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSuccess?: () => void;
+}
+
+export function UpdatePostForm({
+  post,
+  open,
+  onOpenChange,
+  onSuccess
+}: UpdatePostFormProps) {
+  const toastId = useId();
+
+  const form = useAppForm({
+    validators: { onChange: updatePostSchema as any },
+    defaultValues: {
+      postTitle: post.postTitle,
+      postImageUrl: post.postImageUrl,
+      description: post.description,
+      startDate: post.startDate,
+      endDate: post.endDate
+    } as UpdatePostSchema,
+    onSubmit: async ({ value }) => {
+      try {
+        toast.loading("Updating post...", { id: toastId });
+
+        await updatePost(post.id, {
+          postTitle: value.postTitle,
+          postImageUrl: value.postImageUrl ?? null,
+          description: value.description ?? null,
+          startDate: value.startDate ?? null,
+          endDate: value.endDate ?? null
+        });
+
+        toast.success("Post updated successfully!", { id: toastId });
+        onSuccess?.();
+        onOpenChange(false);
+      } catch (error) {
+        const err = error as Error;
+        console.error("Failed to update post:", error);
+        toast.error(`Failed: ${err.message}`, {
+          id: toastId
+        });
+      }
+    }
+  });
+
+  // Reset form when post changes or dialog opens
+  useEffect(() => {
+    if (open) {
+      form.setFieldValue("postTitle", post.postTitle);
+      form.setFieldValue("postImageUrl", post.postImageUrl);
+      form.setFieldValue("description", post.description);
+      form.setFieldValue("startDate", post.startDate);
+      form.setFieldValue("endDate", post.endDate);
+    }
+  }, [open, post, form]);
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      form.handleSubmit();
+    },
+    [form]
+  );
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-[600px]">
+        <form.AppForm>
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <DialogHeader>
+              <DialogTitle>Update Post</DialogTitle>
+              <DialogDescription>
+                Update the post details below.
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="grid gap-4">
+              <form.AppField
+                name="postTitle"
+                children={(field) => (
+                  <field.FormItem>
+                    <field.FormLabel>Post Title</field.FormLabel>
+                    <field.FormControl>
+                      <Input
+                        placeholder="Enter post title"
+                        value={field.state.value || ""}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        onBlur={field.handleBlur}
+                      />
+                    </field.FormControl>
+                    <field.FormMessage />
+                  </field.FormItem>
+                )}
+              />
+
+              <form.AppField
+                name="postImageUrl"
+                children={(field) => (
+                  <field.FormItem>
+                    <field.FormLabel>Image URL (Optional)</field.FormLabel>
+                    <field.FormControl>
+                      <Input
+                        type="url"
+                        placeholder="https://example.com/image.jpg"
+                        value={field.state.value || ""}
+                        onChange={(e) =>
+                          field.handleChange(e.target.value || null)
+                        }
+                        onBlur={field.handleBlur}
+                      />
+                    </field.FormControl>
+                    <field.FormMessage />
+                  </field.FormItem>
+                )}
+              />
+
+              <form.AppField
+                name="description"
+                children={(field) => (
+                  <field.FormItem>
+                    <field.FormLabel>Description (Optional)</field.FormLabel>
+                    <field.FormControl>
+                      <Textarea
+                        placeholder="Enter post description"
+                        value={field.state.value || ""}
+                        onChange={(e) =>
+                          field.handleChange(e.target.value || null)
+                        }
+                        onBlur={field.handleBlur}
+                        rows={4}
+                      />
+                    </field.FormControl>
+                    <field.FormMessage />
+                  </field.FormItem>
+                )}
+              />
+
+              <div className="grid grid-cols-2 gap-4">
+                <form.AppField
+                  name="startDate"
+                  children={(field) => (
+                    <field.FormItem>
+                      <field.FormLabel>Start Date (Optional)</field.FormLabel>
+                      <field.FormControl>
+                        <Input
+                          type="date"
+                          value={
+                            field.state.value
+                              ? new Date(field.state.value)
+                                  .toISOString()
+                                  .split("T")[0]
+                              : ""
+                          }
+                          onChange={(e) =>
+                            field.handleChange(
+                              e.target.value ? e.target.value : null
+                            )
+                          }
+                          onBlur={field.handleBlur}
+                        />
+                      </field.FormControl>
+                      <field.FormMessage />
+                    </field.FormItem>
+                  )}
+                />
+
+                <form.AppField
+                  name="endDate"
+                  children={(field) => (
+                    <field.FormItem>
+                      <field.FormLabel>End Date (Optional)</field.FormLabel>
+                      <field.FormControl>
+                        <Input
+                          type="date"
+                          value={
+                            field.state.value
+                              ? new Date(field.state.value)
+                                  .toISOString()
+                                  .split("T")[0]
+                              : ""
+                          }
+                          onChange={(e) =>
+                            field.handleChange(
+                              e.target.value ? e.target.value : null
+                            )
+                          }
+                          onBlur={field.handleBlur}
+                        />
+                      </field.FormControl>
+                      <field.FormMessage />
+                    </field.FormItem>
+                  )}
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+
+              <Button type="submit" loading={form.state.isSubmitting}>
+                Update
+              </Button>
+            </DialogFooter>
+          </form>
+        </form.AppForm>
+      </DialogContent>
+    </Dialog>
+  );
+}

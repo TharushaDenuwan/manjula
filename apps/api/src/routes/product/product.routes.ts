@@ -109,21 +109,19 @@ export const remove = createRoute({
   method: "delete",
   path: "/:id",
   tags: ["Product"],
-  summary: "Delete a user profile",
+  summary: "Delete a product",
   request: {
     params: z.object({ id: z.string() }),
   },
   responses: {
-    204: {
-      description: "No Content",
-      content: {
-        "application/json": {
-          schema: z.null(),
-        },
-      },
+    [HttpStatusCodes.NO_CONTENT]: {
+      description: "Product deleted",
     },
-    401: jsonContent(errorMessageSchema, "Unauthorized"),
-    404: jsonContent(errorMessageSchema, "Not Found"),
+    [HttpStatusCodes.UNAUTHORIZED]: jsonContent(
+      errorMessageSchema,
+      "Unauthorized"
+    ),
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(errorMessageSchema, "Not Found"),
   },
 });
 

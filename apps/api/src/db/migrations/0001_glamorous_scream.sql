@@ -1,1 +1,0 @@
-ALTER TABLE "product" ADD COLUMN "product_image_url" varchar(500);

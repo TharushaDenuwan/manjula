@@ -1,6 +1,6 @@
 "use client";
 
-import { IconBuildings, IconUsers } from "@tabler/icons-react";
+import { IconBuildings } from "@tabler/icons-react";
 import * as React from "react";
 
 import { NavUser } from "@/components/dashboard/nav-user";
@@ -21,48 +21,13 @@ import { AdminSidebarNav } from "./sidebar-nav";
 const data = {
   main: [
     {
-      name: "Users",
-      url: "/admin/users",
-      icon: IconUsers,
-    },
-    {
-      name: "Hotels",
-      url: "/admin/hotels",
+      name: "Posts",
+      url: "/admin/post",
       icon: IconBuildings,
     },
     {
-      name: "Bookings",
-      url: "/admin/roomBookings",
-      icon: IconBuildings,
-    },
-    {
-      name: "payments",
-      url: "/admin/adminPayments",
-      icon: IconBuildings,
-    },
-    {
-      name: "Property Class",
-      url: "/admin/property-class",
-      icon: IconBuildings,
-    },
-    {
-      name: "Hotel Types",
-      url: "/admin/hotel-types",
-      icon: IconBuildings,
-    },
-    {
-      name: "Article",
-      url: "/admin/article-management",
-      icon: IconBuildings,
-    },
-    {
-      name: "Ads",
-      url: "/admin/ad-management",
-      icon: IconBuildings,
-    },
-    {
-      name: "Home sections",
-      url: "/admin/property-types",
+      name: "Products",
+      url: "/admin/product",
       icon: IconBuildings,
     },
   ],
