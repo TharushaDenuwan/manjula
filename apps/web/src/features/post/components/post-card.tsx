@@ -1,6 +1,7 @@
 "use client";
 import { formatDistanceToNow } from "date-fns";
-import { PencilIcon, TrashIcon } from "lucide-react";
+import { Calendar, Clock, PencilIcon, TrashIcon } from "lucide-react";
+import Image from "next/image";
 import { useId, useState } from "react";
 
 import { Button } from "@repo/ui/components/button";
@@ -11,7 +12,6 @@ import {
   CardHeader,
   CardTitle
 } from "@repo/ui/components/card";
-import { Separator } from "@repo/ui/components/separator";
 
 import { toast } from "sonner";
 import { deletePost } from "../actions/delete-post.action";
@@ -64,63 +64,82 @@ export function PostCard({ post, onDelete, onUpdate }: Props) {
 
   return (
     <>
-      <Card key={post.id} className={"p-0 flex flex-col gap-y-3"}>
-        <CardHeader className="pt-4 pb-1">
+      <Card
+        key={post.id}
+        className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-[#D4AF37]/20 flex flex-col p-0 max-w-xs w-full"
+      >
+        {/* Image Section - At the Top, No Padding */}
+        {post.postImageUrl ? (
+          <div className="relative w-full h-40 overflow-hidden bg-gradient-to-br from-[#D4AF37]/10 to-transparent">
+            <Image
+              src={post.postImageUrl}
+              alt={post.postTitle}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              unoptimized
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+          </div>
+        ) : (
+          <div className="relative w-full h-40 overflow-hidden bg-gradient-to-br from-[#D4AF37]/20 to-[#E6C45A]/10 flex items-center justify-center">
+            <div className="text-4xl opacity-30">📝</div>
+          </div>
+        )}
+
+        {/* Content Section - Below Image */}
+        <CardHeader className="px-4  pb-2">
           <div className="flex items-start justify-between gap-2">
-            <div className="flex-1">
-              <CardTitle>{post.postTitle}</CardTitle>
+            <div className="flex-1 min-w-0">
+              <CardTitle className="text-lg font-bold text-[#0F172A] mb-1 group-hover:text-[#D4AF37] transition-colors line-clamp-1">
+                {post.postTitle}
+              </CardTitle>
               {post.description && (
-                <CardDescription className="mt-2 line-clamp-2">
+                <CardDescription className="text-gray-600 leading-snug line-clamp-2 mt-1 text-sm">
                   {post.description}
                 </CardDescription>
               )}
             </div>
           </div>
-          <CardDescription className="p-0 mt-2">
-            Created {formatDistanceToNow(new Date(post.createdAt))} ago
-          </CardDescription>
-          {(post.startDate || post.endDate) && (
-            <CardDescription className="p-0 mt-1">
-              {post.startDate && `Start: ${formatDate(post.startDate)}`}
-              {post.startDate && post.endDate && " • "}
-              {post.endDate && `End: ${formatDate(post.endDate)}`}
-            </CardDescription>
-          )}
+
+          {/* Date Information */}
+          <div className="flex flex-col gap-1 mt-2 pt-2 border-t border-[#D4AF37]/20">
+            <div className="flex items-center gap-1.5 text-xs text-gray-500">
+              <Clock className="w-3 h-3 text-[#D4AF37] flex-shrink-0" />
+              <span className="truncate">Created {formatDistanceToNow(new Date(post.createdAt))} ago</span>
+            </div>
+            {(post.startDate || post.endDate) && (
+              <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                <Calendar className="w-3 h-3 text-[#D4AF37] flex-shrink-0" />
+                <span className="truncate">
+                  {post.startDate && formatDate(post.startDate)}
+                  {post.startDate && post.endDate && " → "}
+                  {post.endDate && formatDate(post.endDate)}
+                </span>
+              </div>
+            )}
+          </div>
         </CardHeader>
 
-        {post.postImageUrl && (
-          <div className="px-4">
-            <img
-              src={post.postImageUrl}
-              alt={post.postTitle}
-              className="w-full h-48 object-cover rounded-md"
-            />
-          </div>
-        )}
-
-        <Separator />
-
-        <CardContent className="px-4 pb-3 flex items-center justify-between">
-          <div className="flex items-center gap-2 h-6">
+        {/* Action Buttons - Beautified */}
+        <CardContent className="px-4 pb-3 ">
+          <div className="flex items-center gap-2">
             <Button
               size="sm"
-              icon={<TrashIcon />}
-              variant={"ghost"}
+              icon={<PencilIcon className="w-3.5 h-3.5" />}
+              onClick={() => setIsEditOpen(true)}
+              className="flex-1 h-8 bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] font-semibold text-xs transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+            >
+              Edit
+            </Button>
+            <Button
+              size="sm"
+              icon={<TrashIcon className="w-3.5 h-3.5" />}
+              variant="outline"
               onClick={handleDelete}
               disabled={isDeleting}
+              className="h-8 border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 hover:text-red-700 transition-all transform hover:scale-105 font-semibold text-xs"
             >
               Delete
-            </Button>
-
-            <Separator orientation="vertical" />
-
-            <Button
-              size="sm"
-              icon={<PencilIcon />}
-              variant={"ghost"}
-              onClick={() => setIsEditOpen(true)}
-            >
-              Edit Post
             </Button>
           </div>
         </CardContent>

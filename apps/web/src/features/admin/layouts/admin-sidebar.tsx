@@ -13,6 +13,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@repo/ui/components/sidebar";
+import Link from "next/link";
 import { PiBuilding } from "react-icons/pi";
 import { getUserDetails } from "./get-user-details";
 
@@ -20,6 +21,11 @@ import { AdminSidebarNav } from "./sidebar-nav";
 
 const data = {
   main: [
+    {
+      name: "Dashboard",
+      url: "/admin",
+      icon: IconBuildings,
+    },
     {
       name: "Posts",
       url: "/admin/post",
@@ -46,15 +52,15 @@ export function AdminSidebar({
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <div>
+              <Link href="/">
                 <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded">
                   <PiBuilding className="size-4" />
                 </div>
 
                 <span className="text-base font-semibold font-heading">
-                  {`Bloonsoo Admin`}
+                  {`Web Site`}
                 </span>
-              </div>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

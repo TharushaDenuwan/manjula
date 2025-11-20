@@ -72,7 +72,7 @@ export function PostList() {
 
   return (
     <div className="space-y-4">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {posts.map((post) => (
           <PostCard
             key={post.id}
