@@ -27,7 +27,7 @@ export function AdminSidebarNav({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Hotel Management</SidebarGroupLabel>
+      <SidebarGroupLabel>Welcome to the Admin Panel</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           const isActive = pathname === item.url;
@@ -37,8 +37,8 @@ export function AdminSidebarNav({
                 asChild
                 className={
                   isActive
-                    ? "bg-blue-900 text-white font-semibold"
-                    : "hover:bg-blue-100 hover:text-blue-900"
+                    ? "bg-[#D4AF37] text-[#0F172A] font-semibold"
+                    : "hover:bg-[#D4AF37]/20 hover:text-[#D4AF37]"
                 }
               >
                 <Link href={item.url}>
