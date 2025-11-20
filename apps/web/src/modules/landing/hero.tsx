@@ -35,8 +35,8 @@ export function Hero() {
         </video>
 
         {/* Dark overlay + golden accent */}
-        <div className="absolute inset-0 bg-black/60"></div>
-        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"></div>
+        <div className="absolute inset-0 bg-black/70"></div>
+        <div className="absolute inset-x-0 top-0 h1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center text-white">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
