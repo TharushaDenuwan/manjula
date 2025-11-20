@@ -6,9 +6,9 @@ import { Toaster } from "sonner";
 import { fontHeading, fontSans } from "../lib/fonts";
 
 export const metadata: Metadata = {
-  title: "Bloonsoo.com",
+  title: "Manjula.com",
   description:
-    "Welcome to Bloonsoo.com, your one-stop destination for all your travel needs. Explore, book, and enjoy your perfect getaway.",
+    "Welcome to Manjula.com, your destination for wellness and relaxation.",
 };
 
 export default function RootLayout({

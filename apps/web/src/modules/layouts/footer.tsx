@@ -1,54 +1,52 @@
-import { Button } from "@repo/ui/components/button";
-import { Input } from "@repo/ui/components/input";
-import { Facebook, Instagram, Mail, MapPin, Twitter } from "lucide-react";
+"use client";
+import {
+  Facebook,
+  Instagram,
+  Mail,
+  MapPin,
+  Phone,
+  Twitter,
+} from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-[#001b35] to-[#00255a] backdrop-blur-md bg-opacity-30 text-white border-t border-white/20">
+    <footer className="bg-gradient-to-br from-black to-gray-950 text-white border-t-2 border-amber-400">
       {/* Newsletter Section */}
-      <div className="border-b border-white/20">
-        <div className="container mx-auto px-4 py-8">
+      <div className="border-b border-amber-400/20">
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-2xl font-bold text-white mb-2">
-              Get the Best Travel Deals
+              Sie haben Fragen?
             </h3>
-            <p className="text-white/80 mb-6">
-              Subscribe to our newsletter and never miss out on exclusive offers
-              and travel inspiration.
+            <p className="text-gray-300 mb-6">
+              Dann kontaktieren Sie mich gerne. Ich werde versuchen, Ihre Fragen
+              gerne zu beantworten.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 bg-white/20 text-white placeholder-white/70 border border-white/30"
-              />
-              <Button className="bg-white/20 hover:bg-white/30 text-white font-semibold">
-                Subscribe
-              </Button>
-            </div>
+
+            <button className="bg-amber-500 hover:bg-amber-600 text-black px-9 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 ">
+              Abonnieren
+            </button>
           </div>
         </div>
       </div>
 
       {/* Main Footer Content */}
-      <div className="container mx-auto px-4 py-12">
+      <div className="container mx-auto px-4 py-12 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h4 className="text-xl font-bold text-white font-heading">
-              Bloonsoo
-            </h4>
-            <p className="text-white/80 text-sm leading-relaxed">
-              Your trusted travel companion for finding the perfect
-              accommodation. Discover amazing places to stay around the world.
+            <h4 className="text-xl font-bold text-amber-400">Manjula</h4>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Ayurveda Wohlfühlpraxis aus Sri Lanka. Ihre vertrauenswürdige
+              Partnerin für traditionelle Ayurveda-Massagen und Wellness.
             </p>
             <div className="flex space-x-4">
               {[Facebook, Twitter, Instagram].map((Icon, i) => (
                 <Link
                   key={i}
                   href="#"
-                  className="w-8 h-8 bg-white/20 hover:bg-white/40 text-white rounded-full flex items-center justify-center transition-colors"
+                  className="w-8 h-8 bg-amber-400/20 hover:bg-amber-400/40 text-amber-400 rounded-full flex items-center justify-center transition-all"
                 >
                   <Icon size={16} />
                 </Link>
@@ -58,19 +56,19 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h5 className="text-lg font-semibold text-white">Quick Links</h5>
+            <h5 className="text-lg font-semibold text-white">Über mich</h5>
             <ul className="space-y-2">
               {[
-                { label: "Search Hotels", href: "/search" },
-                { label: "Deals & Offers", href: "/deals" },
-                { label: "Destinations", href: "/destinations" },
-                { label: "Travel Guide", href: "/guide" },
-                { label: "About Us", href: "/about" },
+                { label: "Mein Profil", href: "#" },
+                { label: "Meine Leistungen", href: "#services" },
+                { label: "Erfahrungen", href: "#testimonials" },
+                { label: "Kontakt", href: "#contact" },
+                { label: "Impressum", href: "#" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/80 hover:text-white transition-colors text-sm"
+                    className="text-gray-400 hover:text-amber-400 transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -79,21 +77,20 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Services */}
           <div className="space-y-4">
-            <h5 className="text-lg font-semibold text-white">Support</h5>
+            <h5 className="text-lg font-semibold text-white">Leistungen</h5>
             <ul className="space-y-2">
               {[
-                { label: "Help Center", href: "/help" },
-                { label: "Contact Us", href: "/contact" },
-                { label: "Terms of Service", href: "/legal/terms" },
-                { label: "Privacy Policy", href: "/legal/privacy" },
-                { label: "FAQs", href: "/legal/faqs" },
+                { label: "Ayurveda Massagen", href: "#" },
+                { label: "Yoga & Meditation", href: "#" },
+                { label: "Kräuterbehandlungen", href: "#" },
+                { label: "Dosha-Analyse", href: "#" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-white/80 hover:text-white transition-colors text-sm"
+                    className="text-gray-400 hover:text-amber-400 transition-colors text-sm"
                   >
                     {link.label}
                   </Link>
@@ -104,19 +101,22 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h5 className="text-lg font-semibold text-white">Contact</h5>
-            <div className="space-y-3 text-white/80 text-sm">
-              <div className="flex items-center space-x-3">
-                <MapPin size={16} className="text-white" />
-                <span>123 Travel Street, City, Country</span>
+            <h5 className="text-lg font-semibold text-white">Kontakt</h5>
+            <div className="space-y-3 text-gray-400 text-sm">
+              <div className="flex items-start space-x-3">
+                <MapPin
+                  size={16}
+                  className="text-amber-400 flex-shrink-0 mt-1"
+                />
+                <span>Großpesendorf 41, 8211 Ilztal, Österreich</span>
               </div>
-              {/* <div className="flex items-center space-x-3">
-                <Phone size={16} className="text-white" />
-                <span>+94 712 568 568 / +94 718 568 568</span>
-              </div> */}
               <div className="flex items-center space-x-3">
-                <Mail size={16} className="text-white" />
-                <span> info@bloonsoo.com </span>
+                <Phone size={16} className="text-amber-400" />
+                <span>+43 664 88 65 34 30</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail size={16} className="text-amber-400" />
+                <span>relax@manjula.at</span>
               </div>
             </div>
           </div>
@@ -124,20 +124,24 @@ export function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/20">
-        <div className="container mx-auto px-4 py-6">
+      <div className="border-t border-amber-400/20">
+        <div className="container mx-auto px-4 py-6 max-w-7xl">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-white/70 text-sm">
-              © 2025 Marriex PVT LTD All rights reserved.
+            <p className="text-gray-500 text-sm">
+              © 2025 Manjula – Ayurveda aus Sri Lanka. Alle Rechte vorbehalten.
             </p>
             <div className="flex space-x-6">
-              {["terms", "privacy", "cookies"].map((item) => (
+              {[
+                { label: "Impressum", href: "#" },
+                { label: "Datenschutz", href: "#" },
+                { label: "AGB", href: "#" },
+              ].map((item) => (
                 <Link
-                  key={item}
-                  href={`/${item}`}
-                  className="text-white/70 hover:text-white text-sm transition-colors"
+                  key={item.href}
+                  href={item.href}
+                  className="text-gray-500 hover:text-amber-400 text-sm transition-colors"
                 >
-                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                  {item.label}
                 </Link>
               ))}
             </div>
