@@ -2,10 +2,38 @@
 
 import { Button } from "@repo/ui/components/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@repo/ui/components/card";
-import { ArrowRight, Clock, Heart, Leaf, MessageCircle, Move, Sparkles, Target, Wind, Zap } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, Heart, Leaf, MessageCircle, Move, Sparkles, Target, Wind, Zap } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function MassagePage() {
+  // Sample images for the carousel - using Unsplash placeholder images
+  const carouselImages = [
+    "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1920&q=80",
+    "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80",
+    "https://images.unsplash.com/photo-1600334248978-744bf44ba1cb?w=1920&q=80",
+    "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=1920&q=80",
+  ];
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Navigation functions
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
+  };
+
+  // Auto-slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
   const services = [
     {
       id: 1,
@@ -106,18 +134,61 @@ export default function MassagePage() {
 
   return (
     <div className="w-full bg-white min-h-screen">
-      {/* Hero Section with Background Image */}
+      {/* Hero Section with Sliding Carousel */}
       <section className="relative w-full min-h-[50vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* Background Image - Using a placeholder, replace with actual image */}
+        {/* Image Carousel Background */}
         <div className="absolute inset-0 z-0">
+          {/* Fallback gradient background */}
           <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-stone-100" />
-          {/* Placeholder for background image - replace with actual image path */}
-          <div className="absolute inset-0 bg-[url('/assets/massage-hero.jpg')] bg-cover bg-center opacity-30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" />
+
+          {/* Carousel Container */}
+          <div className="relative w-full h-full overflow-hidden">
+            <div
+              className="flex transition-transform duration-1000 ease-in-out h-full will-change-transform"
+              style={{
+                transform: `translateX(calc(-100% * ${currentSlide} / ${carouselImages.length}))`,
+                width: `${carouselImages.length * 100}%`,
+              }}
+            >
+              {carouselImages.map((image, index) => (
+                <div
+                  key={index}
+                  className="relative h-full flex-shrink-0"
+                  style={{ width: `${100 / carouselImages.length}%` }}
+                >
+                  <img
+                    src={image}
+                    alt={`Massage ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/20" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Additional gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent z-10" />
         </div>
 
+        {/* Navigation Buttons */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 z-30 p-3 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-300 hover:scale-110"
+          aria-label="Previous slide"
+        >
+          <ArrowLeft className="w-6 h-6 text-white" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 z-30 p-3 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-300 hover:scale-110"
+          aria-label="Next slide"
+        >
+          <ArrowRight className="w-6 h-6 text-white" />
+        </button>
+
         {/* Hero Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center text-white">
+        <div className="relative z-20 max-w-5xl mx-auto px-6 text-center text-white">
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
               Schenken Sie sich Zeit & Ihrem
@@ -141,10 +212,16 @@ export default function MassagePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, index) => {
               const IconComponent = service.icon;
+              const isLastItem = index === services.length - 1;
+              const itemsInLastRow = services.length % 3;
+              const shouldCenter = isLastItem && itemsInLastRow === 1;
+
               return (
                 <Card
                   key={service.id}
-                  className="group bg-white rounded-xl border border-gray-200 hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500 animate-in fade-in slide-in-from-bottom-4"
+                  className={`group bg-white rounded-xl border border-gray-200 hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500 animate-in fade-in slide-in-from-bottom-4 ${
+                    shouldCenter ? "lg:col-start-2" : ""
+                  }`}
                   style={{
                     animationDelay: `${index * 100}ms`,
                   }}
@@ -197,78 +274,145 @@ export default function MassagePage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-20 md:py-28 px-4 sm:px-6 bg-gradient-to-b from-gray-50 via-white to-gray-50">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {/* Section Header */}
+          <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4">
+              Preise & Pakete
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-6" />
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Wählen Sie das perfekte Paket für Ihr Wohlbefinden
+            </p>
+          </div>
+
+          {/* Pricing Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
             {pricingPlans.map((plan, index) => (
-              <Card
+              <div
                 key={index}
                 className={`
-                  bg-white rounded-xl border-2 overflow-hidden
-                  ${plan.upgrade ? "border-[#D4AF37] shadow-xl scale-105" : "border-gray-200 hover:border-[#D4AF37]/40"}
-                  hover:shadow-xl transition-all duration-300
+                  relative group
+                  ${plan.upgrade ? "md:-mt-4 md:mb-4" : ""}
                   animate-in fade-in slide-in-from-bottom-4
                 `}
                 style={{
                   animationDelay: `${index * 150}ms`,
                 }}
               >
-                <CardHeader className="text-center pb-4 bg-gradient-to-br from-[#D4AF37]/5 to-transparent">
-                  {plan.upgrade && (
-                    <div className="mb-2">
-                      <span className="text-xs font-semibold text-[#D4AF37] uppercase tracking-wider">
-                        upgrade
-                      </span>
+                {/* Popular Badge */}
+                {plan.upgrade && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                    <div className="bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] text-[#0F172A] text-xs font-bold px-4 py-1.5 rounded-full shadow-lg uppercase tracking-wider">
+                      Empfohlen
                     </div>
-                  )}
-                  <div className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-2">
-                    {plan.duration}
                   </div>
-                  <div className="text-4xl md:text-5xl font-bold text-[#D4AF37] mb-2">
-                    {plan.price}
-                  </div>
-                  <CardDescription className="text-sm text-gray-600">
-                    {plan.subtitle}
-                  </CardDescription>
-                  {plan.description && (
-                    <p className="text-xs text-gray-500 mt-2">{plan.description}</p>
-                  )}
-                </CardHeader>
+                )}
 
-                <CardContent className="p-6 space-y-6">
-                  <div>
-                    <p className="text-sm font-semibold text-[#0F172A] mb-3">
-                      Optimal für
-                    </p>
-                    {Array.isArray(plan.optimalFor) ? (
-                      <ul className="space-y-2">
-                        {plan.optimalFor.map((item, idx) => (
-                          <li
-                            key={idx}
-                            className="text-xs text-gray-600 flex items-start gap-2"
-                          >
-                            <span className="text-[#D4AF37] mt-1 flex-shrink-0">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <p className="text-xs text-gray-600">{plan.optimalFor}</p>
-                    )}
+                <Card
+                  className={`
+                    relative h-full bg-white rounded-2xl border overflow-hidden
+                    ${plan.upgrade
+                      ? "border-[#D4AF37] shadow-2xl ring-2 ring-[#D4AF37]/20 scale-105"
+                      : "border-gray-200 hover:border-[#D4AF37]/50 shadow-lg hover:shadow-2xl"
+                    }
+                    transition-all duration-500 hover:-translate-y-2
+                  `}
+                >
+                  {/* Header with gradient */}
+                  <div className={`relative ${plan.upgrade ? "bg-gradient-to-br from-[#D4AF37]/10 via-[#D4AF37]/5 to-transparent" : "bg-gradient-to-br from-gray-50 to-transparent"} pt-8 pb-6 px-6`}>
+                    {/* Duration Badge */}
+                    <div className="inline-flex items-center justify-center w-full mb-4">
+                      <div className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
+                        plan.upgrade
+                          ? "bg-[#D4AF37] text-[#0F172A]"
+                          : "bg-gray-100 text-gray-700"
+                      }`}>
+                        {plan.duration}
+                      </div>
+                    </div>
+
+                    {/* Price */}
+                    <div className="text-center mb-2">
+                      <div className="flex items-baseline justify-center gap-1">
+                        <span className="text-5xl md:text-6xl font-bold text-[#0F172A] tracking-tight">
+                          {plan.price.split(",")[0]}
+                        </span>
+                        <span className="text-xl text-gray-500">
+                          {plan.price.includes(",") ? plan.price.split(",")[1] : ""}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-2">{plan.subtitle}</p>
+                      {plan.description && (
+                        <p className="text-xs text-gray-400 mt-1 italic">{plan.description}</p>
+                      )}
+                    </div>
                   </div>
 
-                  <Button
-                    className="w-full bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] font-semibold transition-all transform hover:scale-105"
-                    onClick={() => {
-                      // Handle booking
-                    }}
-                  >
-                    Jetzt buchen
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
+                  {/* Content */}
+                  <CardContent className="p-6 space-y-6">
+                    {/* Services List */}
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 mb-3">
+                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+                        <p className="text-sm font-semibold text-[#0F172A] uppercase tracking-wider whitespace-nowrap">
+                          Enthaltene Anwendungen
+                        </p>
+                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+                      </div>
+                      {Array.isArray(plan.optimalFor) ? (
+                        <ul className="space-y-3">
+                          {plan.optimalFor.map((item, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-start gap-3 group/item"
+                            >
+                              <div className={`mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full ${
+                                plan.upgrade ? "bg-[#D4AF37]" : "bg-gray-300 group-hover/item:bg-[#D4AF37] transition-colors"
+                              }`} />
+                              <span className="text-sm text-gray-700 leading-relaxed">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="text-sm text-gray-700 leading-relaxed text-center py-2">{plan.optimalFor}</p>
+                      )}
+                    </div>
+
+                    {/* CTA Button */}
+                    <Button
+                      className={`
+                        group/btn w-full py-6 text-base font-semibold transition-all duration-300
+                        ${plan.upgrade
+                          ? "bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] shadow-lg hover:shadow-xl"
+                          : "bg-[#0F172A] hover:bg-[#1e293b] text-white hover:scale-105"
+                        }
+                        transform hover:scale-105
+                      `}
+                      onClick={() => {
+                        // Handle booking
+                      }}
+                    >
+                      Jetzt buchen
+                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
+                    </Button>
+                  </CardContent>
+
+                  {/* Decorative bottom border */}
+                  {plan.upgrade && (
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#D4AF37] via-[#E6C45A] to-[#D4AF37]" />
+                  )}
+                </Card>
+              </div>
             ))}
+          </div>
+
+          {/* Additional Info */}
+          <div className="mt-12 text-center animate-in fade-in slide-in-from-bottom-4" style={{ animationDelay: "450ms" }}>
+            <p className="text-sm text-gray-500">
+              Alle Preise verstehen sich inklusive MwSt. • Flexible Terminvereinbarung möglich
+            </p>
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 "use client";
 
 import { IconBuildings } from "@tabler/icons-react";
+import Image from "next/image";
 import * as React from "react";
 
 import { NavUser } from "@/components/dashboard/nav-user";
@@ -14,7 +15,6 @@ import {
   SidebarMenuItem,
 } from "@repo/ui/components/sidebar";
 import Link from "next/link";
-import { PiBuilding } from "react-icons/pi";
 import { getUserDetails } from "./get-user-details";
 
 import { AdminSidebarNav } from "./sidebar-nav";
@@ -50,16 +50,17 @@ export function AdminSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
+              className="data-[slot=sidebar-menu-button]:!p-3"
             >
-              <Link href="/">
-                <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded">
-                  <PiBuilding className="size-4" />
-                </div>
-
-                <span className="text-base font-semibold font-heading">
-                  {`Web Site`}
-                </span>
+              <Link href="/" className="flex items-center justify-center w-full">
+                <Image
+                  src="/assets/logo.png"
+                  alt="AYURVEDA by Manjula"
+                  width={120}
+                  height={40}
+                  className="h-auto w-full max-w-[120px] object-contain"
+                  priority
+                />
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
