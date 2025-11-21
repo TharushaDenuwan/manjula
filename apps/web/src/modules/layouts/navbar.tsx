@@ -19,6 +19,7 @@ export function Navbar({}: Props) {
     { href: "/yoga", label: "Yoga" },
     { href: "/ayurveda", label: "Ayurveda" },
     { href: "/termin-buchen", label: "Termin buchen" },
+    { href: "/produkts", label: "Produkts" },
   ];
 
   return (
