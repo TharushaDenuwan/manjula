@@ -81,6 +81,17 @@ CREATE TABLE "product" (
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
+CREATE TABLE "review" (
+	"id" text PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"rating" integer NOT NULL,
+	"review_image_url" varchar(500),
+	"name" varchar(255) NOT NULL,
+	"comment" text,
+	"helpful_count" integer DEFAULT 0,
+	"updated_at" timestamp DEFAULT now(),
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
 CREATE TABLE "session" (
 	"id" text PRIMARY KEY NOT NULL,
 	"expires_at" timestamp NOT NULL,

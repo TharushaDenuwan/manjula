@@ -8,6 +8,7 @@ import media from "./media/media.index";
 
 import post from "./post/post.index";
 import product from "./product/product.index";
+import reviwe from "./reviwe/reviwe.index";
 import system from "./system/system.index";
 import tasks from "./tasks/tasks.index";
 
@@ -18,6 +19,7 @@ export function registerRoutes(app: AppOpenAPI) {
     .route("/system", system)
     .route("/media", media)
     .route("/posts", post)
+    .route("/reviwes", reviwe)
     .route("/products", product);
 }
 
