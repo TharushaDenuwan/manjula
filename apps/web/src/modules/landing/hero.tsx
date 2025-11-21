@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@repo/ui/components/button";
 import { useState } from "react";
+import { DiscountPosts } from "./discount-posts";
 
 export function Hero() {
   const [formData, setFormData] = useState({ email: "", message: "" });
@@ -142,6 +143,9 @@ export function Hero() {
           </div>
         </div>
       </section>
+
+      {/* DISCOUNT POSTS */}
+      <DiscountPosts />
 
       {/* CONTACT & MAP – LUXURIOUS GOLD/WHITE */}
       <section className="py-24 px-6 bg-white">
