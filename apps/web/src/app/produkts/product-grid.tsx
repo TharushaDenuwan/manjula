@@ -2,7 +2,13 @@
 
 import { ProductResponse } from "@/features/product/actions/get-all-product.action";
 import { Button } from "@repo/ui/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@repo/ui/components/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card";
 import { ArrowRight, ShoppingCart, Sparkles } from "lucide-react";
 import Image from "next/image";
 
@@ -34,12 +40,13 @@ export function ProductGrid({ products }: ProductGridProps) {
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-12 animate-in fade-in slide-in-from-bottom-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-3">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#D4AF37] mb-3">
             Produktauswahl
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-4" />
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Hochwertige ayurvedische Produkte für Ihre Gesundheit und Ihr Wohlbefinden
+            Hochwertige ayurvedische Produkte für Ihre Gesundheit und Ihr
+            Wohlbefinden
           </p>
         </div>
 
@@ -102,7 +109,9 @@ export function ProductGrid({ products }: ProductGridProps) {
                       <div className="flex items-center justify-between text-xs text-gray-500">
                         <span>Herstellungsdatum:</span>
                         <span className="font-medium">
-                          {new Date(product.manufactureDate).toLocaleDateString("de-DE")}
+                          {new Date(product.manufactureDate).toLocaleDateString(
+                            "de-DE"
+                          )}
                         </span>
                       </div>
                     )}
@@ -110,7 +119,9 @@ export function ProductGrid({ products }: ProductGridProps) {
                       <div className="flex items-center justify-between text-xs text-gray-500">
                         <span>Haltbarkeit bis:</span>
                         <span className="font-medium">
-                          {new Date(product.expirationDate).toLocaleDateString("de-DE")}
+                          {new Date(product.expirationDate).toLocaleDateString(
+                            "de-DE"
+                          )}
                         </span>
                       </div>
                     )}
@@ -118,9 +129,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                 )}
 
                 {/* CTA Button */}
-                <Button
-                  className="w-full py-2 bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] font-semibold transition-all transform hover:scale-105 group/btn text-sm"
-                >
+                <Button className="w-full py-2 bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] font-semibold transition-all transform hover:scale-105 group/btn text-sm">
                   Zum Warenkorb
                   <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
                 </Button>

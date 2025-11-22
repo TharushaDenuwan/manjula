@@ -11,12 +11,12 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-black to-gray-950 text-white border-t-2 border-amber-400">
+    <footer className="bg-white text-black border-t-2 border-amber-400">
       {/* Newsletter Section */}
       <div className="border-b border-amber-400/20">
         <div className="container mx-auto px-4 py-8 max-w-7xl">
           <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-white mb-2">
+            <h3 className="text-2xl font-bold text-[#D4AF37] mb-2">
               Sie haben Fragen?
             </h3>
             <p className="text-gray-300 mb-6">
@@ -24,7 +24,7 @@ export function Footer() {
               gerne zu beantworten.
             </p>
 
-            <button className="bg-amber-500 hover:bg-amber-600 text-black px-9 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 ">
+            <button className="bg-[#D4AF37] hover:bg-amber-600 text-white px-9 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 ">
               Abonnieren
             </button>
           </div>
@@ -36,7 +36,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h4 className="text-xl font-bold text-amber-400">Manjula</h4>
+            <h4 className="text-xl font-bold text-[#D4AF37]">Manjula</h4>
             <p className="text-gray-400 text-sm leading-relaxed">
               Ayurveda Wohlfühlpraxis aus Sri Lanka. Ihre vertrauenswürdige
               Partnerin für traditionelle Ayurveda-Massagen und Wellness.

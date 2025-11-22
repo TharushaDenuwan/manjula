@@ -25,7 +25,7 @@ export function Hero() {
     <div className="w-full bg-white text-[#0F172A] overflow-hidden">
       {/* HERO WITH VIDEO BACKGROUND */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <video
+        {/* <video
           className="absolute top-0 left-0 w-full h-full object-cover"
           autoPlay
           loop
@@ -33,7 +33,17 @@ export function Hero() {
           playsInline
         >
           <source src="/assets/back4.mp4" type="video/mp4" />
-        </video>
+        </video> */}
+
+        <div
+          className="absolute top-0 left-0 w-full h-full object-cover"
+          style={{
+            backgroundImage: "url('/assets/backland.JPG')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+          }}
+        />
 
         {/* Dark overlay + golden accent */}
         <div className="absolute inset-0 bg-black/70"></div>
@@ -43,7 +53,7 @@ export function Hero() {
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6">
             Ayubowan{" "}
             <span className="block text-4xl md:text-6xl text-[#D4AF37] mt-4">
-              ~ Ich wünsche Dir ein langes, gesundes Leben ~
+              ~ ich wünsche Dir ein gesundes, langes Leben ~
             </span>
           </h1>
           <p className="text-lg md:text-xl max-w-4xl mx-auto leading-relaxed opacity-95">
@@ -88,8 +98,14 @@ export function Hero() {
             </div>
             <div className="flex justify-center">
               <div className="bg-gradient-to-br from-[#D4AF37]/10 to-transparent p-10 rounded-full">
-                <div className="bg-gray-200 border-2 border-dashed rounded-full w-80 h-80" />
-                {/* Replace with your photo later */}
+                <div
+                  className="relative w-80 h-80 rounded-full overflow-hidden border-2 border-[#D4AF37]/30 shadow-2xl"
+                  style={{
+                    backgroundImage: "url('/assets/6.JPG')",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                />
               </div>
             </div>
           </div>

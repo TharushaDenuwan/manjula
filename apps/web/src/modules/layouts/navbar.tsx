@@ -16,7 +16,7 @@ export function Navbar({}: Props) {
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/massage", label: "Massage" },
-    { href: "/yoga", label: "Yoga" },
+
     { href: "/ayurveda", label: "Ayurveda" },
     { href: "/termin-buchen", label: "Termin buchen" },
     { href: "/produkts", label: "Produkts" },
@@ -27,7 +27,7 @@ export function Navbar({}: Props) {
       {/* Sticky Navbar - White Background */}
       <div
         className={cn(
-          "fixed top-0 left-0 w-full z-50 h-16 flex items-center justify-between px-4 lg:px-8 bg-black/95  border-gray-200 shadow-sm"
+          "fixed top-0 left-0 w-full z-50 h-16 flex items-center justify-between px-4 lg:px-8 bg-white  border-gray-200 shadow-sm"
         )}
       >
         {/* Logo */}
@@ -51,7 +51,7 @@ export function Navbar({}: Props) {
                 "font-medium text-sm transition-colors",
                 pathname === item.href
                   ? "text-[#E4BF3C] font-semibold"
-                  : "text-white hover:text-[#E4BF3C]"
+                  : "text-black hover:text-[#E4BF3C]"
               )}
             >
               {item.label}

@@ -1,18 +1,36 @@
 "use client";
 
 import { Button } from "@repo/ui/components/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@repo/ui/components/card";
-import { ArrowLeft, ArrowRight, Clock, Heart, Leaf, MessageCircle, Move, Sparkles, Target, Wind, Zap } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Clock,
+  Heart,
+  Leaf,
+  MessageCircle,
+  Move,
+  Sparkles,
+  Target,
+  Wind,
+  Zap,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function MassagePage() {
-  // Sample images for the carousel - using Unsplash placeholder images
+  // Sample images from local assets
   const carouselImages = [
-    "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=1920&q=80",
-    "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1920&q=80",
-    "https://images.unsplash.com/photo-1600334248978-744bf44ba1cb?w=1920&q=80",
-    "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?w=1920&q=80",
+    "/assets/p17.JPG",
+    "/assets/p8.JPG",
+    "/assets/3.JPG",
+    "/assets/5.JPG",
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -23,7 +41,9 @@ export default function MassagePage() {
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
+    setCurrentSlide(
+      (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
+    );
   };
 
   // Auto-slide functionality
@@ -200,7 +220,9 @@ export default function MassagePage() {
             <div className="w-24 h-0.5 bg-white mx-auto my-6" />
 
             <p className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed opacity-95">
-              Wählen Sie eine meiner speziellen Anwendungen, oder vertrauen Sie mir, Ihnen diese Entscheidung situationsbedingt und taggenau für Sie zu treffen...
+              Wählen Sie eine meiner speziellen Anwendungen, oder vertrauen Sie
+              mir, Ihnen diese Entscheidung situationsbedingt und taggenau für
+              Sie zu treffen...
             </p>
           </div>
         </div>
@@ -313,22 +335,27 @@ export default function MassagePage() {
                 <Card
                   className={`
                     relative h-full bg-white rounded-2xl border overflow-hidden
-                    ${plan.upgrade
-                      ? "border-[#D4AF37] shadow-2xl ring-2 ring-[#D4AF37]/20 scale-105"
-                      : "border-gray-200 hover:border-[#D4AF37]/50 shadow-lg hover:shadow-2xl"
+                    ${
+                      plan.upgrade
+                        ? "border-[#D4AF37] shadow-2xl ring-2 ring-[#D4AF37]/20 scale-105"
+                        : "border-gray-200 hover:border-[#D4AF37]/50 shadow-lg hover:shadow-2xl"
                     }
                     transition-all duration-500 hover:-translate-y-2
                   `}
                 >
                   {/* Header with gradient */}
-                  <div className={`relative ${plan.upgrade ? "bg-gradient-to-br from-[#D4AF37]/10 via-[#D4AF37]/5 to-transparent" : "bg-gradient-to-br from-gray-50 to-transparent"} pt-8 pb-6 px-6`}>
+                  <div
+                    className={`relative ${plan.upgrade ? "bg-gradient-to-br from-[#D4AF37]/10 via-[#D4AF37]/5 to-transparent" : "bg-gradient-to-br from-gray-50 to-transparent"} pt-8 pb-6 px-6`}
+                  >
                     {/* Duration Badge */}
                     <div className="inline-flex items-center justify-center w-full mb-4">
-                      <div className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
-                        plan.upgrade
-                          ? "bg-[#D4AF37] text-[#0F172A]"
-                          : "bg-gray-100 text-gray-700"
-                      }`}>
+                      <div
+                        className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
+                          plan.upgrade
+                            ? "bg-[#D4AF37] text-[#0F172A]"
+                            : "bg-gray-100 text-gray-700"
+                        }`}
+                      >
                         {plan.duration}
                       </div>
                     </div>
@@ -340,12 +367,18 @@ export default function MassagePage() {
                           {plan.price.split(",")[0]}
                         </span>
                         <span className="text-xl text-gray-500">
-                          {plan.price.includes(",") ? plan.price.split(",")[1] : ""}
+                          {plan.price.includes(",")
+                            ? plan.price.split(",")[1]
+                            : ""}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-500 mt-2">{plan.subtitle}</p>
+                      <p className="text-sm text-gray-500 mt-2">
+                        {plan.subtitle}
+                      </p>
                       {plan.description && (
-                        <p className="text-xs text-gray-400 mt-1 italic">{plan.description}</p>
+                        <p className="text-xs text-gray-400 mt-1 italic">
+                          {plan.description}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -368,15 +401,23 @@ export default function MassagePage() {
                               key={idx}
                               className="flex items-start gap-3 group/item"
                             >
-                              <div className={`mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full ${
-                                plan.upgrade ? "bg-[#D4AF37]" : "bg-gray-300 group-hover/item:bg-[#D4AF37] transition-colors"
-                              }`} />
-                              <span className="text-sm text-gray-700 leading-relaxed">{item}</span>
+                              <div
+                                className={`mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full ${
+                                  plan.upgrade
+                                    ? "bg-[#D4AF37]"
+                                    : "bg-gray-300 group-hover/item:bg-[#D4AF37] transition-colors"
+                                }`}
+                              />
+                              <span className="text-sm text-gray-700 leading-relaxed">
+                                {item}
+                              </span>
                             </li>
                           ))}
                         </ul>
                       ) : (
-                        <p className="text-sm text-gray-700 leading-relaxed text-center py-2">{plan.optimalFor}</p>
+                        <p className="text-sm text-gray-700 leading-relaxed text-center py-2">
+                          {plan.optimalFor}
+                        </p>
                       )}
                     </div>
 
@@ -384,9 +425,10 @@ export default function MassagePage() {
                     <Button
                       className={`
                         group/btn w-full py-6 text-base font-semibold transition-all duration-300
-                        ${plan.upgrade
-                          ? "bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] shadow-lg hover:shadow-xl"
-                          : "bg-[#0F172A] hover:bg-[#1e293b] text-white hover:scale-105"
+                        ${
+                          plan.upgrade
+                            ? "bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] shadow-lg hover:shadow-xl"
+                            : "bg-[#0F172A] hover:bg-[#1e293b] text-white hover:scale-105"
                         }
                         transform hover:scale-105
                       `}
@@ -409,9 +451,13 @@ export default function MassagePage() {
           </div>
 
           {/* Additional Info */}
-          <div className="mt-12 text-center animate-in fade-in slide-in-from-bottom-4" style={{ animationDelay: "450ms" }}>
+          <div
+            className="mt-12 text-center animate-in fade-in slide-in-from-bottom-4"
+            style={{ animationDelay: "450ms" }}
+          >
             <p className="text-sm text-gray-500">
-              Alle Preise verstehen sich inklusive MwSt. • Flexible Terminvereinbarung möglich
+              Alle Preise verstehen sich inklusive MwSt. • Flexible
+              Terminvereinbarung möglich
             </p>
           </div>
         </div>
@@ -422,16 +468,17 @@ export default function MassagePage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="bg-gradient-to-br from-[#D4AF37]/5 to-transparent rounded-2xl p-12 border border-[#D4AF37]/20 shadow-lg animate-in fade-in slide-in-from-bottom-4">
             <MessageCircle className="w-16 h-16 text-[#D4AF37] mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#D4AF37] mb-4">
               Sie haben Fragen?
             </h2>
             <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              Dann kontaktieren Sie mich gerne. Ich werde versuchen, Ihre Fragen gerne zu beantworten.
+              Dann kontaktieren Sie mich gerne. Ich werde versuchen, Ihre Fragen
+              gerne zu beantworten.
             </p>
             <Link href="/#contact">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] font-semibold text-lg px-8 py-6 transition-all transform hover:scale-105"
+                className="bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-white font-semibold text-lg px-8 py-6 transition-all transform hover:scale-105"
               >
                 Kontakt
                 <ArrowRight className="w-5 h-5 ml-2" />
