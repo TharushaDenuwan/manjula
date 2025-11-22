@@ -4,18 +4,38 @@ import { useState } from "react";
 import { DiscountPosts } from "./discount-posts";
 
 export function Hero() {
-  const [formData, setFormData] = useState({ email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      console.log("Form submitted:", formData);
-      setFormData({ email: "", message: "" });
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          to: 'tharushadenuwan35@gmail.com',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      setFormData({ name: "", email: "", phone: "", message: "" });
       alert("Nachricht gesendet! Vielen Dank 🙏");
     } catch (error) {
       console.error("Error submitting form:", error);
+      alert("Es gab einen Fehler beim Senden Ihrer Nachricht. Bitte versuchen Sie es erneut.");
     } finally {
       setLoading(false);
     }
@@ -181,19 +201,39 @@ export function Hero() {
               </h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <input
+                  type="text"
+                  required
+                  placeholder="Name *"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/20 outline-none transition"
+                />
+                <input
                   type="email"
                   required
-                  placeholder="Ihre E-Mail"
+                  placeholder="E-Mail-Adresse *"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
                   className="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/20 outline-none transition"
                 />
+                <input
+                  type="tel"
+                  required
+                  placeholder="Telefon *"
+                  value={formData.phone}
+                  onChange={(e) =>
+                    setFormData({ ...formData, phone: e.target.value })
+                  }
+                  className="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/20 outline-none transition"
+                />
                 <textarea
                   required
                   rows={6}
-                  placeholder="Ihre Nachricht..."
+                  placeholder="Nachricht *"
                   value={formData.message}
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
@@ -203,7 +243,7 @@ export function Hero() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#D4AF37] hover:bg-[#C19A2F] text-[#0F172A] font-bold text-lg py-6 rounded-xl transition-all transform hover:scale-105 shadow-lg"
+                  className="w-full bg-[#D4AF37] hover:bg-[#C19A2F] text-[#0F172A] font-bold text-lg py-6 rounded-xl transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? "Wird gesendet..." : "Nachricht senden 🙏"}
                 </Button>
