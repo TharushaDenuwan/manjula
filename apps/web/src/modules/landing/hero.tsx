@@ -214,8 +214,8 @@ export function Hero() {
             <div className="space-y-8">
               <div className="bg-[#0F172A] rounded-3xl overflow-hidden shadow-2xl">
                 <iframe
-                  title="Praxis Manjula Standort"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2742.5463841262886!2d15.4477!3d47.1672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4765c5e8d5d5d5d5%3A0x0!2sSteiermark!5e0!3m2!1sde!2sat!4v1234567890"
+                  title="Praxis Manjula Standort - Großpesendorf 41, 8211 Ilztal, Österreich"
+                  src={`https://www.google.com/maps?q=${encodeURIComponent("Großpesendorf 41, 8211 Ilztal, Austria")}&output=embed`}
                   width="100%"
                   height="400"
                   style={{ border: 0 }}
