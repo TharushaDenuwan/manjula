@@ -1,6 +1,7 @@
 "use client";
 
 import { ProductResponse } from "@/features/product/actions/get-all-product.action";
+import { Button } from "@repo/ui/components/button";
 import {
   Card,
   CardContent,
@@ -12,6 +13,7 @@ import { Input } from "@repo/ui/components/input";
 import { Mail, Minus, Plus, ShoppingCart, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { ProductInquiryForm } from "./product-inquiry-form";
 
 interface ProductGridProps {
   products: ProductResponse[];
@@ -20,6 +22,9 @@ interface ProductGridProps {
 export function ProductGrid({ products }: ProductGridProps) {
   // State to track selected quantity for each product
   const [selectedQuantities, setSelectedQuantities] = useState<Record<string, number>>({});
+  // State to track which product's email dialog is open
+  const [emailDialogOpen, setEmailDialogOpen] = useState<Record<string, boolean>>({});
+  const [selectedProductForEmail, setSelectedProductForEmail] = useState<ProductResponse | null>(null);
 
   // Helper function to update selected quantity
   const updateQuantity = (productId: string, quantity: number) => {
@@ -82,6 +87,29 @@ export function ProductGrid({ products }: ProductGridProps) {
     const selectedQty = selectedQuantities[product.id] || 1;
     const maxQty = product.quantity ?? Infinity;
     return Math.max(1, Math.min(selectedQty, maxQty));
+  };
+
+  // Handle email button click
+  const handleEmailClick = (product: ProductResponse) => {
+    setSelectedProductForEmail(product);
+    setEmailDialogOpen((prev) => ({
+      ...prev,
+      [product.id]: true,
+    }));
+  };
+
+  // Handle dialog close
+  const handleEmailDialogClose = (open: boolean) => {
+    if (!selectedProductForEmail) return;
+
+    setEmailDialogOpen((prev) => ({
+      ...prev,
+      [selectedProductForEmail.id]: open,
+    }));
+
+    if (!open) {
+      setSelectedProductForEmail(null);
+    }
   };
 
   if (products.length === 0) {
@@ -266,14 +294,14 @@ export function ProductGrid({ products }: ProductGridProps) {
 
                 {/* Contact Buttons */}
                 <div className="flex gap-2 pt-2">
-                  <a
-                    href="mailto:relax@manjula.at"
+                  <Button
+                    onClick={() => handleEmailClick(product)}
                     className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 bg-[#0F172A] hover:bg-[#1e293b] text-white rounded-lg transition-all transform hover:scale-105 group/email"
                     aria-label="E-Mail"
                   >
                     <Mail className="w-4 h-4 transition-transform group-hover/email:scale-110" />
                     <span className="text-sm font-medium">E-Mail</span>
-                  </a>
+                  </Button>
                   <a
                     href={getWhatsAppUrl(product, getValidQuantity(product))}
                     onClick={(e) => handleWhatsAppClick(product, e)}
@@ -298,6 +326,17 @@ export function ProductGrid({ products }: ProductGridProps) {
               {/* Decorative bottom accent */}
             </Card>
           ))}
+
+          {/* Product Inquiry Forms */}
+          {selectedProductForEmail && (
+            <ProductInquiryForm
+              key={`inquiry-${selectedProductForEmail.id}`}
+              product={selectedProductForEmail}
+              quantity={getValidQuantity(selectedProductForEmail)}
+              open={emailDialogOpen[selectedProductForEmail.id] || false}
+              onOpenChange={handleEmailDialogClose}
+            />
+          )}
         </div>
       </div>
     </section>
