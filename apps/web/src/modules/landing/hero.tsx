@@ -184,7 +184,7 @@ export function Hero() {
       <DiscountPosts />
 
       {/* CONTACT & MAP – LUXURIOUS GOLD/WHITE */}
-      <section className="py-24 px-6 bg-white">
+      <section id="contact" className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-5xl font-bold text-center text-[#0F172A] mb-4">
             Kontaktieren Sie mich

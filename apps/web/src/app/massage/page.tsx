@@ -423,6 +423,7 @@ export default function MassagePage() {
 
                     {/* CTA Button */}
                     <Button
+                      asChild
                       className={`
                         group/btn w-full py-6 text-base font-semibold transition-all duration-300
                         ${
@@ -432,12 +433,11 @@ export default function MassagePage() {
                         }
                         transform hover:scale-105
                       `}
-                      onClick={() => {
-                        // Handle booking
-                      }}
                     >
-                      Jetzt buchen
-                      <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
+                      <Link href="/termin-buchen">
+                        Jetzt buchen
+                        <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
+                      </Link>
                     </Button>
                   </CardContent>
 
@@ -475,15 +475,16 @@ export default function MassagePage() {
               Dann kontaktieren Sie mich gerne. Ich werde versuchen, Ihre Fragen
               gerne zu beantworten.
             </p>
-            <Link href="/#contact">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-white font-semibold text-lg px-8 py-6 transition-all transform hover:scale-105"
-              >
+            <Button
+              asChild
+              size="lg"
+              className="bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-white font-semibold text-lg px-8 py-6 transition-all transform hover:scale-105"
+            >
+              <Link href="/#contact">
                 Kontakt
                 <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
