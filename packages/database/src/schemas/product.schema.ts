@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { date, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { date, integer, pgTable, text, timestamp, varchar } from "drizzle-orm/pg-core";
 import { organization, user } from "./auth.schema";
 
 export const products = pgTable("product", {
@@ -14,6 +14,7 @@ export const products = pgTable("product", {
   productName: varchar("product_name", { length: 255 }).notNull(),
   description: text("description"),
   price: varchar("price", { length: 100 }),
+  quantity: integer("quantity"),
   manufactureDate: date("manufacture_date"),
   expirationDate: date("expiration_date"),
   updatedAt: timestamp("updated_at").defaultNow(),

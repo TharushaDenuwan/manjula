@@ -8,6 +8,7 @@ export interface UpdateProductSchema {
   productName?: string;
   description?: string | null;
   price?: string | null;
+  quantity?: number | null;
   manufactureDate?: string | null;
   expirationDate?: string | null;
 }
@@ -20,6 +21,7 @@ export interface ProductResponse {
   productName: string;
   description: string | null;
   price: string | null;
+  quantity: number | null;
   manufactureDate: string | null;
   expirationDate: string | null;
   updatedAt: string | null;
@@ -38,6 +40,7 @@ export async function updateProduct(
       productName: data.productName,
       description: data.description,
       price: data.price,
+      quantity: data.quantity,
       manufactureDate: data.manufactureDate,
       expirationDate: data.expirationDate
     },

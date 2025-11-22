@@ -26,6 +26,7 @@ const addProductSchema = z.object({
   productImageUrl: z.string().nullable(),
   description: z.string().nullable(),
   price: z.string().nullable(),
+  quantity: z.number().nullable().optional(),
   manufactureDate: z.string().nullable(),
   expirationDate: z.string().nullable()
 });
@@ -45,6 +46,7 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
       productImageUrl: null,
       description: null,
       price: null,
+      quantity: null,
       manufactureDate: null,
       expirationDate: null
     } as AddProductSchema,
@@ -57,6 +59,7 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
           productImageUrl: value.productImageUrl || null,
           description: value.description || null,
           price: value.price || null,
+          quantity: value.quantity || null,
           manufactureDate: value.manufactureDate || null,
           expirationDate: value.expirationDate || null
         });
@@ -176,6 +179,30 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
                           field.handleChange(e.target.value || null)
                         }
                         onBlur={field.handleBlur}
+                      />
+                    </field.FormControl>
+                    <field.FormMessage />
+                  </field.FormItem>
+                )}
+              />
+
+              <form.AppField
+                name="quantity"
+                children={(field) => (
+                  <field.FormItem>
+                    <field.FormLabel>Quantity (Optional)</field.FormLabel>
+                    <field.FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Enter quantity (e.g., 100)"
+                        value={field.state.value?.toString() || ""}
+                        onChange={(e) =>
+                          field.handleChange(
+                            e.target.value ? parseInt(e.target.value, 10) : null
+                          )
+                        }
+                        onBlur={field.handleBlur}
+                        min="0"
                       />
                     </field.FormControl>
                     <field.FormMessage />

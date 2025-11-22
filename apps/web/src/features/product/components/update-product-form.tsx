@@ -28,6 +28,7 @@ const updateProductSchema = z.object({
   productImageUrl: z.string().nullable().optional(),
   description: z.string().nullable().optional(),
   price: z.string().nullable().optional(),
+  quantity: z.number().nullable().optional(),
   manufactureDate: z.string().nullable().optional(),
   expirationDate: z.string().nullable().optional()
 });
@@ -54,6 +55,7 @@ export function UpdateProductForm({
       productImageUrl: product.productImageUrl,
       description: product.description,
       price: product.price,
+      quantity: product.quantity,
       manufactureDate: product.manufactureDate,
       expirationDate: product.expirationDate
     } as UpdateProductSchema,
@@ -66,6 +68,7 @@ export function UpdateProductForm({
           productImageUrl: value.productImageUrl ?? null,
           description: value.description ?? null,
           price: value.price ?? null,
+          quantity: value.quantity ?? null,
           manufactureDate: value.manufactureDate ?? null,
           expirationDate: value.expirationDate ?? null
         });
@@ -91,6 +94,7 @@ export function UpdateProductForm({
         productImageUrl: product.productImageUrl,
         description: product.description,
         price: product.price,
+        quantity: product.quantity,
         manufactureDate: product.manufactureDate,
         expirationDate: product.expirationDate
       });
@@ -193,6 +197,30 @@ export function UpdateProductForm({
                           field.handleChange((e.target.value || null) as any)
                         }
                         onBlur={field.handleBlur}
+                      />
+                    </field.FormControl>
+                    <field.FormMessage />
+                  </field.FormItem>
+                )}
+              />
+
+              <form.AppField
+                name="quantity"
+                children={(field) => (
+                  <field.FormItem>
+                    <field.FormLabel>Quantity (Optional)</field.FormLabel>
+                    <field.FormControl>
+                      <Input
+                        type="number"
+                        placeholder="Enter quantity (e.g., 100)"
+                        value={(field.state.value as number | null)?.toString() || ""}
+                        onChange={(e) =>
+                          field.handleChange(
+                            (e.target.value ? parseInt(e.target.value, 10) : null) as any
+                          )
+                        }
+                        onBlur={field.handleBlur}
+                        min="0"
                       />
                     </field.FormControl>
                     <field.FormMessage />

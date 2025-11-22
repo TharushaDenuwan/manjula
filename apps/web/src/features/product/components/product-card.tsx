@@ -103,6 +103,11 @@ export function ProductCard({ product, onDelete, onUpdate }: Props) {
                   Price: {product.price}
                 </CardDescription>
               )}
+              {product.quantity !== null && product.quantity !== undefined && (
+                <CardDescription className="text-gray-600 font-medium mt-1 text-sm">
+                  Quantity: {product.quantity}
+                </CardDescription>
+              )}
             </div>
           </div>
 

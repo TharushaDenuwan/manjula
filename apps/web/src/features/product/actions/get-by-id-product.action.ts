@@ -10,6 +10,7 @@ export interface ProductResponse {
   productName: string;
   description: string | null;
   price: string | null;
+  quantity: number | null;
   manufactureDate: string | null;
   expirationDate: string | null;
   updatedAt: string | null;

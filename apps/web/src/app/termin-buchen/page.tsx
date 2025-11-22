@@ -60,9 +60,12 @@ export default function TerminInfoPage() {
 
           {/* Goldener Button – exakt wie im Screenshot */}
           <div className="pt-6 flex justify-center lg:justify-start">
-            <button className="bg-gradient-to-b from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xl px-10 py-4 rounded-full shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105">
+            <a
+              href="tel:+4388653430"
+              className="inline-block bg-gradient-to-b from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xl px-10 py-4 rounded-full shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105 text-center"
+            >
               Termin vereinbaren
-            </button>
+            </a>
           </div>
         </div>
       </div>
