@@ -3,8 +3,10 @@ import { z } from "zod";
 
 import { products } from "@repo/database";
 
+// @ts-expect-error - Type compatibility issue due to drizzle-orm version mismatch
 export const product = createSelectSchema(products);
 
+// @ts-expect-error - Type compatibility issue due to drizzle-orm version mismatch
 export const productInsertSchema = createInsertSchema(products).omit({
   id: true,
   updatedAt: true,
@@ -13,6 +15,7 @@ export const productInsertSchema = createInsertSchema(products).omit({
   organizationId: true,
 });
 
+// @ts-expect-error - Type compatibility issue due to drizzle-orm version mismatch
 export const productUpdateSchema = createInsertSchema(products)
   .omit({
     id: true,

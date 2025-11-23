@@ -1,31 +1,29 @@
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
-import { posts } from "@repo/database";
+import { contact } from "@repo/database";
 
 // @ts-expect-error - Type compatibility issue due to drizzle-orm version mismatch
-export const post = createSelectSchema(posts);
+export const contacts = createSelectSchema(contact);
 
 // @ts-expect-error - Type compatibility issue due to drizzle-orm version mismatch
-export const postInsertSchema = createInsertSchema(posts).omit({
+export const contactInsertSchema = createInsertSchema(contact).omit({
   id: true,
   updatedAt: true,
-  userId: true,
+
   createdAt: true,
-  organizationId: true,
 });
 
 // @ts-expect-error - Type compatibility issue due to drizzle-orm version mismatch
-export const postUpdateSchema = createInsertSchema(posts)
+export const contactUpdateSchema = createInsertSchema(contact)
   .omit({
     id: true,
-    organizationId: true,
-    userId: true,
+
     createdAt: true,
     updatedAt: true,
   })
   .partial();
 
-export type Post = z.infer<typeof post>;
-export type AddPostSchema = z.infer<typeof postInsertSchema>;
-export type UpdatePostSchema = z.infer<typeof postUpdateSchema>;
+export type contactUpdateType = z.infer<typeof contactUpdateSchema>;
+export type contact = z.infer<typeof contacts>;
+export type contactInsertType = z.infer<typeof contactInsertSchema>;

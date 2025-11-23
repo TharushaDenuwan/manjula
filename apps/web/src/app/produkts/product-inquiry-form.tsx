@@ -1,6 +1,7 @@
 "use client";
 
 import { ProductResponse } from "@/features/product/actions/get-all-product.action";
+import { addOrder } from "@/features/order/actions/add-order.action";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -79,6 +80,17 @@ export function ProductInquiryForm({
       if (!response.ok) {
         throw new Error(data.error || "Fehler beim Senden der Anfrage");
       }
+
+      // Save order to database
+      await addOrder({
+        productName: product.productName,
+        description: product.description || null,
+        price: product.price || null,
+        quantity: quantity,
+        name: formData.name,
+        email: formData.email,
+        contactNo: formData.telephone,
+      });
 
       toast.success("Anfrage erfolgreich gesendet!", { id: toastId });
       setFormData({ name: "", email: "", telephone: "" });
