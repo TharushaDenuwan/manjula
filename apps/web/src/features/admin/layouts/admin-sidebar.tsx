@@ -36,6 +36,16 @@ const data = {
       url: "/admin/product",
       icon: IconBuildings,
     },
+    {
+      name: "Contact",
+      url: "/admin/contact",
+      icon: IconBuildings,
+    },
+    {
+      name: "Orders",
+      url: "/admin/orders",
+      icon: IconBuildings,
+    },
   ],
 };
 

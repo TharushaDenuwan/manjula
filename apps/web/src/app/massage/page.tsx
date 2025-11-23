@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/card";
+import { motion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
@@ -209,22 +210,42 @@ export default function MassagePage() {
 
         {/* Hero Content */}
         <div className="relative z-20 max-w-5xl mx-auto px-6 text-center text-white">
-          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+          <motion.div
+            className="space-y-6"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.h1
+              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
               Schenken Sie sich Zeit & Ihrem
               <br />
               Körper Wohlgefühl!
-            </h1>
+            </motion.h1>
 
             {/* Separator Line */}
-            <div className="w-24 h-0.5 bg-white mx-auto my-6" />
+            <motion.div
+              className="w-24 h-0.5 bg-white mx-auto my-6"
+              initial={{ width: 0 }}
+              animate={{ width: 96 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            />
 
-            <p className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed opacity-95">
+            <motion.p
+              className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed opacity-95"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               Wählen Sie eine meiner speziellen Anwendungen, oder vertrauen Sie
               mir, Ihnen diese Entscheidung situationsbedingt und taggenau für
               Sie zu treffen...
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
@@ -239,15 +260,21 @@ export default function MassagePage() {
               const shouldCenter = isLastItem && itemsInLastRow === 1;
 
               return (
-                <Card
+                <motion.div
                   key={service.id}
-                  className={`group bg-white rounded-xl border border-gray-200 hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500 animate-in fade-in slide-in-from-bottom-4 ${
-                    shouldCenter ? "lg:col-start-2" : ""
-                  }`}
-                  style={{
-                    animationDelay: `${index * 100}ms`,
+                  className={shouldCenter ? "lg:col-start-2" : ""}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  whileHover={{
+                    y: -8,
+                    scale: 1.02,
                   }}
                 >
+                  <Card
+                    className="group bg-white rounded-xl border border-gray-200 hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500"
+                  >
                   <CardHeader className="text-center pb-4">
                     {/* Icon Circle */}
                     <div className="flex justify-center mb-4">
@@ -289,6 +316,7 @@ export default function MassagePage() {
                     )}
                   </CardContent>
                 </Card>
+                </motion.div>
               );
             })}
           </div>
@@ -299,28 +327,53 @@ export default function MassagePage() {
       <section className="py-20 md:py-28 px-4 sm:px-6 bg-gradient-to-b from-gray-50 via-white to-gray-50">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Preise & Pakete
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-6" />
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            </motion.h2>
+            <motion.div
+              className="w-24 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-6"
+              initial={{ width: 0 }}
+              whileInView={{ width: 96 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            />
+            <motion.p
+              className="text-lg text-gray-600 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               Wählen Sie das perfekte Paket für Ihr Wohlbefinden
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
             {pricingPlans.map((plan, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`
-                  relative group
-                  ${plan.upgrade ? "md:-mt-4 md:mb-4" : ""}
-                  animate-in fade-in slide-in-from-bottom-4
-                `}
-                style={{
-                  animationDelay: `${index * 150}ms`,
+                className={`relative group ${plan.upgrade ? "md:-mt-4 md:mb-4" : ""}`}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+                whileHover={{
+                  y: plan.upgrade ? -8 : -12,
+                  scale: plan.upgrade ? 1.03 : 1.02
                 }}
               >
                 {/* Popular Badge */}
@@ -446,46 +499,85 @@ export default function MassagePage() {
                     <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#D4AF37] via-[#E6C45A] to-[#D4AF37]" />
                   )}
                 </Card>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Additional Info */}
-          <div
-            className="mt-12 text-center animate-in fade-in slide-in-from-bottom-4"
-            style={{ animationDelay: "450ms" }}
+          <motion.div
+            className="mt-12 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.5 }}
           >
             <p className="text-sm text-gray-500">
               Alle Preise verstehen sich inklusive MwSt. • Flexible
               Terminvereinbarung möglich
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Contact CTA Section */}
       <section className="py-16 md:py-24 px-4 sm:px-6 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-gradient-to-br from-[#D4AF37]/5 to-transparent rounded-2xl p-12 border border-[#D4AF37]/20 shadow-lg animate-in fade-in slide-in-from-bottom-4">
-            <MessageCircle className="w-16 h-16 text-[#D4AF37] mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold text-[#D4AF37] mb-4">
+          <motion.div
+            className="bg-gradient-to-br from-[#D4AF37]/5 to-transparent rounded-2xl p-12 border border-[#D4AF37]/20 shadow-lg"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+            >
+              <MessageCircle className="w-16 h-16 text-[#D4AF37] mx-auto mb-6" />
+            </motion.div>
+            <motion.h2
+              className="text-3xl md:text-4xl font-bold text-[#D4AF37] mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               Sie haben Fragen?
-            </h2>
-            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            </motion.h2>
+            <motion.p
+              className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               Dann kontaktieren Sie mich gerne. Ich werde versuchen, Ihre Fragen
               gerne zu beantworten.
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-white font-semibold text-lg px-8 py-6 transition-all transform hover:scale-105"
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <Link href="/#contact">
-                Kontakt
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-          </div>
+              <Button
+                asChild
+                size="lg"
+                className="bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-white font-semibold text-lg px-8 py-6 transition-all"
+              >
+                <Link href="/#contact">
+                  Kontakt
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Link>
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
     </div>

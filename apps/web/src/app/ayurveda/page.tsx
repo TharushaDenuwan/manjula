@@ -1,40 +1,87 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function AyurvediaPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* HERO SECTION */}
       <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 max-w-7xl mx-auto mb-16">
         {/* Left: Large Kapha Image */}
-        <div className="relative h-96 lg:h-full rounded-lg overflow-hidden ">
+        <motion.div
+          className="relative h-96 lg:h-full rounded-lg overflow-hidden"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          whileHover={{ scale: 1.02 }}
+        >
           <img
             src="/assets/ayurveda.png"
             alt="Kapha meditation"
             className="w-full h-full object-cover"
           />
-        </div>
+        </motion.div>
 
         {/* Right: Intro Text + Logo */}
-        <div className="flex flex-col justify-center space-y-8">
-          <div>
-            <h2 className="text-5xl font-bold text-[#D7B11E] mb-6">AYURVEDA</h2>
-            <p className="text-xl text-gray-800 font-semibold mb-4">
+        <motion.div
+          className="flex flex-col justify-center space-y-8"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <motion.h2
+              className="text-5xl font-bold text-[#D7B11E] mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              AYURVEDA
+            </motion.h2>
+            <motion.p
+              className="text-xl text-gray-800 font-semibold mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               Der Weg zu innerer und äußerer Schönheit
-            </p>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Die traditionelle indische Heilkunst versteht die Menschen als
-              Einheit von Körper, Geist und Seele und bezieht dabei alle Aspekte
-              des Lebens ein.
-            </p>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Wir unterscheiden zwischen drei Grundtypen (Doshas), dem Vata-,
-              dem Pitta- und dem Kapha-Typ.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              Natürlich gibt es auch Mischtypen aus unterschiedlichen Doshas.
-            </p>
-          </div>
+            </motion.p>
+            {[
+              "Die traditionelle indische Heilkunst versteht die Menschen als Einheit von Körper, Geist und Seele und bezieht dabei alle Aspekte des Lebens ein.",
+              "Wir unterscheiden zwischen drei Grundtypen (Doshas), dem Vata-, dem Pitta- und dem Kapha-Typ.",
+              "Natürlich gibt es auch Mischtypen aus unterschiedlichen Doshas."
+            ].map((text, index) => (
+              <motion.p
+                key={index}
+                className="text-gray-700 leading-relaxed mb-4"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+              >
+                {text}
+              </motion.p>
+            ))}
+          </motion.div>
 
           {/* Logo */}
-          <div className="flex items-center space-x-3">
+          <motion.div
+            className="flex items-center space-x-3"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            whileHover={{ scale: 1.05 }}
+          >
             <div>
               <img
                 src="/assets/logo.png"
@@ -42,14 +89,21 @@ export default function AyurvediaPage() {
                 className="w-85 h-30 object-cover"
               />
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* THREE DOSHA CARDS SECTION */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-8 max-w-7xl mx-auto mb-16">
         {/* VATA CARD */}
-        <div className="rounded-lg overflow-hidden shadow-lg bg-white">
+        <motion.div
+          className="rounded-lg overflow-hidden shadow-lg bg-white"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          whileHover={{ y: -8, scale: 1.02 }}
+        >
           <div className="relative h-80 overflow-hidden">
             <img
               src="/assets/vata.png"
@@ -166,10 +220,17 @@ export default function AyurvediaPage() {
               auf eine Vata-Störung hin.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* PITTA CARD */}
-        <div className="rounded-lg overflow-hidden shadow-lg bg-white">
+        <motion.div
+          className="rounded-lg overflow-hidden shadow-lg bg-white"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          whileHover={{ y: -8, scale: 1.02 }}
+        >
           <div className="relative h-80 overflow-hidden">
             <img
               src="/assets/pitta.png"
@@ -280,10 +341,17 @@ export default function AyurvediaPage() {
               gut im Blick zu haben und auf eine gute Balance zu achten.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* KAPHA CARD */}
-        <div className="rounded-lg overflow-hidden shadow-lg bg-white">
+        <motion.div
+          className="rounded-lg overflow-hidden shadow-lg bg-white"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          whileHover={{ y: -8, scale: 1.02 }}
+        >
           <div className="relative h-80 overflow-hidden">
             <img
               src="/assets/kapha.png"
@@ -395,7 +463,7 @@ export default function AyurvediaPage() {
               Allergien und Infekten neigen.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* DETAILED DESCRIPTIONS */}

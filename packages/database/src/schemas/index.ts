@@ -9,3 +9,7 @@ export * from "./product.schema";
 export * from "./post.schema";
 
 export * from "./reviwe.schema";
+
+export * from "./contact.schema";
+
+export * from "./orders.schema";
