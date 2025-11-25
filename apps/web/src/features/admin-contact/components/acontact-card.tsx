@@ -66,13 +66,13 @@ export function AContactCard({ contact, onDelete }: Props) {
   return (
     <Card
       key={contact.id}
-      className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-[#D4AF37]/20 flex flex-col p-0 max-w-md w-full"
+      className="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-[#D4AF37]/20 dark:border-[#D4AF37]/30 flex flex-col p-0 max-w-md w-full"
     >
       {/* Header Section */}
-      <CardHeader className="px-4 pt-4 pb-2 bg-gradient-to-br from-[#D4AF37]/5 to-transparent">
+      <CardHeader className="px-4 pt-4 pb-2 bg-gradient-to-br from-[#D4AF37]/5 dark:from-[#D4AF37]/10 to-transparent">
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
-            <CardTitle className="text-lg font-bold text-[#0F172A] mb-2 group-hover:text-[#D4AF37] transition-colors flex items-center gap-2">
+            <CardTitle className="text-lg font-bold mb-2 group-hover:text-[#D4AF37] transition-colors flex items-center gap-2">
               <User className="w-5 h-5 text-[#D4AF37]" />
               {contact.name}
             </CardTitle>
@@ -88,7 +88,7 @@ export function AContactCard({ contact, onDelete }: Props) {
             <Mail className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
             <a
               href={`mailto:${contact.email}`}
-              className="text-gray-700 hover:text-[#D4AF37] transition-colors truncate"
+              className="text-foreground hover:text-[#D4AF37] transition-colors truncate"
             >
               {contact.email}
             </a>
@@ -97,7 +97,7 @@ export function AContactCard({ contact, onDelete }: Props) {
             <Phone className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
             <a
               href={`tel:${contact.phone}`}
-              className="text-gray-700 hover:text-[#D4AF37] transition-colors"
+              className="text-foreground hover:text-[#D4AF37] transition-colors"
             >
               {contact.phone}
             </a>
@@ -106,11 +106,11 @@ export function AContactCard({ contact, onDelete }: Props) {
 
         {/* Message */}
         {contact.message && (
-          <div className="pt-2 border-t border-[#D4AF37]/20">
+          <div className="pt-2 border-t border-[#D4AF37]/20 dark:border-[#D4AF37]/30">
             <div className="flex items-start gap-2">
               <MessageSquare className="w-4 h-4 text-[#D4AF37] flex-shrink-0 mt-0.5" />
               <div className="flex-1 min-w-0">
-                <CardDescription className="text-gray-600 leading-relaxed text-sm">
+                <CardDescription className="leading-relaxed text-sm">
                   {truncatedMessage}
                 </CardDescription>
                 {isMessageLong && (
@@ -118,7 +118,7 @@ export function AContactCard({ contact, onDelete }: Props) {
                     variant="link"
                     size="sm"
                     onClick={() => setIsMessageDialogOpen(true)}
-                    className="h-auto p-0 mt-1 text-[#D4AF37] hover:text-[#C19A2F] text-xs font-medium"
+                    className="h-auto p-0 mt-1 text-[#D4AF37] hover:text-[#C19A2F] dark:hover:text-[#E6C45A] text-xs font-medium"
                   >
                     View More
                   </Button>
@@ -129,7 +129,7 @@ export function AContactCard({ contact, onDelete }: Props) {
         )}
 
         {/* Date Information */}
-        <div className="flex items-center gap-1.5 text-xs text-gray-500 pt-2 border-t border-[#D4AF37]/20">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground pt-2 border-t border-[#D4AF37]/20 dark:border-[#D4AF37]/30">
           <Clock className="w-3 h-3 text-[#D4AF37] flex-shrink-0" />
           <span className="truncate">
             {contact.createdAt
@@ -146,7 +146,7 @@ export function AContactCard({ contact, onDelete }: Props) {
             variant="outline"
             onClick={handleDelete}
             disabled={isDeleting}
-            className="w-full h-8 border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 hover:text-red-700 transition-all transform hover:scale-105 font-semibold text-xs"
+            className="w-full h-8 border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 hover:border-red-400 dark:hover:border-red-700 hover:text-red-700 dark:hover:text-red-300 transition-all transform hover:scale-105 font-semibold text-xs"
           >
             {isDeleting ? "Deleting..." : "Delete"}
           </Button>
@@ -166,7 +166,7 @@ export function AContactCard({ contact, onDelete }: Props) {
             </DialogDescription>
           </DialogHeader>
           <div className="mt-4">
-            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+            <p className="text-foreground leading-relaxed whitespace-pre-wrap">
               {contact.message}
             </p>
           </div>

@@ -66,13 +66,13 @@ export function OrderCard({ order, onDelete }: Props) {
   return (
     <Card
       key={order.id}
-      className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-[#D4AF37]/20 flex flex-col p-0 max-w-md w-full"
+      className="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-[#D4AF37]/20 dark:border-[#D4AF37]/30 flex flex-col p-0 max-w-md w-full"
     >
       {/* Header Section */}
-      <CardHeader className="px-4 pt-4 pb-2 bg-gradient-to-br from-[#D4AF37]/5 to-transparent">
+      <CardHeader className="px-4 pt-4 pb-2 bg-gradient-to-br from-[#D4AF37]/5 dark:from-[#D4AF37]/10 to-transparent">
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1 min-w-0">
-            <CardTitle className="text-lg font-bold text-[#0F172A] mb-2 group-hover:text-[#D4AF37] transition-colors flex items-center gap-2">
+            <CardTitle className="text-lg font-bold mb-2 group-hover:text-[#D4AF37] transition-colors flex items-center gap-2">
               <Package className="w-5 h-5 text-[#D4AF37]" />
               {order.productName}
             </CardTitle>
@@ -87,7 +87,7 @@ export function OrderCard({ order, onDelete }: Props) {
           {order.price && (
             <div className="flex items-center gap-2 text-sm">
               <DollarSign className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
-              <span className="text-gray-700 font-semibold">
+              <span className="font-semibold">
                 {order.price}
               </span>
             </div>
@@ -95,7 +95,7 @@ export function OrderCard({ order, onDelete }: Props) {
           {order.quantity !== null && (
             <div className="flex items-center gap-2 text-sm">
               <Hash className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
-              <span className="text-gray-700">
+              <span>
                 Quantity: {order.quantity}
               </span>
             </div>
@@ -104,11 +104,11 @@ export function OrderCard({ order, onDelete }: Props) {
 
         {/* Description */}
         {order.description && (
-          <div className="pt-2 border-t border-[#D4AF37]/20">
+          <div className="pt-2 border-t border-[#D4AF37]/20 dark:border-[#D4AF37]/30">
             <div className="flex items-start gap-2">
               <FileText className="w-4 h-4 text-[#D4AF37] flex-shrink-0 mt-0.5" />
               <div className="flex-1 min-w-0">
-                <CardDescription className="text-gray-600 leading-relaxed text-sm">
+                <CardDescription className="leading-relaxed text-sm">
                   {truncatedDescription}
                 </CardDescription>
                 {isDescriptionLong && (
@@ -116,7 +116,7 @@ export function OrderCard({ order, onDelete }: Props) {
                     variant="link"
                     size="sm"
                     onClick={() => setIsDescriptionDialogOpen(true)}
-                    className="h-auto p-0 mt-1 text-[#D4AF37] hover:text-[#C19A2F] text-xs font-medium"
+                    className="h-auto p-0 mt-1 text-[#D4AF37] hover:text-[#C19A2F] dark:hover:text-[#E6C45A] text-xs font-medium"
                   >
                     View More
                   </Button>
@@ -127,16 +127,16 @@ export function OrderCard({ order, onDelete }: Props) {
         )}
 
         {/* Customer Information */}
-        <div className="pt-2 border-t border-[#D4AF37]/20 space-y-2">
+        <div className="pt-2 border-t border-[#D4AF37]/20 dark:border-[#D4AF37]/30 space-y-2">
           <div className="flex items-center gap-2 text-sm">
             <User className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
-            <span className="text-gray-700 font-medium">{order.name}</span>
+            <span className="font-medium">{order.name}</span>
           </div>
           <div className="flex items-center gap-2 text-sm">
             <Mail className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
             <a
               href={`mailto:${order.email}`}
-              className="text-gray-700 hover:text-[#D4AF37] transition-colors truncate"
+              className="text-foreground hover:text-[#D4AF37] transition-colors truncate"
             >
               {order.email}
             </a>
@@ -145,7 +145,7 @@ export function OrderCard({ order, onDelete }: Props) {
             <Phone className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
             <a
               href={`tel:${order.contactNo}`}
-              className="text-gray-700 hover:text-[#D4AF37] transition-colors"
+              className="text-foreground hover:text-[#D4AF37] transition-colors"
             >
               {order.contactNo}
             </a>
@@ -153,7 +153,7 @@ export function OrderCard({ order, onDelete }: Props) {
         </div>
 
         {/* Date Information */}
-        <div className="flex items-center gap-1.5 text-xs text-gray-500 pt-2 border-t border-[#D4AF37]/20">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground pt-2 border-t border-[#D4AF37]/20 dark:border-[#D4AF37]/30">
           <Clock className="w-3 h-3 text-[#D4AF37] flex-shrink-0" />
           <span className="truncate">
             {order.createdAt
@@ -170,7 +170,7 @@ export function OrderCard({ order, onDelete }: Props) {
             variant="outline"
             onClick={handleDelete}
             disabled={isDeleting}
-            className="w-full h-8 border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 hover:text-red-700 transition-all transform hover:scale-105 font-semibold text-xs"
+            className="w-full h-8 border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 hover:border-red-400 dark:hover:border-red-700 hover:text-red-700 dark:hover:text-red-300 transition-all transform hover:scale-105 font-semibold text-xs"
           >
             {isDeleting ? "Deleting..." : "Delete"}
           </Button>
@@ -190,7 +190,7 @@ export function OrderCard({ order, onDelete }: Props) {
             </DialogDescription>
           </DialogHeader>
           <div className="mt-4">
-            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+            <p className="text-foreground leading-relaxed whitespace-pre-wrap">
               {order.description}
             </p>
           </div>

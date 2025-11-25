@@ -35,7 +35,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
       attribute="class"
       defaultTheme="light"
       enableSystem={false}
-      forcedTheme="light" // This forces light mode
     >
       <main>
         <QueryClientProvider client={queryClient}>

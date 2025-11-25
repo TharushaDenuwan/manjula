@@ -556,6 +556,7 @@ export function Hero() {
     message: "",
   });
   const [loading, setLoading] = useState(false);
+  const contactRef = useRef<HTMLElement>(null);
 
   // Services with navigation paths
   const services = [
@@ -578,6 +579,52 @@ export function Hero() {
       path: "/termin-buchen",
     },
   ];
+
+  // Handle scroll to contact section when hash is present
+  useEffect(() => {
+    const handleHashScroll = () => {
+      if (window.location.hash === "#contact" && contactRef.current) {
+        // Wait for page to fully load and animations to start
+        const scrollToContact = () => {
+          if (contactRef.current) {
+            contactRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        };
+
+        // Use multiple strategies to ensure scroll happens after page load
+        // Strategy 1: Wait for next frame
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            // Strategy 2: Additional delay for animations
+            setTimeout(scrollToContact, 600);
+          });
+        });
+      }
+    };
+
+    // Check on mount (with delay for page load)
+    const timer = setTimeout(handleHashScroll, 100);
+
+    // Also listen for hash changes
+    window.addEventListener("hashchange", handleHashScroll);
+
+    // Listen for when page becomes visible (handles navigation from other pages)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        handleHashScroll();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("hashchange", handleHashScroll);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -622,7 +669,7 @@ export function Hero() {
   return (
     <div className="w-full bg-white text-[#0F172A] overflow-hidden">
       {/* HERO WITH VIDEO BACKGROUND */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
         {/* <video
           className="absolute top-0 left-0 w-full h-full object-cover"
           autoPlay
@@ -639,7 +686,6 @@ export function Hero() {
             backgroundImage: "url('/assets/backland.JPG')",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            backgroundAttachment: "fixed",
           }}
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
@@ -660,16 +706,16 @@ export function Hero() {
           transition={{ duration: 1.5, ease: "easeOut" }}
         />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center text-white">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center text-white">
           <motion.h1
-            className="text-5xl md:text-7xl font-bold tracking-tight mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-4 sm:mb-6"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             Ayubowan{" "}
             <motion.span
-              className="block text-4xl md:text-6xl text-[#D4AF37] mt-4"
+              className="block text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-[#D4AF37] mt-2 sm:mt-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
@@ -678,7 +724,7 @@ export function Hero() {
             </motion.span>
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl max-w-4xl mx-auto leading-relaxed opacity-95"
+            className="text-sm sm:text-base md:text-lg lg:text-xl max-w-4xl mx-auto leading-relaxed opacity-95 px-2 sm:px-0"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
@@ -689,13 +735,13 @@ export function Hero() {
             in traditioneller Ayurveda-Massage mit.
           </motion.p>
           <motion.div
-            className="mt-10"
+            className="mt-6 sm:mt-10"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.9, ease: "easeOut" }}
           >
             <motion.p
-              className="text-2xl italic"
+              className="text-lg sm:text-xl md:text-2xl italic"
               animate={{
                 y: [0, -10, 0],
               }}
@@ -713,10 +759,10 @@ export function Hero() {
 
       {/* ABOUT SECTION – ELEGANT & GOLD ACCENTS */}
       <SectionWrapper>
-        <section className="py-24 px-6 bg-white">
+        <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-white">
           <div className="max-w-5xl mx-auto text-center">
             <motion.h2
-              className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#0F172A] mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -725,7 +771,7 @@ export function Hero() {
               Willkommen bei Manjula
             </motion.h2>
             <motion.p
-              className="text-[#D4AF37] text-xl mb-16"
+              className="text-[#D4AF37] text-base sm:text-lg md:text-xl mb-8 sm:mb-12 md:mb-16"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -734,9 +780,9 @@ export function Hero() {
               Ayurveda Wohlfühlpraktik aus Sri Lanka
             </motion.p>
 
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-center">
               <motion.div
-                className="space-y-8 text-left text-lg leading-relaxed"
+                className="space-y-4 sm:space-y-6 md:space-y-8 text-left text-sm sm:text-base md:text-lg leading-relaxed"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
@@ -771,7 +817,7 @@ export function Hero() {
                   freue mich sehr, wenn ich Ihnen helfen kann!{" "}
                 </motion.p>
                 <motion.p
-                  className="text-xl font-semibold text-[#0F172A]"
+                  className="text-base sm:text-lg md:text-xl font-semibold text-[#0F172A]"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -782,19 +828,19 @@ export function Hero() {
                 </motion.p>
               </motion.div>
               <motion.div
-                className="flex justify-center"
+                className="flex justify-center mt-6 md:mt-0"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 <motion.div
-                  className="bg-gradient-to-br from-[#D4AF37]/10 to-transparent p-10 rounded-full"
+                  className="bg-gradient-to-br from-[#D4AF37]/10 to-transparent p-4 sm:p-6 md:p-10 rounded-full"
                   whileHover={{ scale: 1.05, rotate: 2 }}
                   transition={{ duration: 0.3 }}
                 >
                   <motion.div
-                    className="relative w-80 h-80 rounded-full overflow-hidden border-2 border-[#D4AF37]/30 shadow-2xl"
+                    className="relative w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-[#D4AF37]/30 shadow-2xl"
                     style={{
                       backgroundImage: "url('/assets/6.JPG')",
                       backgroundSize: "cover",
@@ -812,10 +858,10 @@ export function Hero() {
 
       {/* SERVICES – GOLDEN CARDS WITH NAVIGATION */}
       <SectionWrapper>
-        <section className="py-4 px-6 bg-white">
+        <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 bg-white">
           <div className="max-w-7xl mx-auto">
             <motion.h2
-              className="text-5xl font-bold text-center text-[#0F172A] mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-[#0F172A] mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -824,7 +870,7 @@ export function Hero() {
               Meine Leistungen
             </motion.h2>
             <motion.p
-              className="text-[#D4AF37] text-center text-xl mb-16"
+              className="text-[#D4AF37] text-center text-base sm:text-lg md:text-xl mb-8 sm:mb-12 md:mb-16"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -833,11 +879,11 @@ export function Hero() {
               Tradition trifft Wohlbefinden
             </motion.p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
               {services.map((service, index) => (
                 <Link href={service.path} key={service.title}>
                   <motion.div
-                    className="group bg-white rounded-2xl p-8 text-center border border-[#D4AF37]/20 cursor-pointer h-full"
+                    className="group bg-white rounded-2xl p-6 sm:p-7 md:p-8 text-center border border-[#D4AF37]/20 cursor-pointer h-full"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
@@ -849,7 +895,7 @@ export function Hero() {
                     }}
                   >
                     <motion.div
-                      className="text-6xl mb-6"
+                      className="text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-5 md:mb-6"
                       whileHover={{
                         scale: 1.2,
                         rotate: [0, -10, 10, -10, 0],
@@ -858,10 +904,10 @@ export function Hero() {
                     >
                       {service.icon}
                     </motion.div>
-                    <h3 className="text-2xl font-bold text-[#0F172A] mb-3 group-hover:text-[#D4AF37] transition-colors">
+                    <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A] mb-2 sm:mb-3 group-hover:text-[#D4AF37] transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-gray-600">{service.desc}</p>
+                    <p className="text-sm sm:text-base text-gray-600">{service.desc}</p>
                   </motion.div>
                 </Link>
               ))}
@@ -875,10 +921,10 @@ export function Hero() {
 
       {/* CONTACT & MAP – LUXURIOUS GOLD/WHITE */}
       <SectionWrapper>
-        <section id="contact" className="py-24 px-6 bg-white">
+        <section id="contact" ref={contactRef} className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-white scroll-mt-20">
           <div className="max-w-7xl mx-auto">
             <motion.h2
-              className="text-5xl font-bold text-center text-[#0F172A] mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-[#0F172A] mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -887,7 +933,7 @@ export function Hero() {
               Kontaktieren Sie mich
             </motion.h2>
             <motion.p
-              className="text-[#D4AF37] text-center text-xl mb-16"
+              className="text-[#D4AF37] text-center text-base sm:text-lg md:text-xl mb-8 sm:mb-12 md:mb-16"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -896,17 +942,17 @@ export function Hero() {
               Ich freue mich auf Ihre Nachricht
             </motion.p>
 
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
               {/* Form */}
               <motion.div
-                className="bg-gradient-to-br from-[#FAF9F6]  to-white p-10 rounded-3xl shadow-xl border border-[#D4AF37]/30"
+                className="bg-gradient-to-br from-[#FAF9F6]  to-white p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-xl border border-[#D4AF37]/30"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
                 <motion.h3
-                  className="text-3xl font-bold text-[#0F172A] mb-8 "
+                  className="text-2xl sm:text-3xl font-bold text-[#0F172A] mb-6 sm:mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -914,7 +960,7 @@ export function Hero() {
                 >
                   Nachricht senden
                 </motion.h3>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
                   {[
                     { type: "text", placeholder: "Name *", field: "name" },
                     {
@@ -936,7 +982,7 @@ export function Hero() {
                           [input.field]: e.target.value,
                         })
                       }
-                      className="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/20 outline-none transition"
+                      className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg sm:rounded-xl border border-gray-300 focus:border-[#D4AF37] focus:ring-2 sm:focus:ring-4 focus:ring-[#D4AF37]/20 outline-none transition"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
@@ -946,13 +992,13 @@ export function Hero() {
                   ))}
                   <motion.textarea
                     required
-                    rows={6}
+                    rows={5}
                     placeholder="Nachricht *"
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    className="w-full px-6 py-4 rounded-xl border border-gray-300 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/20 outline-none resize-none transition"
+                    className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg sm:rounded-xl border border-gray-300 focus:border-[#D4AF37] focus:ring-2 sm:focus:ring-4 focus:ring-[#D4AF37]/20 outline-none resize-none transition"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -970,7 +1016,7 @@ export function Hero() {
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-[#D4AF37] hover:bg-[#f2cd54] hover:text-white border-2 border-[#eeeeee] text-[#ffffff] font-bold text-lg py-6 rounded-xl transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-[#D4AF37] hover:bg-[#f2cd54] hover:text-white border-2 border-[#eeeeee] text-[#ffffff] font-bold text-base sm:text-lg py-4 sm:py-5 md:py-6 rounded-lg sm:rounded-xl transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {loading ? "Wird gesendet..." : "Nachricht senden"}
                     </Button>
@@ -980,14 +1026,14 @@ export function Hero() {
 
               {/* Map & Info */}
               <motion.div
-                className="space-y-8"
+                className="space-y-6 sm:space-y-7 md:space-y-8"
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
                 <motion.div
-                  className="bg-[#0F172A] rounded-3xl overflow-hidden shadow-2xl"
+                  className="bg-[#0F172A] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
@@ -995,7 +1041,8 @@ export function Hero() {
                     title="Praxis Manjula Standort - Großpesendorf 41, 8211 Ilztal, Österreich"
                     src={`https://www.google.com/maps?q=${encodeURIComponent("Großpesendorf 41, 8211 Ilztal, Austria")}&output=embed`}
                     width="100%"
-                    height="400"
+                    height="300"
+                    className="sm:h-[350px] md:h-[400px]"
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
@@ -1004,18 +1051,18 @@ export function Hero() {
                 </motion.div>
 
                 <motion.div
-                  className="bg-transparent p-8 rounded-2xl text-[#5f6164] border-2 border-[#eeeeee]"
+                  className="bg-transparent p-6 sm:p-7 md:p-8 rounded-xl sm:rounded-2xl text-[#5f6164] border-2 border-[#eeeeee]"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   whileHover={{ scale: 1.02, rotate: 0.5 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <h3 className="text-2xl font-bold mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
                     Ayurveda-Massage-Praxis "Manjula"
                   </h3>
-                  <p className="text-lg font-medium">Steiermark, Österreich</p>
-                  <div className="mt-6 space-y-2">
+                  <p className="text-base sm:text-lg font-medium">Steiermark, Österreich</p>
+                  <div className="mt-4 sm:mt-5 md:mt-6 space-y-1.5 sm:space-y-2 text-sm sm:text-base">
                     <p>☎ Telefon: +43 664 88653430</p>
                     <p>✉ E-Mail: relax@manjula.at</p>
                     <p>🕉️ Termin nach Vereinbarung</p>

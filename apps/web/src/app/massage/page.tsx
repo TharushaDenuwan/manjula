@@ -23,7 +23,7 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function MassagePage() {
   // Sample images from local assets
@@ -36,6 +36,8 @@ export default function MassagePage() {
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [cardsAnimated, setCardsAnimated] = useState(false);
+  const servicesRef = useRef<HTMLDivElement>(null);
 
   // Navigation functions
   const nextSlide = () => {
@@ -56,6 +58,44 @@ export default function MassagePage() {
 
     return () => clearInterval(interval);
   }, [carouselImages.length]);
+
+  // Check if services section is in view on mount and trigger animations
+  useEffect(() => {
+    const checkInitialView = () => {
+      if (servicesRef.current) {
+        const rect = servicesRef.current.getBoundingClientRect();
+        // Check if section is visible in viewport
+        const isInView = rect.top < window.innerHeight + 300 && rect.bottom > -300;
+        if (isInView) {
+          // Trigger animations after a short delay to ensure page is loaded
+          setTimeout(() => {
+            setCardsAnimated(true);
+          }, 200);
+        }
+      }
+    };
+
+    // Check after a delay to ensure DOM is ready
+    const timer = setTimeout(checkInitialView, 300);
+
+    // Also check on scroll in case section wasn't in view initially
+    const handleScroll = () => {
+      if (!cardsAnimated && servicesRef.current) {
+        const rect = servicesRef.current.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight + 300 && rect.bottom > -300;
+        if (isInView) {
+          setCardsAnimated(true);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [cardsAnimated]);
   const services = [
     {
       id: 1,
@@ -253,7 +293,7 @@ export default function MassagePage() {
       {/* Services Section */}
       <section className="py-16 md:py-24 px-4 sm:px-6 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div ref={servicesRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, index) => {
               const IconComponent = service.icon;
               const isLastItem = index === services.length - 1;
@@ -263,10 +303,12 @@ export default function MassagePage() {
               return (
                 <motion.div
                   key={service.id}
+                  data-service-card
                   className={shouldCenter ? "lg:col-start-2" : ""}
                   initial={{ opacity: 0, y: 50 }}
+                  animate={cardsAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
+                  viewport={{ once: false, margin: "-100px" }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   whileHover={{
                     y: -8,
