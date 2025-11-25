@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function TerminInfoPage() {
   return (
-    <div className=" bg-white flex flex-col items-center justify-center px-6 py-16">
+    <div className="bg-white dark:bg-gray-900 flex flex-col items-center justify-center px-6 py-16">
       {/* Haupt-Container – alles zentriert */}
       <div className="max-w-4xl w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-10">
         {/* Linke Seite: Große schwarze Uhr mit Logo */}
@@ -56,7 +56,7 @@ export default function TerminInfoPage() {
 
           {/* Haupttext */}
           <motion.div
-            className="space-y-4 text-gray-800"
+            className="space-y-4 text-gray-800 dark:text-white"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
@@ -103,7 +103,7 @@ export default function TerminInfoPage() {
             </motion.p>
 
             <motion.p
-              className="text-2xl  text-[#000000] font-extrabold"
+              className="text-2xl text-[#000000] dark:text-white font-extrabold"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1 }}

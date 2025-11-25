@@ -5,7 +5,7 @@ export default async function ProduktsPage() {
   const productsData = await getAllProducts();
 
   return (
-    <div className="w-full bg-white min-h-screen">
+    <div className="w-full bg-white dark:bg-gray-900 min-h-screen">
       {/* Hero Section */}
       <section className="relative w-full min-h-[40vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}

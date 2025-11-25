@@ -667,7 +667,7 @@ export function Hero() {
   };
 
   return (
-    <div className="w-full bg-white text-[#0F172A] overflow-hidden">
+    <div className="w-full bg-white dark:bg-gray-900 text-[#0F172A] dark:text-white overflow-hidden">
       {/* HERO WITH VIDEO BACKGROUND */}
       <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
         {/* <video
@@ -759,10 +759,10 @@ export function Hero() {
 
       {/* ABOUT SECTION – ELEGANT & GOLD ACCENTS */}
       <SectionWrapper>
-        <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-white">
+        <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900">
           <div className="max-w-5xl mx-auto text-center">
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#0F172A] mb-3 sm:mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#0F172A] dark:text-white mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -817,7 +817,7 @@ export function Hero() {
                   freue mich sehr, wenn ich Ihnen helfen kann!{" "}
                 </motion.p>
                 <motion.p
-                  className="text-base sm:text-lg md:text-xl font-semibold text-[#0F172A]"
+                  className="text-base sm:text-lg md:text-xl font-semibold text-[#0F172A] dark:text-white"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -858,10 +858,10 @@ export function Hero() {
 
       {/* SERVICES – GOLDEN CARDS WITH NAVIGATION */}
       <SectionWrapper>
-        <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 bg-white">
+        <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 bg-white dark:bg-gray-900">
           <div className="max-w-7xl mx-auto">
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-[#0F172A] mb-3 sm:mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-[#0F172A] dark:text-white mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -883,7 +883,7 @@ export function Hero() {
               {services.map((service, index) => (
                 <Link href={service.path} key={service.title}>
                   <motion.div
-                    className="group bg-white rounded-2xl p-6 sm:p-7 md:p-8 text-center border border-[#D4AF37]/20 cursor-pointer h-full"
+                    className="group bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-7 md:p-8 text-center border border-[#D4AF37]/20 dark:border-[#D4AF37]/30 cursor-pointer h-full"
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-50px" }}
@@ -904,10 +904,10 @@ export function Hero() {
                     >
                       {service.icon}
                     </motion.div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A] mb-2 sm:mb-3 group-hover:text-[#D4AF37] transition-colors">
+                    <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A] dark:text-white mb-2 sm:mb-3 group-hover:text-[#D4AF37] transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-sm sm:text-base text-gray-600">{service.desc}</p>
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{service.desc}</p>
                   </motion.div>
                 </Link>
               ))}
@@ -921,10 +921,10 @@ export function Hero() {
 
       {/* CONTACT & MAP – LUXURIOUS GOLD/WHITE */}
       <SectionWrapper>
-        <section id="contact" ref={contactRef} className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-white scroll-mt-20">
+        <section id="contact" ref={contactRef} className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900 scroll-mt-20">
           <div className="max-w-7xl mx-auto">
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-[#0F172A] mb-3 sm:mb-4"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-[#0F172A] dark:text-white mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -945,14 +945,14 @@ export function Hero() {
             <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12">
               {/* Form */}
               <motion.div
-                className="bg-gradient-to-br from-[#FAF9F6]  to-white p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-xl border border-[#D4AF37]/30"
+                className="bg-gradient-to-br from-[#FAF9F6] dark:from-gray-800 to-white dark:to-gray-800 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl shadow-xl border border-[#D4AF37]/30 dark:border-[#D4AF37]/20"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
                 <motion.h3
-                  className="text-2xl sm:text-3xl font-bold text-[#0F172A] mb-6 sm:mb-8"
+                  className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-white mb-6 sm:mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -982,7 +982,7 @@ export function Hero() {
                           [input.field]: e.target.value,
                         })
                       }
-                      className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg sm:rounded-xl border border-gray-300 focus:border-[#D4AF37] focus:ring-2 sm:focus:ring-4 focus:ring-[#D4AF37]/20 outline-none transition"
+                      className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg sm:rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-[#D4AF37] focus:ring-2 sm:focus:ring-4 focus:ring-[#D4AF37]/20 outline-none transition"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
@@ -998,7 +998,7 @@ export function Hero() {
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg sm:rounded-xl border border-gray-300 focus:border-[#D4AF37] focus:ring-2 sm:focus:ring-4 focus:ring-[#D4AF37]/20 outline-none resize-none transition"
+                    className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base rounded-lg sm:rounded-xl border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white focus:border-[#D4AF37] focus:ring-2 sm:focus:ring-4 focus:ring-[#D4AF37]/20 outline-none resize-none transition"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -1058,11 +1058,11 @@ export function Hero() {
                   whileHover={{ scale: 1.02, rotate: 0.5 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-black dark:text-white">
                     Ayurveda-Massage-Praxis "Manjula"
                   </h3>
-                  <p className="text-base sm:text-lg font-medium">Steiermark, Österreich</p>
-                  <div className="mt-4 sm:mt-5 md:mt-6 space-y-1.5 sm:space-y-2 text-sm sm:text-base">
+                  <p className="text-base sm:text-lg font-medium text-black dark:text-white">Steiermark, Österreich</p>
+                  <div className="mt-4 sm:mt-5 md:mt-6 space-y-1.5 sm:space-y-2 text-sm sm:text-base text-[#5f6164] dark:text-gray-300">
                     <p>☎ Telefon: +43 664 88653430</p>
                     <p>✉ E-Mail: relax@manjula.at</p>
                     <p>🕉️ Termin nach Vereinbarung</p>

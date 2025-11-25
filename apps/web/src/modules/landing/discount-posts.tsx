@@ -1,8 +1,8 @@
 "use client";
 
 import { getAllPosts, PostResponse } from "@/features/post/actions/get-all-post.action";
-import { DiscountPostCard } from "./discount-post-card";
 import { useEffect, useState } from "react";
+import { DiscountPostCard } from "./discount-post-card";
 
 export function DiscountPosts() {
   const [posts, setPosts] = useState<PostResponse[]>([]);
@@ -31,12 +31,12 @@ export function DiscountPosts() {
   }
 
   return (
-    <section className="py-16 px-6 bg-gradient-to-b from-white to-gray-50/30">
+    <section className="py-16 px-6 bg-gradient-to-b from-white to-gray-50/30 dark:from-gray-900 dark:to-gray-800/30">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-[#0F172A] mb-3">
+        <h2 className="text-4xl font-bold text-center text-[#0F172A] dark:text-white mb-3">
           Aktuelle Angebote
         </h2>
-        <p className="text-[#D4AF37] text-center text-lg mb-12">
+        <p className="text-[#D4AF37] dark:text-[#E6C45A] text-center text-lg mb-12">
           Spezielle Aktionen & Rabatte
         </p>
 

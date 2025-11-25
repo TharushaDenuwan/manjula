@@ -126,27 +126,27 @@ export function ProductInquiryForm({
           </DialogHeader>
 
           {/* Product Information Display (Static) */}
-          <div className="bg-gradient-to-br from-[#D4AF37]/10 to-[#E6C45A]/5 border border-[#D4AF37]/20 rounded-lg p-4 space-y-3">
-            <h3 className="text-lg font-semibold text-[#0F172A] mb-3">
+          <div className="bg-gradient-to-br from-[#D4AF37]/10 dark:from-[#D4AF37]/20 to-[#E6C45A]/5 dark:to-[#E6C45A]/10 border border-[#D4AF37]/20 dark:border-[#D4AF37]/30 rounded-lg p-4 space-y-3">
+            <h3 className="text-lg font-semibold text-[#0F172A] dark:text-white mb-3">
               Produktinformationen
             </h3>
 
             <div className="space-y-2">
               <div className="flex items-start gap-3">
-                <span className="text-sm font-medium text-gray-600 min-w-[120px]">
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[120px]">
                   Produktname:
                 </span>
-                <span className="text-sm text-[#0F172A] font-medium">
+                <span className="text-sm text-[#0F172A] dark:text-white font-medium">
                   {product.productName}
                 </span>
               </div>
 
               {product.description && (
                 <div className="flex items-start gap-3">
-                  <span className="text-sm font-medium text-gray-600 min-w-[120px]">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[120px]">
                     Beschreibung:
                   </span>
-                  <span className="text-sm text-[#0F172A] flex-1">
+                  <span className="text-sm text-[#0F172A] dark:text-white flex-1">
                     {product.description}
                   </span>
                 </div>
@@ -154,7 +154,7 @@ export function ProductInquiryForm({
 
               {product.price && (
                 <div className="flex items-start gap-3">
-                  <span className="text-sm font-medium text-gray-600 min-w-[120px]">
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[120px]">
                     Preis:
                   </span>
                   <span className="text-sm text-[#D4AF37] font-semibold">
@@ -164,10 +164,10 @@ export function ProductInquiryForm({
               )}
 
               <div className="flex items-start gap-3">
-                <span className="text-sm font-medium text-gray-600 min-w-[120px]">
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400 min-w-[120px]">
                   Gewünschte Anzahl:
                 </span>
-                <span className="text-sm text-[#0F172A] font-semibold">
+                <span className="text-sm text-[#0F172A] dark:text-white font-semibold">
                   {quantity}
                 </span>
               </div>
@@ -175,11 +175,11 @@ export function ProductInquiryForm({
           </div>
 
           {/* Divider */}
-          <div className="border-t border-gray-200"></div>
+          <div className="border-t border-gray-200 dark:border-gray-700"></div>
 
           {/* Customer Information Form */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-[#0F172A]">
+            <h3 className="text-lg font-semibold text-[#0F172A] dark:text-white">
               Ihre Kontaktdaten
             </h3>
 
@@ -187,7 +187,7 @@ export function ProductInquiryForm({
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
                   Name <span className="text-red-500">*</span>
                 </label>
@@ -198,14 +198,14 @@ export function ProductInquiryForm({
                   value={formData.name}
                   onChange={(e) => handleInputChange(e, "name")}
                   required
-                  className="w-full"
+                  className="w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
                   E-Mail-Adresse <span className="text-red-500">*</span>
                 </label>
@@ -216,14 +216,14 @@ export function ProductInquiryForm({
                   value={formData.email}
                   onChange={(e) => handleInputChange(e, "email")}
                   required
-                  className="w-full"
+                  className="w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="telephone"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
                   Telefon <span className="text-red-500">*</span>
                 </label>
@@ -234,7 +234,7 @@ export function ProductInquiryForm({
                   value={formData.telephone}
                   onChange={(e) => handleInputChange(e, "telephone")}
                   required
-                  className="w-full"
+                  className="w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                 />
               </div>
             </div>

@@ -78,7 +78,7 @@ export default function AyurvediaPage() {
   }, [cardsAnimated]);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900">
       {/* HERO SECTION */}
       <section ref={heroRef} className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto mb-8 sm:mb-12 md:mb-16">
         {/* Left: Large Kapha Image */}
@@ -125,7 +125,7 @@ export default function AyurvediaPage() {
               AYURVEDA
             </motion.h2>
             <motion.p
-              className="text-base sm:text-lg md:text-xl text-gray-800 font-semibold mb-3 sm:mb-4"
+              className="text-base sm:text-lg md:text-xl text-gray-800 dark:text-white font-semibold mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 20 }}
               animate={heroAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -141,7 +141,7 @@ export default function AyurvediaPage() {
             ].map((text, index) => (
               <motion.p
                 key={index}
-                className="text-sm sm:text-base text-gray-700 leading-relaxed mb-3 sm:mb-4"
+                className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed mb-3 sm:mb-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={heroAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -178,7 +178,7 @@ export default function AyurvediaPage() {
       <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto mb-8 sm:mb-12 md:mb-16">
         {/* VATA CARD */}
         <motion.div
-          className="rounded-lg overflow-hidden shadow-lg bg-white"
+          className="rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800"
           initial={{ opacity: 0, y: 50 }}
           animate={cardsAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -198,10 +198,10 @@ export default function AyurvediaPage() {
             </div>
           </div>
           <div className="p-4 sm:p-5 md:p-6">
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Schnell & wendig
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Gehören Sie als Vata-Typ auch zu den Menschen, die gerne in
               Bewegung sind? Kein Wunder, denn Vata steht für Bewegung – auf
               körperlicher und geistiger Ebene. Von ihren Mitmenschen werden
@@ -213,10 +213,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Körperbau – zart & feingliedrig
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Entsprechend ihrer Zuordnung zu den Elementen Luft und Raum sind
               Vata-Typen in der Regel zart gebaut und entsprechend leicht. Dabei
               können sie sehr groß und schlank, aber auch klein und zierlich
@@ -226,20 +226,20 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Haut & Haare – fein & trocken
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Vata-Typen neigen zu trockener Haut, die sich entsprechend über
               eine reichhaltige Pflege freut. Die Haare sind eher dünn und
               ebenfalls trocken.
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Stoffwechsel & Verdauung
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Vata-Typen haben in der Regel ein variables Agni (Verdauungsfeuer,
               siehe Hinweis). Entsprechend schwankt ihr Appetit. Andere beneiden
               sie häufig darum, dass sie auch dann kaum zunehmen, wenn sie mehr
@@ -249,10 +249,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Liebhaber von Wärme und sanften Tönen
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Vata-Typen haben einen ausgeprägten Gehör- und Tastsinn.
               Entsprechend sensibel reagieren sie auf laute Geräusche und Lärm
               in ihrer Umgebung. Da sie leicht frieren, gehören Vata-Menschen zu
@@ -261,10 +261,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Lebendiger Geist – mit Begeisterung aktiv
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Vata-Typen sind meist mit einem wachen Geist, einer schnellen
               Auffassungsgabe und großer Begeisterungsfähigkeit gesegnet. Sie
               lernen sehr schnell, haben ein ausgezeichnetes Kurzzeitgedächtnis,
@@ -274,10 +274,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Berufe, in denen Vata-Typen ihre Talente verwirklichen können
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Mit ihrem Einfallsreichtum, ihrer Kreativität und Geschicklichkeit
               sind Vata-Typen prädestiniert für künstlerische, wissenschaftliche
               oder kreative Berufe. Besonders erfolgreich sind sie auch in
@@ -286,10 +286,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Mögliche Schattenseiten bei Vata-Überschuss
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Ein Vata-Überschuss kann zu Ängstlichkeit, Nervosität und Unruhe
               führen, die den Vata-Typ abends schlecht einschlafen lässt oder
               tagsüber die Konzentration stört. Vata-Typen sind nicht sehr
@@ -306,7 +306,7 @@ export default function AyurvediaPage() {
 
         {/* PITTA CARD */}
         <motion.div
-          className="rounded-lg overflow-hidden shadow-lg bg-white"
+          className="rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800"
           initial={{ opacity: 0, y: 50 }}
           animate={cardsAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -326,10 +326,10 @@ export default function AyurvediaPage() {
             </div>
           </div>
           <div className="p-4 sm:p-5 md:p-6">
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               "Ms. & Mr. Perfect"
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Mit ihrem athletischen Körperbau und ihrer Ausstrahlung ziehen
               Pitta-Typen bewundernde Blicke auf sich. Das feurige Pitta
               beschert ihnen viel Temperament und eine gute Verdauung.
@@ -339,20 +339,20 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Athletischer Körperbau
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Pitta-Typen haben meist einen athletischen bis drahtigen Körper
               und sind in der Regel mittelgroß. Sie haben häufig markante
               Gesichtszüge mit einer hohen Stirn und strahlende, glänzende Augen
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Rosiger Teint & rot-blondes Haar
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Typischerweise haben Pitta-Typen blondes oder rotes Haar, das eher
               fein bis licht sein und früh ergrauen kann. Die Haut ist meist gut
               durchblutet, was Pitta-Typen einen rosigen Teint beschert.
@@ -362,10 +362,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Stoffwechsel & Verdauung – Hier ist Pitta in seinem Element.
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Pitta ist verantwortlich für Verdauung und Stoffwechsel.
               Entsprechend dürfen sich Pitta-Typen meist über ein starkes Agni
               (siehe Hinweis) freuen. Sie essen gerne viel und vertragen in der
@@ -377,12 +377,12 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Leuchtende Augen & scharfer Blick Der wichtigste Sinn ist für
               Pitta-Typen das Sehen. Auffällig sind oft ihre leuchtenden Augen
               und ihr scharfer Blick.
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Präzise, temperamentvoll & freiheitsliebend Pitta-dominante
               Menschen sind einerseits emotional und temperamentvoll,
               andererseits bestens organisiert, ordentlich und gut strukturiert.
@@ -394,10 +394,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Berufe, in denen Pitta-Typen ihre Talente verwirklichen können
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Pitta verleiht große Ausstrahlung und Selbstständigkeit, die sie
               dank ihres Ehrgeizes auch zu nutzen wissen. Daher sind Pitta-Typen
               häufig als Selbstständige, in der Politik oder in
@@ -407,10 +407,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Mögliche Schattenseiten bei Pitta-Überschuss
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Wenn Pitta zu sehr die Oberhand gewinnt, kann die Ordnungsliebe in
               Perfektionismus und Rechthaberei übergehen. Auch Ungeduld,
               Gereiztheit und Wutausbrüche gehören zu den typischen Zeichen
@@ -428,7 +428,7 @@ export default function AyurvediaPage() {
 
         {/* KAPHA CARD */}
         <motion.div
-          className="rounded-lg overflow-hidden shadow-lg bg-white"
+          className="rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800"
           initial={{ opacity: 0, y: 50 }}
           animate={cardsAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -448,10 +448,10 @@ export default function AyurvediaPage() {
             </div>
           </div>
           <div className="p-4 sm:p-5 md:p-6">
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               In der Ruhe liegt die Kraft
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Als Verbindung der Elemente Erde und Wasser steht Kapha vor allem
               für Struktur und Stabilität. Das spiegelt sich beim Kapha-Typen
               gleichermaßen auf körperlicher und psychischer Ebene wider. So
@@ -461,10 +461,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Kräftiger Körperbau
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Kapha-Typen haben meist einen stabilen, schweren Körperbau mit
               kräftigen Gelenken. Ausgeprägtes Muskel- und auch Fettgewebe lässt
               ihren Körper robust bis stämmig wirken. Ihre Gesichts- und
@@ -473,20 +473,20 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Kräftige Haare & jugendliches Aussehen
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Kapha-Typen haben meist volles, kräftiges Haar. Die Haut (und
               Kopfhaut) wird eher fettend sein. Das Kapha-Dosha beschert weniger
               Falten und damit lange ein jugendliches Aussehen.
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Stoffwechsel & Verdauung
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Kapha-Typen haben ein eher geringes Agni (siehe Hinweis). Zugleich
               essen sie als Genussmenschen gerne häufiger, viel und Süßes. Das
               kann insbesondere bei Stress zu einer unliebsamen Gewichtserhöhung
@@ -494,20 +494,20 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Genießen über Mund und Nase
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Für Kapha-Typen spielen das Riechen und Schmecken eine besondere
               Rolle. Entsprechend kochen sie häufig gern und genießen umgekehrt
               auch gute Speisen.
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Ruhig & besonnen – auch in Krisenzeiten
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Als Fels in der Brandung bewahren Kapha-Typen auch in stürmischen
               Zeiten die Ruhe. Zugleich verfügen sie über die nötigen
               Energiereserven, Geduld und Ausdauer, um auch dann am Ball zu
@@ -519,10 +519,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Berufe, in denen Kapha-Typen ihre Talente verwirklichen können
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Mit ihrer Geduld, Ausdauer und Beharrlichkeit haben Kapha-Typen
               das nötige Rüstzeug für langfristige Projekte, Routinearbeiten
               aller Art und große Aktenberge. Wenn es einmal schwierig wird,
@@ -535,10 +535,10 @@ export default function AyurvediaPage() {
             </p>
 
             <br />
-            <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
+            <p className="text-gray-600 dark:text-gray-400 text-xs mb-4 font-semibold uppercase tracking-wider">
               Mögliche Schattenseiten bei Kapha-Überschuss
             </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
+            <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
               Ein ausgeprägter Kapha-Überschuss kann zu einer gewissen
               Langsamkeit, Trägheit und mitunter auch Traurigkeit und
               Antriebslosigkeit führen. Loslassen fällt Kapha-Typen eher schwer.
