@@ -66,11 +66,11 @@ export function PostCard({ post, onDelete, onUpdate }: Props) {
     <>
       <Card
         key={post.id}
-        className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-[#D4AF37]/20 flex flex-col p-0 max-w-xs w-full"
+        className="group rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-[#D4AF37]/20 dark:border-[#D4AF37]/30 flex flex-col p-0 max-w-xs w-full"
       >
         {/* Image Section - At the Top, No Padding */}
         {post.postImageUrl ? (
-          <div className="relative w-full h-40 overflow-hidden bg-gradient-to-br from-[#D4AF37]/10 to-transparent">
+          <div className="relative w-full h-40 overflow-hidden bg-gradient-to-br from-[#D4AF37]/10 dark:from-[#D4AF37]/20 to-transparent">
             <Image
               src={post.postImageUrl}
               alt={post.postTitle}
@@ -81,7 +81,7 @@ export function PostCard({ post, onDelete, onUpdate }: Props) {
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
           </div>
         ) : (
-          <div className="relative w-full h-40 overflow-hidden bg-gradient-to-br from-[#D4AF37]/20 to-[#E6C45A]/10 flex items-center justify-center">
+          <div className="relative w-full h-40 overflow-hidden bg-gradient-to-br from-[#D4AF37]/20 dark:from-[#D4AF37]/30 to-[#E6C45A]/10 dark:to-[#E6C45A]/20 flex items-center justify-center">
             <div className="text-4xl opacity-30">📝</div>
           </div>
         )}
@@ -90,11 +90,11 @@ export function PostCard({ post, onDelete, onUpdate }: Props) {
         <CardHeader className="px-4  pb-2">
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1 min-w-0">
-              <CardTitle className="text-lg font-bold text-[#0F172A] mb-1 group-hover:text-[#D4AF37] transition-colors line-clamp-1">
+              <CardTitle className="text-lg font-bold mb-1 group-hover:text-[#D4AF37] transition-colors line-clamp-1">
                 {post.postTitle}
               </CardTitle>
               {post.description && (
-                <CardDescription className="text-gray-600 leading-snug line-clamp-2 mt-1 text-sm">
+                <CardDescription className="leading-snug line-clamp-2 mt-1 text-sm">
                   {post.description}
                 </CardDescription>
               )}
@@ -102,13 +102,13 @@ export function PostCard({ post, onDelete, onUpdate }: Props) {
           </div>
 
           {/* Date Information */}
-          <div className="flex flex-col gap-1 mt-2 pt-2 border-t border-[#D4AF37]/20">
-            <div className="flex items-center gap-1.5 text-xs text-gray-500">
+          <div className="flex flex-col gap-1 mt-2 pt-2 border-t border-[#D4AF37]/20 dark:border-[#D4AF37]/30">
+            <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <Clock className="w-3 h-3 text-[#D4AF37] flex-shrink-0" />
               <span className="truncate">Created {formatDistanceToNow(new Date(post.createdAt))} ago</span>
             </div>
             {(post.startDate || post.endDate) && (
-              <div className="flex items-center gap-1.5 text-xs text-gray-500">
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <Calendar className="w-3 h-3 text-[#D4AF37] flex-shrink-0" />
                 <span className="truncate">
                   {post.startDate && formatDate(post.startDate)}
@@ -127,7 +127,7 @@ export function PostCard({ post, onDelete, onUpdate }: Props) {
               size="sm"
               icon={<PencilIcon className="w-3.5 h-3.5" />}
               onClick={() => setIsEditOpen(true)}
-              className="flex-1 h-8 bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] font-semibold text-xs transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+              className="flex-1 h-8 bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-foreground font-semibold text-xs transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
             >
               Edit
             </Button>
@@ -137,7 +137,7 @@ export function PostCard({ post, onDelete, onUpdate }: Props) {
               variant="outline"
               onClick={handleDelete}
               disabled={isDeleting}
-              className="h-8 border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 hover:text-red-700 transition-all transform hover:scale-105 font-semibold text-xs"
+              className="h-8 border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 hover:border-red-400 dark:hover:border-red-700 hover:text-red-700 dark:hover:text-red-300 transition-all transform hover:scale-105 font-semibold text-xs"
             >
               Delete
             </Button>

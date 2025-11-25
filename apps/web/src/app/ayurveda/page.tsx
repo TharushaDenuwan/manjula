@@ -1,18 +1,93 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function AyurvediaPage() {
+  const [heroAnimated, setHeroAnimated] = useState(false);
+  const [cardsAnimated, setCardsAnimated] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  // Check if hero section is in view on mount and trigger animations
+  useEffect(() => {
+    const checkHeroView = () => {
+      if (heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight + 300 && rect.bottom > -300;
+        if (isInView) {
+          setTimeout(() => {
+            setHeroAnimated(true);
+          }, 200);
+        }
+      }
+    };
+
+    const timer = setTimeout(checkHeroView, 300);
+
+    const handleScroll = () => {
+      if (!heroAnimated && heroRef.current) {
+        const rect = heroRef.current.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight + 300 && rect.bottom > -300;
+        if (isInView) {
+          setHeroAnimated(true);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [heroAnimated]);
+
+  // Check if cards section is in view on mount and trigger animations
+  useEffect(() => {
+    const checkCardsView = () => {
+      if (cardsRef.current) {
+        const rect = cardsRef.current.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight + 300 && rect.bottom > -300;
+        if (isInView) {
+          setTimeout(() => {
+            setCardsAnimated(true);
+          }, 200);
+        }
+      }
+    };
+
+    const timer = setTimeout(checkCardsView, 300);
+
+    const handleScroll = () => {
+      if (!cardsAnimated && cardsRef.current) {
+        const rect = cardsRef.current.getBoundingClientRect();
+        const isInView = rect.top < window.innerHeight + 300 && rect.bottom > -300;
+        if (isInView) {
+          setCardsAnimated(true);
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [cardsAnimated]);
+
   return (
     <div className="min-h-screen bg-white">
       {/* HERO SECTION */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 max-w-7xl mx-auto mb-16">
+      <section ref={heroRef} className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto mb-8 sm:mb-12 md:mb-16">
         {/* Left: Large Kapha Image */}
         <motion.div
-          className="relative h-96 lg:h-full rounded-lg overflow-hidden"
+          className="relative h-80 sm:h-64 md:h-80 lg:h-full rounded-lg overflow-hidden"
           initial={{ opacity: 0, x: -50 }}
+          animate={heroAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.8 }}
           whileHover={{ scale: 1.02 }}
         >
@@ -25,32 +100,36 @@ export default function AyurvediaPage() {
 
         {/* Right: Intro Text + Logo */}
         <motion.div
-          className="flex flex-col justify-center space-y-8"
+          className="flex flex-col justify-center space-y-4 sm:space-y-6 md:space-y-8"
           initial={{ opacity: 0, x: 50 }}
+          animate={heroAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
+            animate={heroAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <motion.h2
-              className="text-5xl font-bold text-[#D7B11E] mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#D7B11E] mb-3 sm:mb-4 md:mb-6"
               initial={{ opacity: 0, y: 30 }}
+              animate={heroAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ duration: 0.6 }}
             >
               AYURVEDA
             </motion.h2>
             <motion.p
-              className="text-xl text-gray-800 font-semibold mb-4"
+              className="text-base sm:text-lg md:text-xl text-gray-800 font-semibold mb-3 sm:mb-4"
               initial={{ opacity: 0, y: 20 }}
+              animate={heroAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: false }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               Der Weg zu innerer und äußerer Schönheit
@@ -62,10 +141,11 @@ export default function AyurvediaPage() {
             ].map((text, index) => (
               <motion.p
                 key={index}
-                className="text-gray-700 leading-relaxed mb-4"
+                className="text-sm sm:text-base text-gray-700 leading-relaxed mb-3 sm:mb-4"
                 initial={{ opacity: 0, y: 20 }}
+                animate={heroAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
               >
                 {text}
@@ -77,8 +157,9 @@ export default function AyurvediaPage() {
           <motion.div
             className="flex items-center space-x-3"
             initial={{ opacity: 0, scale: 0.8 }}
+            animate={heroAnimated ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.6, delay: 0.7 }}
             whileHover={{ scale: 1.05 }}
           >
@@ -86,7 +167,7 @@ export default function AyurvediaPage() {
               <img
                 src="/assets/logo.png"
                 alt="Vata"
-                className="w-85 h-30 object-cover"
+                className="w-48 sm:w-64 md:w-80 h-auto object-cover"
               />
             </div>
           </motion.div>
@@ -94,28 +175,29 @@ export default function AyurvediaPage() {
       </section>
 
       {/* THREE DOSHA CARDS SECTION */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-8 max-w-7xl mx-auto mb-16">
+      <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto mb-8 sm:mb-12 md:mb-16">
         {/* VATA CARD */}
         <motion.div
           className="rounded-lg overflow-hidden shadow-lg bg-white"
           initial={{ opacity: 0, y: 50 }}
+          animate={cardsAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.6 }}
           whileHover={{ y: -8, scale: 1.02 }}
         >
-          <div className="relative h-80 overflow-hidden">
+          <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden">
             <img
               src="/assets/vata.png"
               alt="Vata"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 via-transparent to-transparent flex flex-col justify-end p-6">
-              <h2 className="text-4xl font-bold text-white mb-1">VATA</h2>
-              <p className="text-xl text-white">Vata-Typ</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 via-transparent to-transparent flex flex-col justify-end p-4 sm:p-5 md:p-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">VATA</h2>
+              <p className="text-base sm:text-lg md:text-xl text-white">Vata-Typ</p>
             </div>
           </div>
-          <div className="p-6">
+          <div className="p-4 sm:p-5 md:p-6">
             <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
               Schnell & wendig
             </p>
@@ -226,23 +308,24 @@ export default function AyurvediaPage() {
         <motion.div
           className="rounded-lg overflow-hidden shadow-lg bg-white"
           initial={{ opacity: 0, y: 50 }}
+          animate={cardsAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
           whileHover={{ y: -8, scale: 1.02 }}
         >
-          <div className="relative h-80 overflow-hidden">
+          <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden">
             <img
               src="/assets/pitta.png"
               alt="Pitta"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-orange-900/70 via-transparent to-transparent flex flex-col justify-end p-6">
-              <h2 className="text-4xl font-bold text-white mb-1">PITTA</h2>
-              <p className="text-xl text-white">"Pitta-Typ"</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-orange-900/70 via-transparent to-transparent flex flex-col justify-end p-4 sm:p-5 md:p-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">PITTA</h2>
+              <p className="text-base sm:text-lg md:text-xl text-white">"Pitta-Typ"</p>
             </div>
           </div>
-          <div className="p-6">
+          <div className="p-4 sm:p-5 md:p-6">
             <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
               "Ms. & Mr. Perfect"
             </p>
@@ -347,23 +430,24 @@ export default function AyurvediaPage() {
         <motion.div
           className="rounded-lg overflow-hidden shadow-lg bg-white"
           initial={{ opacity: 0, y: 50 }}
+          animate={cardsAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.4 }}
           whileHover={{ y: -8, scale: 1.02 }}
         >
-          <div className="relative h-80 overflow-hidden">
+          <div className="relative h-48 sm:h-64 md:h-80 overflow-hidden">
             <img
               src="/assets/kapha.png"
               alt="Kapha"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-green-900/70 via-transparent to-transparent flex flex-col justify-end p-6">
-              <h2 className="text-4xl font-bold text-white mb-1">KAPHA</h2>
-              <p className="text-xl text-white">Kapha-Typ</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-green-900/70 via-transparent to-transparent flex flex-col justify-end p-4 sm:p-5 md:p-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1">KAPHA</h2>
+              <p className="text-base sm:text-lg md:text-xl text-white">Kapha-Typ</p>
             </div>
           </div>
-          <div className="p-6">
+          <div className="p-4 sm:p-5 md:p-6">
             <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
               In der Ruhe liegt die Kraft
             </p>

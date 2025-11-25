@@ -26,9 +26,12 @@ export function Footer() {
               gerne zu beantworten.
             </p>
 
-            <button className="bg-[#D6AF15] hover:bg-amber-300 text-white px-9 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 ">
+            <Link
+              href="/#contact"
+              className="inline-block bg-[#D6AF15] hover:bg-amber-300 text-white px-9 py-3 rounded-lg font-semibold transition-all transform hover:scale-105"
+            >
               Abonnieren
-            </button>
+            </Link>
           </div>
         </div>
       </div>
