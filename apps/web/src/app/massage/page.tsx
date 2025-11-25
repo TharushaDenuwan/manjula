@@ -195,7 +195,7 @@ export default function MassagePage() {
   ];
 
   return (
-    <div className="w-full bg-white min-h-screen">
+    <div className="w-full bg-white dark:bg-gray-900 min-h-screen">
       {/* Hero Section with Sliding Carousel */}
       <section className="relative w-full min-h-[50vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Image Carousel Background */}
@@ -291,7 +291,7 @@ export default function MassagePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 bg-white">
+      <section className="py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
           <div ref={servicesRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, index) => {
@@ -315,35 +315,43 @@ export default function MassagePage() {
                     scale: 1.02,
                   }}
                 >
-                  <Card className="group bg-white rounded-xl border border-gray-200 hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500">
-                    <CardHeader className="text-center pb-4">
-                      {/* Icon Circle */}
-                      <div className="flex justify-center mb-4">
-                        <div className="p-4 rounded-full bg-[#D4AF37]/10 border-2 border-[#D4AF37]/30 group-hover:bg-[#D4AF37]/20 group-hover:scale-110 transition-all duration-300">
-                          <IconComponent className="w-8 h-8 text-[#D4AF37]" />
-                        </div>
+                  <Card
+                    className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500"
+                  >
+                  <CardHeader className="text-center pb-4">
+                    {/* Icon Circle */}
+                    <div className="flex justify-center mb-4">
+                      <div className="p-4 rounded-full bg-[#D4AF37]/10 border-2 border-[#D4AF37]/30 group-hover:bg-[#D4AF37]/20 group-hover:scale-110 transition-all duration-300">
+                        <IconComponent className="w-8 h-8 text-[#D4AF37]" />
                       </div>
 
-                      {/* Title */}
-                      <CardTitle className="text-lg font-bold text-[#0F172A] mb-1 group-hover:text-[#D4AF37] transition-colors">
-                        {service.name}
-                      </CardTitle>
-                      <CardDescription className="text-sm text-gray-600 font-medium">
-                        {service.subtitle}
-                      </CardDescription>
-                    </CardHeader>
+                    {/* Title */}
+                    <CardTitle className="text-lg font-bold text-[#0F172A] dark:text-white mb-1 group-hover:text-[#D4AF37] transition-colors">
+                      {service.name}
+                    </CardTitle>
+                    <CardDescription className="text-sm text-gray-600 dark:text-gray-300 font-medium">
+                      {service.subtitle}
+                    </CardDescription>
+                  </CardHeader>
 
-                    <CardContent className="space-y-4">
-                      {/* Description */}
-                      <p className="text-sm text-gray-700 leading-relaxed text-center">
-                        {service.description}
+                  <CardContent className="space-y-4">
+                    {/* Description */}
+                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center">
+                      {service.description}
+                    </p>
+
+                    {/* Duration */}
+                    <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-100 dark:border-gray-700">
+                      <Clock className="w-4 h-4 text-[#D4AF37]" />
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        Sie sollten sich {service.duration} Zeit nehmen.
                       </p>
 
-                      {/* Duration */}
-                      <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-100">
-                        <Clock className="w-4 h-4 text-[#D4AF37]" />
-                        <p className="text-sm text-gray-600">
-                          Sie sollten sich {service.duration} Zeit nehmen.
+                    {/* Long Duration Note for ABHYANGA */}
+                    {service.durationLong && (
+                      <div className="pt-2">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 text-center italic">
+                          ({service.durationLong})
                         </p>
                       </div>
 
@@ -365,7 +373,7 @@ export default function MassagePage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 md:py-28 px-4 sm:px-6 bg-gradient-to-b from-gray-50 via-white to-gray-50">
+      <section className="py-20 md:py-28 px-4 sm:px-6 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <motion.div
@@ -376,7 +384,7 @@ export default function MassagePage() {
             transition={{ duration: 0.6 }}
           >
             <motion.h2
-              className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4"
+              className="text-4xl md:text-5xl font-bold text-[#0F172A] dark:text-white mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -392,7 +400,7 @@ export default function MassagePage() {
               transition={{ duration: 0.8, delay: 0.3 }}
             />
             <motion.p
-              className="text-lg text-gray-600 max-w-2xl mx-auto"
+              className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -428,18 +436,18 @@ export default function MassagePage() {
 
                 <Card
                   className={`
-                    relative h-full bg-white rounded-2xl border overflow-hidden
+                    relative h-full bg-white dark:bg-gray-800 rounded-2xl border overflow-hidden
                     ${
                       plan.upgrade
                         ? "border-[#D4AF37] shadow-2xl ring-2 ring-[#D4AF37]/20 scale-105"
-                        : "border-gray-200 hover:border-[#D4AF37]/50 shadow-lg hover:shadow-2xl"
+                        : "border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/50 dark:hover:border-[#D4AF37]/50 shadow-lg hover:shadow-2xl"
                     }
                     transition-all duration-500 hover:-translate-y-2
                   `}
                 >
                   {/* Header with gradient */}
                   <div
-                    className={`relative ${plan.upgrade ? "bg-gradient-to-br from-[#D4AF37]/10 via-[#D4AF37]/5 to-transparent" : "bg-gradient-to-br from-gray-50 to-transparent"} pt-8 pb-6 px-6`}
+                    className={`relative ${plan.upgrade ? "bg-gradient-to-br from-[#D4AF37]/10 via-[#D4AF37]/5 to-transparent" : "bg-gradient-to-br from-gray-50 dark:from-gray-700 to-transparent"} pt-8 pb-6 px-6`}
                   >
                     {/* Duration Badge */}
                     <div className="inline-flex items-center justify-center w-full mb-4">
@@ -447,7 +455,7 @@ export default function MassagePage() {
                         className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
                           plan.upgrade
                             ? "bg-[#D4AF37] text-[#0F172A]"
-                            : "bg-gray-100 text-gray-700"
+                            : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
                         }`}
                       >
                         {plan.duration}
@@ -457,20 +465,20 @@ export default function MassagePage() {
                     {/* Price */}
                     <div className="text-center mb-2">
                       <div className="flex items-baseline justify-center gap-1">
-                        <span className="text-5xl md:text-6xl font-bold text-[#0F172A] tracking-tight">
+                        <span className="text-5xl md:text-6xl font-bold text-[#0F172A] dark:text-white tracking-tight">
                           {plan.price.split(",")[0]}
                         </span>
-                        <span className="text-xl text-gray-500">
+                        <span className="text-xl text-gray-500 dark:text-gray-400">
                           {plan.price.includes(",")
                             ? plan.price.split(",")[1]
                             : ""}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-500 mt-2">
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
                         {plan.subtitle}
                       </p>
                       {plan.description && (
-                        <p className="text-xs text-gray-400 mt-1 italic">
+                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1 italic">
                           {plan.description}
                         </p>
                       )}
@@ -482,11 +490,11 @@ export default function MassagePage() {
                     {/* Services List */}
                     <div className="space-y-4">
                       <div className="flex items-center gap-2 mb-3">
-                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
-                        <p className="text-sm font-semibold text-[#0F172A] uppercase tracking-wider whitespace-nowrap">
+                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
+                        <p className="text-sm font-semibold text-[#0F172A] dark:text-white uppercase tracking-wider whitespace-nowrap">
                           Enthaltene Anwendungen
                         </p>
-                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
                       </div>
                       {Array.isArray(plan.optimalFor) ? (
                         <ul className="space-y-3">
@@ -499,17 +507,17 @@ export default function MassagePage() {
                                 className={`mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full ${
                                   plan.upgrade
                                     ? "bg-[#D4AF37]"
-                                    : "bg-gray-300 group-hover/item:bg-[#D4AF37] transition-colors"
+                                    : "bg-gray-300 dark:bg-gray-600 group-hover/item:bg-[#D4AF37] transition-colors"
                                 }`}
                               />
-                              <span className="text-sm text-gray-700 leading-relaxed">
+                              <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                                 {item}
                               </span>
                             </li>
                           ))}
                         </ul>
                       ) : (
-                        <p className="text-sm text-gray-700 leading-relaxed text-center py-2">
+                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center py-2">
                           {plan.optimalFor}
                         </p>
                       )}
@@ -552,7 +560,7 @@ export default function MassagePage() {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               Alle Preise verstehen sich inklusive MwSt. • Flexible
               Terminvereinbarung möglich
             </p>
@@ -561,10 +569,10 @@ export default function MassagePage() {
       </section>
 
       {/* Contact CTA Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 bg-white">
+      <section className="py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
-            className="bg-gradient-to-br from-[#D4AF37]/5 to-transparent rounded-2xl p-12 border border-[#D4AF37]/20 shadow-lg"
+            className="bg-gradient-to-br from-[#D4AF37]/5 dark:from-[#D4AF37]/10 to-transparent rounded-2xl p-12 border border-[#D4AF37]/20 dark:border-[#D4AF37]/30 shadow-lg"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
@@ -590,7 +598,7 @@ export default function MassagePage() {
               Sie haben Fragen?
             </motion.h2>
             <motion.p
-              className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto"
+              className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

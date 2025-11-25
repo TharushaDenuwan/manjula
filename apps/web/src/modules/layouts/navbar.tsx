@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
+import { ThemeToggle } from "./theme-toggle";
 
 type Props = {};
 
@@ -30,7 +31,7 @@ export function Navbar({}: Props) {
       {/* Sticky Navbar - White Background */}
       <div
         className={cn(
-          "fixed top-0 left-0 w-full z-50 h-16 flex items-center justify-between px-4 lg:px-8 bg-white  border-gray-200 shadow-sm"
+          "fixed top-0 left-0 w-full z-50 h-16 flex items-center justify-between px-4 lg:px-8 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 shadow-sm"
         )}
       >
         {/* Logo */}
@@ -54,7 +55,7 @@ export function Navbar({}: Props) {
                 "font-medium text-sm transition-colors",
                 pathname === item.href
                   ? "text-[#E4BF3C] font-semibold"
-                  : "text-black hover:text-[#E4BF3C]"
+                  : "text-black dark:text-white hover:text-[#E4BF3C]"
               )}
             >
               {item.label}
@@ -64,6 +65,11 @@ export function Navbar({}: Props) {
 
         {/* Right Side Actions */}
         <div className="flex items-center gap-3">
+          {/* Theme Toggle - Desktop Only */}
+          <div className="hidden md:flex">
+            <ThemeToggle />
+          </div>
+
           {/* Admin Login Button - Desktop Only */}
           <Button
             variant="outline"
@@ -82,10 +88,15 @@ export function Navbar({}: Props) {
             Admin Login
           </Button>
 
+          {/* Theme Toggle - Mobile */}
+          <div className="md:hidden">
+            <ThemeToggle />
+          </div>
+
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-black hover:bg-gray-100 transition-colors"
+            className="md:hidden p-2 rounded-lg text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -111,12 +122,12 @@ export function Navbar({}: Props) {
       {/* Mobile Sidebar */}
       <div
         className={cn(
-          "fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-50 md:hidden transform transition-transform duration-300 ease-in-out",
+          "fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-2xl z-50 md:hidden transform transition-transform duration-300 ease-in-out",
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
         {/* Sidebar Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
           <Link
             href="/"
             className="flex items-center gap-2"
@@ -130,7 +141,7 @@ export function Navbar({}: Props) {
           </Link>
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="p-2 rounded-lg text-black hover:bg-gray-100 transition-colors"
+            className="p-2 rounded-lg text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             aria-label="Close menu"
           >
             <X className="w-6 h-6" />
@@ -148,7 +159,7 @@ export function Navbar({}: Props) {
                 "px-4 py-3 rounded-lg font-medium text-base transition-colors",
                 pathname === item.href
                   ? "text-[#E4BF3C] font-semibold bg-[#E4BF3C]/10"
-                  : "text-black hover:bg-gray-100 hover:text-[#E4BF3C]"
+                  : "text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-[#E4BF3C]"
               )}
             >
               {item.label}
@@ -157,7 +168,10 @@ export function Navbar({}: Props) {
         </nav>
 
         {/* Sidebar Footer */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-800 space-y-2">
+          <div className="flex justify-center">
+            <ThemeToggle />
+          </div>
           <Button
             variant="outline"
             className={cn(

@@ -115,14 +115,14 @@ export function ProductGrid({ products }: ProductGridProps) {
 
   if (products.length === 0) {
     return (
-      <section className="py-20 md:py-28 px-4 sm:px-6 bg-white">
+      <section className="py-20 md:py-28 px-4 sm:px-6 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="bg-gradient-to-br from-[#D4AF37]/5 to-transparent rounded-2xl p-12 border border-[#D4AF37]/20">
+          <div className="bg-gradient-to-br from-[#D4AF37]/5 dark:from-[#D4AF37]/10 to-transparent rounded-2xl p-12 border border-[#D4AF37]/20 dark:border-[#D4AF37]/30">
             <Sparkles className="w-16 h-16 text-[#D4AF37] mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0F172A] dark:text-white mb-4">
               Keine Produkte verfügbar
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               Wir arbeiten daran, Ihnen bald neue Produkte anzubieten.
             </p>
           </div>
@@ -132,7 +132,7 @@ export function ProductGrid({ products }: ProductGridProps) {
   }
 
   return (
-    <section className="py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b from-white via-gray-50/30 to-white">
+    <section className="py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b from-white via-gray-50/30 to-white dark:from-gray-900 dark:via-gray-800/30 dark:to-gray-900">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -159,7 +159,7 @@ export function ProductGrid({ products }: ProductGridProps) {
             transition={{ duration: 0.8, delay: 0.3 }}
           />
           <motion.p
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -185,11 +185,11 @@ export function ProductGrid({ products }: ProductGridProps) {
               }}
             >
               <Card
-                className="group bg-white rounded-2xl border border-gray-200 hover:border-[#D4AF37]/50 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden p-0"
+                className="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/50 dark:hover:border-[#D4AF37]/50 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden p-0"
               >
               {/* Product Image */}
               <motion.div
-                className="relative w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden rounded-t-2xl"
+                className="relative w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 overflow-hidden rounded-t-2xl"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
@@ -202,7 +202,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <ShoppingCart className="w-12 h-12 text-gray-400" />
+                    <ShoppingCart className="w-12 h-12 text-gray-400 dark:text-gray-500" />
                   </div>
                 )}
                 {/* Gradient Overlay */}
@@ -210,11 +210,11 @@ export function ProductGrid({ products }: ProductGridProps) {
               </motion.div>
 
               <CardHeader className="p-4 pb-3 pt-4">
-                <CardTitle className="text-lg font-bold text-[#0F172A] mb-1 group-hover:text-[#D4AF37] transition-colors duration-300 line-clamp-2">
+                <CardTitle className="text-lg font-bold text-[#0F172A] dark:text-white mb-1 group-hover:text-[#D4AF37] transition-colors duration-300 line-clamp-2">
                   {product.productName}
                 </CardTitle>
                 {product.description && (
-                  <CardDescription className="text-sm text-gray-600 line-clamp-2">
+                  <CardDescription className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
                     {product.description}
                   </CardDescription>
                 )}
@@ -228,7 +228,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                       {product.price}
                     </span>
                     {product.price.includes("€") && (
-                      <span className="text-xs text-gray-500">EUR</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">EUR</span>
                     )}
                   </div>
                 )}
@@ -236,8 +236,8 @@ export function ProductGrid({ products }: ProductGridProps) {
                 {/* Quantity Stock Info */}
                 {product.quantity !== null && product.quantity !== undefined && (
                   <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-600">Verfügbar:</span>
-                    <span className="text-sm font-semibold text-[#0F172A]">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">Verfügbar:</span>
+                    <span className="text-sm font-semibold text-[#0F172A] dark:text-white">
                       {product.quantity}
                     </span>
                   </div>
@@ -246,7 +246,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                 {/* Quantity Selector */}
                 {product.quantity !== null && product.quantity !== undefined && product.quantity > 0 && (
                   <div className="pt-2 space-y-2">
-                    <label className="text-sm font-medium text-gray-700">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                       Menge auswählen:
                     </label>
                     <div className="flex items-center gap-2">
@@ -254,10 +254,10 @@ export function ProductGrid({ products }: ProductGridProps) {
                         type="button"
                         onClick={() => decrementQuantity(product.id)}
                         disabled={(selectedQuantities[product.id] || 1) <= 1}
-                        className="p-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Menge verringern"
                       >
-                        <Minus className="w-4 h-4" />
+                        <Minus className="w-4 h-4 text-gray-700 dark:text-gray-300" />
                       </button>
                       <Input
                         type="number"
@@ -278,19 +278,19 @@ export function ProductGrid({ products }: ProductGridProps) {
                             updateQuantity(product.id, product.quantity!);
                           }
                         }}
-                        className="w-20 text-center"
+                        className="w-20 text-center dark:bg-gray-700 dark:text-white dark:border-gray-600"
                       />
                       <button
                         type="button"
                         onClick={() => incrementQuantity(product.id, product.quantity)}
                         disabled={(selectedQuantities[product.id] || 1) >= product.quantity!}
-                        className="p-2 rounded-lg border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         aria-label="Menge erhöhen"
                       >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="w-4 h-4 text-gray-700 dark:text-gray-300" />
                       </button>
                     </div>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
                       Maximal {product.quantity} verfügbar
                     </p>
                   </div>
@@ -298,9 +298,9 @@ export function ProductGrid({ products }: ProductGridProps) {
 
                 {/* Product Details */}
                 {(product.manufactureDate || product.expirationDate) && (
-                  <div className="space-y-1 pt-2 border-t border-gray-100">
+                  <div className="space-y-1 pt-2 border-t border-gray-100 dark:border-gray-700">
                     {product.manufactureDate && (
-                      <div className="flex items-center justify-between text-xs text-gray-500">
+                      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                         <span>Herstellungsdatum:</span>
                         <span className="font-medium">
                           {new Date(product.manufactureDate).toLocaleDateString(
@@ -310,7 +310,7 @@ export function ProductGrid({ products }: ProductGridProps) {
                       </div>
                     )}
                     {product.expirationDate && (
-                      <div className="flex items-center justify-between text-xs text-gray-500">
+                      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                         <span>Haltbarkeit bis:</span>
                         <span className="font-medium">
                           {new Date(product.expirationDate).toLocaleDateString(
