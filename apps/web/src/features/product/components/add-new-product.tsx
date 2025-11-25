@@ -94,7 +94,7 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
         <Button icon={<PlusCircleIcon />}>Add new Product</Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[600px]">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <form.AppForm>
           <form className="space-y-6" onSubmit={handleSubmit}>
             <DialogHeader>
