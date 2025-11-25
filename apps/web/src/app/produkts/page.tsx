@@ -7,17 +7,17 @@ export default async function ProduktsPage() {
   return (
     <div className="w-full bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[40vh] md:min-h-[50vh] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full min-h-[40vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/assets/p4.JPG')",
+            backgroundImage: "url('/assets/p9.JPG')",
           }}
         />
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-stone-100 opacity-50" />
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-black/10 to-transparent" />
 
         {/* Hero Content */}

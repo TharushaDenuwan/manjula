@@ -4,9 +4,11 @@ import {
   Instagram,
   Mail,
   MapPin,
+  Music2,
   Phone,
-  Twitter,
+  Youtube,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
@@ -24,7 +26,7 @@ export function Footer() {
               gerne zu beantworten.
             </p>
 
-            <button className="bg-[#D4AF37] hover:bg-amber-600 text-white px-9 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 ">
+            <button className="bg-[#D6AF15] hover:bg-amber-300 text-white px-9 py-3 rounded-lg font-semibold transition-all transform hover:scale-105 ">
               Abonnieren
             </button>
           </div>
@@ -32,17 +34,26 @@ export function Footer() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="container mx-auto px-4 py-12 max-w-7xl">
+      <div className="container mx-auto px-1 py-12 max-w-7xl ">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <h4 className="text-xl font-bold text-[#D4AF37]">Manjula</h4>
+            <div className="flex items-center space-x-2 mb-3">
+              <Image
+                src="/assets/logo.png"
+                alt="Manjula Logo"
+                width={80}
+                height={80}
+                className="rounded-full"
+              />
+              <h4 className="text-xl font-bold text-[#D4AF37]">Manjula</h4>
+            </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               Ayurveda Wohlfühlpraxis aus Sri Lanka. Ihre vertrauenswürdige
               Partnerin für traditionelle Ayurveda-Massagen und Wellness.
             </p>
             <div className="flex space-x-4">
-              {[Facebook, Twitter, Instagram].map((Icon, i) => (
+              {[Facebook, Youtube, Instagram, Music2].map((Icon, i) => (
                 <Link
                   key={i}
                   href="#"
@@ -59,11 +70,11 @@ export function Footer() {
             <h5 className="text-lg font-semibold text-white">Über mich</h5>
             <ul className="space-y-2">
               {[
-                { label: "Mein Profil", href: "#" },
-                { label: "Meine Leistungen", href: "#services" },
-                { label: "Erfahrungen", href: "#testimonials" },
-                { label: "Kontakt", href: "#contact" },
-                { label: "Impressum", href: "#" },
+                { label: "Home", href: "/" },
+                { label: "Massage", href: "/massage" },
+                { label: "Ayurveda", href: "/ayurveda" },
+                { label: "Produkts", href: "/produkts" },
+                { label: "Termin buchen", href: "/termin-buchen" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -78,26 +89,6 @@ export function Footer() {
           </div>
 
           {/* Services */}
-          <div className="space-y-4">
-            <h5 className="text-lg font-semibold text-white">Leistungen</h5>
-            <ul className="space-y-2">
-              {[
-                { label: "Ayurveda Massagen", href: "#" },
-                { label: "Yoga & Meditation", href: "#" },
-                { label: "Kräuterbehandlungen", href: "#" },
-                { label: "Dosha-Analyse", href: "#" },
-              ].map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-gray-400 hover:text-amber-400 transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
 
           {/* Contact Info */}
           <div className="space-y-4">
@@ -119,6 +110,17 @@ export function Footer() {
                 <span>relax@manjula.at</span>
               </div>
             </div>
+          </div>
+
+          {/* Right Side Logo */}
+          <div className="flex justify-center lg:justify-end items-start">
+            <Image
+              src="/assets/logo.png"
+              alt="Manjula Logo Right"
+              width={300}
+              height={300}
+              className="rounded-full  "
+            />
           </div>
         </div>
       </div>

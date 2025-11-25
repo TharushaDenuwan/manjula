@@ -58,7 +58,7 @@ export default function AyurvediaPage() {
             {[
               "Die traditionelle indische Heilkunst versteht die Menschen als Einheit von Körper, Geist und Seele und bezieht dabei alle Aspekte des Lebens ein.",
               "Wir unterscheiden zwischen drei Grundtypen (Doshas), dem Vata-, dem Pitta- und dem Kapha-Typ.",
-              "Natürlich gibt es auch Mischtypen aus unterschiedlichen Doshas."
+              "Natürlich gibt es auch Mischtypen aus unterschiedlichen Doshas.",
             ].map((text, index) => (
               <motion.p
                 key={index}
@@ -112,7 +112,7 @@ export default function AyurvediaPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-blue-900/70 via-transparent to-transparent flex flex-col justify-end p-6">
               <h2 className="text-4xl font-bold text-white mb-1">VATA</h2>
-              <p className="text-xl text-white">Schnell & wendig</p>
+              <p className="text-xl text-white">Vata-Typ</p>
             </div>
           </div>
           <div className="p-6">
@@ -239,12 +239,12 @@ export default function AyurvediaPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-orange-900/70 via-transparent to-transparent flex flex-col justify-end p-6">
               <h2 className="text-4xl font-bold text-white mb-1">PITTA</h2>
-              <p className="text-xl text-white">"Ms. & Mr. Perfect"</p>
+              <p className="text-xl text-white">"Pitta-Typ"</p>
             </div>
           </div>
           <div className="p-6">
             <p className="text-gray-600 text-xs mb-4 font-semibold uppercase tracking-wider">
-              „Ms. & Mr. Perfect“
+              "Ms. & Mr. Perfect"
             </p>
             <p className="text-gray-700 text-sm leading-relaxed">
               Mit ihrem athletischen Körperbau und ihrer Ausstrahlung ziehen
@@ -360,7 +360,7 @@ export default function AyurvediaPage() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-green-900/70 via-transparent to-transparent flex flex-col justify-end p-6">
               <h2 className="text-4xl font-bold text-white mb-1">KAPHA</h2>
-              <p className="text-xl text-white">In der Ruhe liegt die Kraft</p>
+              <p className="text-xl text-white">Kapha-Typ</p>
             </div>
           </div>
           <div className="p-6">

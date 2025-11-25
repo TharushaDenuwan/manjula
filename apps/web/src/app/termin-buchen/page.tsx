@@ -2,14 +2,14 @@
 
 // app/termin-buchen/page.tsx   (Next.js 13+ App Router)
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function TerminInfoPage() {
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-16">
+    <div className=" bg-white flex flex-col items-center justify-center px-6 py-16">
       {/* Haupt-Container – alles zentriert */}
-      <div className="max-w-4xl w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+      <div className="max-w-4xl w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-10">
         {/* Linke Seite: Große schwarze Uhr mit Logo */}
         <motion.div
           className="flex-shrink-0"
@@ -18,7 +18,7 @@ export default function TerminInfoPage() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           whileHover={{ scale: 1.05, rotate: [0, -5, 5, -5, 0] }}
         >
-          <div className="relative w-80 h-80 lg:w-120 lg:h-120">
+          <div className="relative w-80 h-80 lg:w-100 lg:h-100">
             <Image
               src="/assets/logo.png" // ← deine schwarze Uhr mit "Ayurveda by Manjula" drin
               alt="Uhr – Heimat-Urlaub"
@@ -31,7 +31,7 @@ export default function TerminInfoPage() {
 
         {/* Rechte Seite: Text + Button */}
         <motion.div
-          className="text-center lg:text-left space-y-8 max-w-lg"
+          className="text-center lg:text-left space-y-4 max-w-lg"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -69,11 +69,11 @@ export default function TerminInfoPage() {
             >
               Bitte berücksichtigen Sie bei Ihrer Terminwahl meinen
               <br />
-              nächsten <strong className="font-bold">Heimat-Urlaub</strong> vom
+              nächsten <strong className="font-bold">Heimat-Urlaub</strong> von
             </motion.p>
 
             <motion.p
-              className="text-3xl font-bold text-amber-600"
+              className="text-3xl font-bold text-[#D7B51B]"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.7, type: "spring" }}
@@ -91,19 +91,19 @@ export default function TerminInfoPage() {
               Sie können mir jederzeit ein SMS an meine Nummer
               <br />
               <motion.span
-                className="text-2xl font-bold text-amber-600 inline-block"
+                className="text-2xl font-bold text-[#D7B51B] inline-block"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.9 }}
                 whileHover={{ scale: 1.1 }}
               >
-                +43 88 65 34 30
+                +43 664 88653430
               </motion.span>{" "}
               senden!
             </motion.p>
 
             <motion.p
-              className="text-2xl font-medium text-gray-900"
+              className="text-2xl  text-[#000000] font-extrabold"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1 }}
@@ -123,7 +123,7 @@ export default function TerminInfoPage() {
           >
             <a
               href="tel:+4388653430"
-              className="inline-block bg-gradient-to-b from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xl px-10 py-4 rounded-full shadow-xl transition-all duration-300 hover:shadow-2xl text-center"
+              className="inline-block bg-[#D7B51B] hover:bg-amber-300 text-white font-bold text-xl px-10 py-4 rounded-full shadow-xl transition-all duration-300 hover:shadow-2xl text-center"
             >
               Termin vereinbaren
             </a>

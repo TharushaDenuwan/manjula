@@ -10,7 +10,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@repo/ui/components/card";
 
 import { toast } from "sonner";
@@ -46,7 +46,7 @@ export function ProductCard({ product, onDelete, onUpdate }: Props) {
       const error = err as Error;
       console.error("Failed to delete product:", error);
       toast.error(`Failed: ${error.message}`, {
-        id: toastId
+        id: toastId,
       });
     } finally {
       setIsDeleting(false);
@@ -115,13 +115,16 @@ export function ProductCard({ product, onDelete, onUpdate }: Props) {
           <div className="flex flex-col gap-1 mt-2 pt-2 border-t border-[#D4AF37]/20">
             <div className="flex items-center gap-1.5 text-xs text-gray-500">
               <Clock className="w-3 h-3 text-[#D4AF37] flex-shrink-0" />
-              <span className="truncate">Created {formatDistanceToNow(new Date(product.createdAt))} ago</span>
+              <span className="truncate">
+                Created {formatDistanceToNow(new Date(product.createdAt))} ago
+              </span>
             </div>
             {(product.manufactureDate || product.expirationDate) && (
               <div className="flex items-center gap-1.5 text-xs text-gray-500">
                 <Calendar className="w-3 h-3 text-[#D4AF37] flex-shrink-0" />
                 <span className="truncate">
-                  {product.manufactureDate && formatDate(product.manufactureDate)}
+                  {product.manufactureDate &&
+                    formatDate(product.manufactureDate)}
                   {product.manufactureDate && product.expirationDate && " → "}
                   {product.expirationDate && formatDate(product.expirationDate)}
                 </span>
@@ -137,7 +140,7 @@ export function ProductCard({ product, onDelete, onUpdate }: Props) {
               size="sm"
               icon={<PencilIcon className="w-3.5 h-3.5" />}
               onClick={() => setIsEditOpen(true)}
-              className="flex-1 h-8 bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] font-semibold text-xs transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+              className="flex-1 h-8 bg-[#D4AF37] hover:bg-yellow-300 text-[#ffffff] font-semibold text-xs transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
             >
               Edit
             </Button>

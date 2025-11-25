@@ -60,9 +60,9 @@ export function AdminSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-3"
+              className="data-[slot=sidebar-menu-button]:!p-6"
             >
-              <Link href="/" className="flex items-center justify-center w-full">
+              <Link href="/" className="flex items-center  w-full ">
                 <Image
                   src="/assets/logo.png"
                   alt="AYURVEDA by Manjula"

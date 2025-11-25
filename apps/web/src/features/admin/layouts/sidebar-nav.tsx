@@ -37,7 +37,7 @@ export function AdminSidebarNav({
                 asChild
                 className={
                   isActive
-                    ? "bg-[#D4AF37] text-[#0F172A] font-semibold"
+                    ? "bg-[#D4AF37] text-white font-semibold hover:bg-amber-300 hover:text-white"
                     : "hover:bg-[#D4AF37]/20 hover:text-[#D4AF37]"
                 }
               >

@@ -21,8 +21,8 @@ export function Navbar({}: Props) {
     { href: "/massage", label: "Massage" },
 
     { href: "/ayurveda", label: "Ayurveda" },
-    { href: "/termin-buchen", label: "Termin buchen" },
     { href: "/produkts", label: "Produkts" },
+    { href: "/termin-buchen", label: "Termin buchen" },
   ];
 
   return (
@@ -39,7 +39,7 @@ export function Navbar({}: Props) {
             <img
               src="/assets/logo.png"
               alt="Bloonsoo Logo"
-              className="h-10 w-auto object-contain"
+              className="h-15 w-auto object-contain"
             />
           </Link>
         </div>
@@ -68,7 +68,7 @@ export function Navbar({}: Props) {
           <Button
             variant="outline"
             className={cn(
-              "hidden md:flex text-white bg-[#E4BF3C] hover:bg-[#f6d355] hover:text-white cursor-pointer border-none"
+              "hidden md:flex text-white bg-[#E4BF3C] hover:bg-yellow-300 hover:text-white cursor-pointer border-none"
             )}
             onClick={() => {
               const activeOrgId = session?.session?.activeOrganizationId;
@@ -101,7 +101,9 @@ export function Navbar({}: Props) {
       <div
         className={cn(
           "fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300",
-          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          isMobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         )}
         onClick={() => setIsMobileMenuOpen(false)}
       />
@@ -113,68 +115,68 @@ export function Navbar({}: Props) {
           isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
-            {/* Sidebar Header */}
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
-              <Link
-                href="/"
-                className="flex items-center gap-2"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <img
-                  src="/assets/logo.png"
-                  alt="AYURVEDA by Manjula"
-                  className="h-10 w-auto object-contain"
-                />
-              </Link>
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-lg text-black hover:bg-gray-100 transition-colors"
-                aria-label="Close menu"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
+        {/* Sidebar Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+          <Link
+            href="/"
+            className="flex items-center gap-2"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <img
+              src="/assets/logo.png"
+              alt="AYURVEDA by Manjula"
+              className="h-10 w-auto object-contain"
+            />
+          </Link>
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-2 rounded-lg text-black hover:bg-gray-100 transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
 
-            {/* Sidebar Navigation */}
-            <nav className="flex flex-col p-4 space-y-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={cn(
-                    "px-4 py-3 rounded-lg font-medium text-base transition-colors",
-                    pathname === item.href
-                      ? "text-[#E4BF3C] font-semibold bg-[#E4BF3C]/10"
-                      : "text-black hover:bg-gray-100 hover:text-[#E4BF3C]"
-                  )}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+        {/* Sidebar Navigation */}
+        <nav className="flex flex-col p-4 space-y-2">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={cn(
+                "px-4 py-3 rounded-lg font-medium text-base transition-colors",
+                pathname === item.href
+                  ? "text-[#E4BF3C] font-semibold bg-[#E4BF3C]/10"
+                  : "text-black hover:bg-gray-100 hover:text-[#E4BF3C]"
+              )}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-            {/* Sidebar Footer */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
-              <Button
-                variant="outline"
-                className={cn(
-                  "w-full text-white bg-[#E4BF3C] hover:bg-[#f6d355] hover:text-white cursor-pointer border-none"
-                )}
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  const activeOrgId = session?.session?.activeOrganizationId;
-                  if (activeOrgId) {
-                    router.push("/account");
-                  } else {
-                    router.push("/account");
-                  }
-                }}
-              >
-                Admin Login
-              </Button>
-            </div>
-          </div>
+        {/* Sidebar Footer */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+          <Button
+            variant="outline"
+            className={cn(
+              "w-full text-white bg-[#E4BF3C] hover:bg-[#f6d355] hover:text-white cursor-pointer border-none"
+            )}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              const activeOrgId = session?.session?.activeOrganizationId;
+              if (activeOrgId) {
+                router.push("/account");
+              } else {
+                router.push("/account");
+              }
+            }}
+          >
+            Admin Login
+          </Button>
+        </div>
+      </div>
 
       {/* Spacer so content isn't hidden behind navbar */}
       <div className="h-16" />
