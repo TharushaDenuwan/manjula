@@ -29,8 +29,9 @@ export default function MassagePage() {
   // Sample images from local assets
   const carouselImages = [
     "/assets/p17.JPG",
-    "/assets/p8.JPG",
     "/assets/3.JPG",
+    "/assets/p8.JPG",
+
     "/assets/5.JPG",
   ];
 
@@ -272,50 +273,48 @@ export default function MassagePage() {
                     scale: 1.02,
                   }}
                 >
-                  <Card
-                    className="group bg-white rounded-xl border border-gray-200 hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500"
-                  >
-                  <CardHeader className="text-center pb-4">
-                    {/* Icon Circle */}
-                    <div className="flex justify-center mb-4">
-                      <div className="p-4 rounded-full bg-[#D4AF37]/10 border-2 border-[#D4AF37]/30 group-hover:bg-[#D4AF37]/20 group-hover:scale-110 transition-all duration-300">
-                        <IconComponent className="w-8 h-8 text-[#D4AF37]" />
+                  <Card className="group bg-white rounded-xl border border-gray-200 hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500">
+                    <CardHeader className="text-center pb-4">
+                      {/* Icon Circle */}
+                      <div className="flex justify-center mb-4">
+                        <div className="p-4 rounded-full bg-[#D4AF37]/10 border-2 border-[#D4AF37]/30 group-hover:bg-[#D4AF37]/20 group-hover:scale-110 transition-all duration-300">
+                          <IconComponent className="w-8 h-8 text-[#D4AF37]" />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Title */}
-                    <CardTitle className="text-lg font-bold text-[#0F172A] mb-1 group-hover:text-[#D4AF37] transition-colors">
-                      {service.name}
-                    </CardTitle>
-                    <CardDescription className="text-sm text-gray-600 font-medium">
-                      {service.subtitle}
-                    </CardDescription>
-                  </CardHeader>
+                      {/* Title */}
+                      <CardTitle className="text-lg font-bold text-[#0F172A] mb-1 group-hover:text-[#D4AF37] transition-colors">
+                        {service.name}
+                      </CardTitle>
+                      <CardDescription className="text-sm text-gray-600 font-medium">
+                        {service.subtitle}
+                      </CardDescription>
+                    </CardHeader>
 
-                  <CardContent className="space-y-4">
-                    {/* Description */}
-                    <p className="text-sm text-gray-700 leading-relaxed text-center">
-                      {service.description}
-                    </p>
-
-                    {/* Duration */}
-                    <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-100">
-                      <Clock className="w-4 h-4 text-[#D4AF37]" />
-                      <p className="text-sm text-gray-600">
-                        Sie sollten sich {service.duration} Zeit nehmen.
+                    <CardContent className="space-y-4">
+                      {/* Description */}
+                      <p className="text-sm text-gray-700 leading-relaxed text-center">
+                        {service.description}
                       </p>
-                    </div>
 
-                    {/* Long Duration Note for ABHYANGA */}
-                    {service.durationLong && (
-                      <div className="pt-2">
-                        <p className="text-xs text-gray-500 text-center italic">
-                          ({service.durationLong})
+                      {/* Duration */}
+                      <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-100">
+                        <Clock className="w-4 h-4 text-[#D4AF37]" />
+                        <p className="text-sm text-gray-600">
+                          Sie sollten sich {service.duration} Zeit nehmen.
                         </p>
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
+
+                      {/* Long Duration Note for ABHYANGA */}
+                      {service.durationLong && (
+                        <div className="pt-2">
+                          <p className="text-xs text-gray-500 text-center italic">
+                            ({service.durationLong})
+                          </p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 </motion.div>
               );
             })}
@@ -373,7 +372,7 @@ export default function MassagePage() {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 whileHover={{
                   y: plan.upgrade ? -8 : -12,
-                  scale: plan.upgrade ? 1.03 : 1.02
+                  scale: plan.upgrade ? 1.03 : 1.02,
                 }}
               >
                 {/* Popular Badge */}
