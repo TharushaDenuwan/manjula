@@ -46,6 +46,11 @@ const data = {
       url: "/admin/orders",
       icon: IconBuildings,
     },
+    {
+      name: "Reviews",
+      url: "/admin/reviews",
+      icon: IconBuildings,
+    },
   ],
 };
 

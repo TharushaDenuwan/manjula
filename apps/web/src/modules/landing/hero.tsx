@@ -520,6 +520,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { DiscountPosts } from "./discount-posts";
+import { ReviewSection } from "./review";
 
 // Section Wrapper Component for Scroll Animations
 function SectionWrapper({ children }: { children: React.ReactNode }) {
@@ -907,7 +908,9 @@ export function Hero() {
                     <h3 className="text-xl sm:text-2xl font-bold text-[#0F172A] dark:text-white mb-2 sm:mb-3 group-hover:text-[#D4AF37] transition-colors">
                       {service.title}
                     </h3>
-                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{service.desc}</p>
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+                      {service.desc}
+                    </p>
                   </motion.div>
                 </Link>
               ))}
@@ -919,9 +922,16 @@ export function Hero() {
       {/* DISCOUNT POSTS */}
       <DiscountPosts />
 
+      {/* REVIEWS SECTION */}
+      <ReviewSection />
+
       {/* CONTACT & MAP – LUXURIOUS GOLD/WHITE */}
       <SectionWrapper>
-        <section id="contact" ref={contactRef} className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900 scroll-mt-20">
+        <section
+          id="contact"
+          ref={contactRef}
+          className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900 scroll-mt-20"
+        >
           <div className="max-w-7xl mx-auto">
             <motion.h2
               className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-[#0F172A] dark:text-white mb-3 sm:mb-4"
@@ -960,7 +970,10 @@ export function Hero() {
                 >
                   Nachricht senden
                 </motion.h3>
-                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6">
+                <form
+                  onSubmit={handleSubmit}
+                  className="space-y-4 sm:space-y-5 md:space-y-6"
+                >
                   {[
                     { type: "text", placeholder: "Name *", field: "name" },
                     {
@@ -1061,7 +1074,9 @@ export function Hero() {
                   <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-black dark:text-white">
                     Ayurveda-Massage-Praxis "Manjula"
                   </h3>
-                  <p className="text-base sm:text-lg font-medium text-black dark:text-white">Steiermark, Österreich</p>
+                  <p className="text-base sm:text-lg font-medium text-black dark:text-white">
+                    Steiermark, Österreich
+                  </p>
                   <div className="mt-4 sm:mt-5 md:mt-6 space-y-1.5 sm:space-y-2 text-sm sm:text-base text-[#5f6164] dark:text-gray-300">
                     <p>☎ Telefon: +43 664 88653430</p>
                     <p>✉ E-Mail: relax@manjula.at</p>

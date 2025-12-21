@@ -39,20 +39,11 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
 // Create new reviwe
 export const create: AppRouteHandler<CreateRoute> = async (c) => {
   const body = c.req.valid("json");
-  const session = c.get("session");
-
-  if (!session) {
-    return c.json(
-      { message: HttpStatusPhrases.UNAUTHORIZED },
-      HttpStatusCodes.UNAUTHORIZED
-    );
-  }
 
   const [inserted] = await db
     .insert(reviwes)
     .values({
       ...body,
-
       createdAt: new Date(),
     })
     .returning();

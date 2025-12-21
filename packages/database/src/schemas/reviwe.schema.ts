@@ -1,11 +1,18 @@
 import { sql } from "drizzle-orm";
 import {
   integer,
+  pgEnum,
   pgTable,
   text,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
+
+export const reviewStatusEnum = pgEnum("review_status", [
+  "pending",
+  "approved",
+  "rejected",
+]);
 
 export const reviwes = pgTable("review", {
   id: text("id")
@@ -26,6 +33,9 @@ export const reviwes = pgTable("review", {
 
   // Helpful counter if you want (optional)
   helpfulCount: integer("helpful_count").default(0),
+
+  // Status for admin moderation
+  status: reviewStatusEnum("status").default("pending").notNull(),
 
   // Auto timestamps
   updatedAt: timestamp("updated_at").defaultNow(),
