@@ -215,22 +215,27 @@ export function ReviewSection() {
                     transition={{ duration: 0.4, delay: index * 0.05 }}
                   >
                     <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <h4 className="text-lg font-semibold text-[#0F172A] dark:text-white">
-                          {review.name}
-                        </h4>
-                        {review.createdAt && (
-                          <p className="text-xs text-gray-400 mt-1">
-                            {new Date(review.createdAt).toLocaleDateString(
-                              "de-DE",
-                              {
-                                year: "numeric",
-                                month: "long",
-                                day: "numeric",
-                              }
-                            )}
-                          </p>
-                        )}
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] font-bold text-lg shrink-0">
+                          {review.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <h4 className="text-lg font-semibold text-[#0F172A] dark:text-white">
+                            {review.name}
+                          </h4>
+                          {review.createdAt && (
+                            <p className="text-xs text-gray-400 mt-0.5">
+                              {new Date(review.createdAt).toLocaleDateString(
+                                "de-DE",
+                                {
+                                  year: "numeric",
+                                  month: "long",
+                                  day: "numeric",
+                                }
+                              )}
+                            </p>
+                          )}
+                        </div>
                       </div>
                       <StarRating rating={review.rating} />
                     </div>
