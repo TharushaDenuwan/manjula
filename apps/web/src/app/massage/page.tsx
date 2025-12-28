@@ -64,7 +64,8 @@ export default function MassagePage() {
       if (servicesRef.current) {
         const rect = servicesRef.current.getBoundingClientRect();
         // Check if section is visible in viewport
-        const isInView = rect.top < window.innerHeight + 300 && rect.bottom > -300;
+        const isInView =
+          rect.top < window.innerHeight + 300 && rect.bottom > -300;
         if (isInView) {
           // Trigger animations after a short delay to ensure page is loaded
           setTimeout(() => {
@@ -81,7 +82,8 @@ export default function MassagePage() {
     const handleScroll = () => {
       if (!cardsAnimated && servicesRef.current) {
         const rect = servicesRef.current.getBoundingClientRect();
-        const isInView = rect.top < window.innerHeight + 300 && rect.bottom > -300;
+        const isInView =
+          rect.top < window.innerHeight + 300 && rect.bottom > -300;
         if (isInView) {
           setCardsAnimated(true);
         }
@@ -292,7 +294,10 @@ export default function MassagePage() {
       {/* Services Section */}
       <section className="py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          <div ref={servicesRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div
+            ref={servicesRef}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+          >
             {services.map((service, index) => {
               const IconComponent = service.icon;
               const isLastItem = index === services.length - 1;
@@ -305,7 +310,9 @@ export default function MassagePage() {
                   data-service-card
                   className={shouldCenter ? "lg:col-start-2" : ""}
                   initial={{ opacity: 0, y: 50 }}
-                  animate={cardsAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                  animate={
+                    cardsAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
+                  }
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, margin: "-100px" }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -314,50 +321,48 @@ export default function MassagePage() {
                     scale: 1.02,
                   }}
                 >
-                  <Card
-                    className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500"
-                  >
-                  <CardHeader className="text-center pb-4">
-                    {/* Icon Circle */}
-                    <div className="flex justify-center mb-4">
-                      <div className="p-4 rounded-full bg-[#D4AF37]/10 border-2 border-[#D4AF37]/30 group-hover:bg-[#D4AF37]/20 group-hover:scale-110 transition-all duration-300">
-                        <IconComponent className="w-8 h-8 text-[#D4AF37]" />
+                  <Card className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500">
+                    <CardHeader className="text-center pb-4">
+                      {/* Icon Circle */}
+                      <div className="flex justify-center mb-4">
+                        <div className="p-4 rounded-full bg-[#D4AF37]/10 border-2 border-[#D4AF37]/30 group-hover:bg-[#D4AF37]/20 group-hover:scale-110 transition-all duration-300">
+                          <IconComponent className="w-8 h-8 text-[#D4AF37]" />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Title */}
-                    <CardTitle className="text-lg font-bold text-[#0F172A] dark:text-white mb-1 group-hover:text-[#D4AF37] transition-colors">
-                      {service.name}
-                    </CardTitle>
-                    <CardDescription className="text-sm text-gray-600 dark:text-gray-300 font-medium">
-                      {service.subtitle}
-                    </CardDescription>
-                  </CardHeader>
+                      {/* Title */}
+                      <CardTitle className="text-lg font-bold text-[#0F172A] dark:text-white mb-1 group-hover:text-[#D4AF37] transition-colors">
+                        {service.name}
+                      </CardTitle>
+                      <CardDescription className="text-sm text-gray-600 dark:text-gray-300 font-medium">
+                        {service.subtitle}
+                      </CardDescription>
+                    </CardHeader>
 
-                  <CardContent className="space-y-4">
-                    {/* Description */}
-                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center">
-                      {service.description}
-                    </p>
-
-                    {/* Duration */}
-                    <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-100 dark:border-gray-700">
-                      <Clock className="w-4 h-4 text-[#D4AF37]" />
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Sie sollten sich {service.duration} Zeit nehmen.
+                    <CardContent className="space-y-4">
+                      {/* Description */}
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center">
+                        {service.description}
                       </p>
-                    </div>
 
-                    {/* Long Duration Note for ABHYANGA */}
-                    {service.durationLong && (
-                      <div className="pt-2">
-                        <p className="text-xs text-gray-500 dark:text-gray-400 text-center italic">
-                          ({service.durationLong})
+                      {/* Duration */}
+                      <div className="flex items-center justify-center gap-2 pt-4 border-t border-gray-100 dark:border-gray-700">
+                        <Clock className="w-4 h-4 text-[#D4AF37]" />
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Sie sollten sich {service.duration} Zeit nehmen.
                         </p>
                       </div>
-                    )}
-                  </CardContent>
-                </Card>
+
+                      {/* Long Duration Note for ABHYANGA */}
+                      {service.durationLong && (
+                        <div className="pt-2">
+                          <p className="text-xs text-gray-500 dark:text-gray-400 text-center italic">
+                            ({service.durationLong})
+                          </p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
                 </motion.div>
               );
             })}
@@ -415,7 +420,7 @@ export default function MassagePage() {
                 transition={{ duration: 0.6, delay: index * 0.15 }}
                 whileHover={{
                   y: plan.upgrade ? -8 : -12,
-                  scale: plan.upgrade ? 1.03 : 1.02
+                  scale: plan.upgrade ? 1.03 : 1.02,
                 }}
               >
                 {/* Popular Badge */}

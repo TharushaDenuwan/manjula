@@ -20,7 +20,7 @@ export default function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={bodyClassName}>
+      <body className={bodyClassName} suppressHydrationWarning>
         <Providers>
           <Suspense>
             {children}
