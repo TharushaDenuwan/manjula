@@ -20,9 +20,10 @@ export function Navbar({}: Props) {
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/massage", label: "Massage" },
-
+    { href: "/yoga", label: "Yoga" },
     { href: "/ayurveda", label: "Ayurveda" },
     { href: "/produkts", label: "Produkts" },
+    { href: "/gallary", label: "Gallary" },
     { href: "/termin-buchen", label: "Termin buchen" },
   ];
 
