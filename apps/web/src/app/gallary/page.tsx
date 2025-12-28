@@ -360,7 +360,7 @@ export default function Gallery() {
   );
 
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 from-white via-gray-50 to-white">
+    <div className="min-h-screen overflow-hidden bg-gradient-to-b dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 from-white via-gray-50 to-white mb-5">
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 right-40 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl dark:opacity-5 opacity-20 animate-blob"></div>
         <div className="absolute -bottom-8 left-20 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl dark:opacity-5 opacity-20 animate-blob animation-delay-2000"></div>
@@ -456,7 +456,7 @@ export default function Gallery() {
               </div>
             </div>
           </div>
-        </div>
+        </div >
       )}
 
       <style jsx>{`
