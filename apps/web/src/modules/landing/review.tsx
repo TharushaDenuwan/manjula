@@ -8,7 +8,7 @@ import {
 import { Button } from "@repo/ui/components/button";
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function ReviewSection() {
   const [reviews, setReviews] = useState<ReviewResponse[]>([]);
@@ -37,6 +37,33 @@ export function ReviewSection() {
       console.error("Error fetching reviews:", error);
     }
   };
+
+  // Auto-scroll logic
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let animationFrameId: number;
+    let scrollPos = scrollContainer.scrollTop;
+
+    const scroll = () => {
+      if (!isPaused && scrollContainer) {
+        scrollPos += 0.5; // Adjust speed here
+        if (scrollPos >= scrollContainer.scrollHeight - scrollContainer.clientHeight) {
+          scrollPos = 0; // Reset to top
+        }
+        scrollContainer.scrollTop = scrollPos;
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isPaused, reviews]); // Re-run when reviews change to handle height updates
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -196,57 +223,71 @@ export function ReviewSection() {
               Alle Bewertungen ({reviews.length})
             </h3>
 
-            {/* Reviews List */}
-            <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
-              {reviews.length === 0 ? (
-                <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
-                  <p className="text-gray-500 dark:text-gray-400 text-lg">
-                    Noch keine Bewertungen vorhanden. Seien Sie der Erste!
-                  </p>
-                </div>
-              ) : (
-                reviews.map((review, index) => (
-                  <motion.div
-                    key={review.id}
-                    className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] font-bold text-lg shrink-0">
-                          {review.name.charAt(0).toUpperCase()}
+            {/* Reviews List with Smoke Effect */}
+            <div className="relative">
+              {/* Top Smoke Gradient */}
+              <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-gray-50 via-gray-50/60 to-transparent dark:from-gray-800 dark:via-gray-800/60 z-10 pointer-events-none" />
+
+              {/* Reviews List */}
+              <div
+                ref={scrollRef}
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+                className="space-y-4 max-h-[600px] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] py-8"
+              >
+                {reviews.length === 0 ? (
+                  <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
+                    <p className="text-gray-500 dark:text-gray-400 text-lg">
+                      Noch keine Bewertungen vorhanden. Seien Sie der Erste!
+                    </p>
+                  </div>
+                ) : (
+                  reviews.map((review, index) => (
+                    <motion.div
+                      key={review.id}
+                      className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] font-bold text-lg shrink-0">
+                            {review.name.charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <h4 className="text-lg font-semibold text-[#0F172A] dark:text-white">
+                              {review.name}
+                            </h4>
+                            {review.createdAt && (
+                              <p className="text-xs text-gray-400 mt-0.5">
+                                {new Date(review.createdAt).toLocaleDateString(
+                                  "de-DE",
+                                  {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                  }
+                                )}
+                              </p>
+                            )}
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-[#0F172A] dark:text-white">
-                            {review.name}
-                          </h4>
-                          {review.createdAt && (
-                            <p className="text-xs text-gray-400 mt-0.5">
-                              {new Date(review.createdAt).toLocaleDateString(
-                                "de-DE",
-                                {
-                                  year: "numeric",
-                                  month: "long",
-                                  day: "numeric",
-                                }
-                              )}
-                            </p>
-                          )}
-                        </div>
+                        <StarRating rating={review.rating} />
                       </div>
-                      <StarRating rating={review.rating} />
-                    </div>
-                    {review.comment && (
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                        {review.comment}
-                      </p>
-                    )}
-                  </motion.div>
-                ))
-              )}
+                      {review.comment && (
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                          {review.comment}
+                        </p>
+                      )}
+                    </motion.div>
+                  ))
+                )}
+              </div>
+
+              {/* Bottom Smoke Gradient */}
+              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-50 via-gray-50/60 to-transparent dark:from-gray-800 dark:via-gray-800/60 z-10 pointer-events-none" />
             </div>
           </motion.div>
         </div>
