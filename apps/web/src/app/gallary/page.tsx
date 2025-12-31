@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 export default function Gallery() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
-  const [layout, setLayout] = useState("slideshow");
+  const [layout, setLayout] = useState("masonry");
   const [direction, setDirection] = useState("next");
 
   // Lightbox / modal state
@@ -61,108 +61,26 @@ export default function Gallery() {
   };
 
   const images = [
-    {
-      id: 1,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop",
-      title: "Mountain Peak",
-      description: "Majestic mountain landscape",
-    },
-    {
-      id: 2,
-      url: "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1200&h=600&fit=crop",
-      title: "Ocean Waves",
-      description: "Serene coastal scenery",
-    },
-    {
-      id: 3,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop",
-      title: "Forest Trail",
-      description: "Peaceful woodland path",
-    },
-    {
-      id: 4,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop",
-      title: "Mountain Peak",
-      description: "Majestic mountain landscape",
-    },
-    {
-      id: 5,
-      url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1200&h=600&fit=crop",
-      title: "Starry Night",
-      description: "Night sky with stars",
-    },
-    {
-      id: 6,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop",
-      title: "Alpine Lakes",
-      description: "Crystal clear mountain waters",
-    },
-    {
-      id: 7,
-      url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1200&h=600&fit=crop",
-      title: "Starry Night",
-      description: "Night sky with stars",
-    },
-    {
-      id: 8,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop",
-      title: "Alpine Lakes",
-      description: "Crystal clear mountain waters",
-    },
-    {
-      id: 9,
-      url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1200&h=600&fit=crop",
-      title: "Starry Night",
-      description: "Night sky with stars",
-    },
-    {
-      id: 10,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop",
-      title: "Alpine Lakes",
-      description: "Crystal clear mountain waters",
-    },
-    {
-      id: 11,
-      url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1200&h=600&fit=crop",
-      title: "Starry Night",
-      description: "Night sky with stars",
-    },
-    {
-      id: 12,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop",
-      title: "Alpine Lakes",
-      description: "Crystal clear mountain waters",
-    },
-    {
-      id: 13,
-      url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1200&h=600&fit=crop",
-      title: "Starry Night",
-      description: "Night sky with stars",
-    },
-    {
-      id: 14,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop",
-      title: "Alpine Lakes",
-      description: "Crystal clear mountain waters",
-    },
-    {
-      id: 15,
-      url: "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1200&h=600&fit=crop",
-      title: "Starry Night",
-      description: "Night sky with stars",
-    },
-    {
-      id: 16,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=600&fit=crop",
-      title: "Mountain Peak",
-      description: "Majestic mountain landscape",
-    },
-    {
-      id: 17,
-      url: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop",
-      title: "Alpine Lakes",
-      description: "Crystal clear mountain waters",
-    },
+    { id: 1, url: "/assets/1.JPG" },
+    { id: 2, url: "/assets/2.JPG" },
+    { id: 3, url: "/assets/5.JPG" },
+    { id: 4, url: "/assets/6.JPG" },
+    { id: 5, url: "/assets/p4.JPG" },
+    { id: 6, url: "/assets/p8.JPG" },
+    { id: 7, url: "/assets/p9.JPG" },
+    { id: 8, url: "/assets/p17.JPG" },
+    { id: 9, url: "/assets/new/4.JPG" },
+    { id: 10, url: "/assets/new/5.JPG" },
+    { id: 11, url: "/assets/new/p1.JPG" },
+    { id: 12, url: "/assets/new/p2.JPG" },
+    { id: 13, url: "/assets/new/p6.JPG" },
+    { id: 14, url: "/assets/new/p10.JPG" },
+    { id: 15, url: "/assets/new/p11.JPG" },
+    { id: 16, url: "/assets/new/p12.JPG" },
+    { id: 17, url: "/assets/new/p13.JPG" },
+    { id: 18, url: "/assets/new/p15.JPG" },
+    { id: 19, url: "/assets/new/p17.JPG" },
+    { id: 20, url: "/assets/new/p18.JPG" },
   ];
 
   useEffect(() => {
@@ -204,7 +122,7 @@ export default function Gallery() {
             >
               <img
                 src={image.url}
-                alt={image.title}
+                alt={`Image ${image.id}`}
                 className="w-full h-full object-cover cursor-zoom-in"
                 onClick={() => openLightbox(index)}
               />
@@ -212,14 +130,7 @@ export default function Gallery() {
             </div>
           ))}
         </div>
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-20 animate-slideUp">
-          <h2 className="text-3xl md:text-4xl font-bold dark:text-white text-gray-900 mb-2">
-            {images[currentIndex].title}
-          </h2>
-          <p className="dark:text-gray-300 text-gray-600 text-lg">
-            {images[currentIndex].description}
-          </p>
-        </div>
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-20 animate-slideUp" />
         <button
           onClick={handlePrev}
           className="absolute left-4 top-1/2 -translate-y-1/2 z-30 dark:bg-white/10 bg-white/50 dark:hover:bg-white/20 hover:bg-gray-100 backdrop-blur-md p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 transform hover:scale-110"
@@ -261,7 +172,7 @@ export default function Gallery() {
           >
             <img
               src={image.url}
-              alt={image.title}
+              alt={`Image ${image.id}`}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
             />
             {index === currentIndex && (
@@ -284,17 +195,10 @@ export default function Gallery() {
         >
           <img
             src={image.url}
-            alt={image.title}
+            alt={`Image ${image.id}`}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
-          <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-black/80 dark:via-black/20 dark:to-transparent bg-gradient-to-t from-white/70 via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-            <h3 className="dark:text-white text-gray-900 font-bold text-lg">
-              {image.title}
-            </h3>
-            <p className="dark:text-gray-300 text-gray-600 text-sm">
-              {image.description}
-            </p>
-          </div>
+          <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-black/80 dark:via-black/20 dark:to-transparent bg-gradient-to-t from-white/70 via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4" />
         </div>
       ))}
     </div>
@@ -311,17 +215,10 @@ export default function Gallery() {
         >
           <img
             src={image.url}
-            alt={image.title}
+            alt={`Image ${image.id}`}
             className="w-full h-auto object-cover group-hover:scale-110 transition-transform duration-500"
           />
-          <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-black/80 dark:via-black/20 dark:to-transparent bg-gradient-to-t from-white/70 via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-            <h3 className="dark:text-white text-gray-900 font-bold">
-              {image.title}
-            </h3>
-            <p className="dark:text-gray-300 text-gray-600 text-xs">
-              {image.description}
-            </p>
-          </div>
+          <div className="absolute inset-0 dark:bg-gradient-to-t dark:from-black/80 dark:via-black/20 dark:to-transparent bg-gradient-to-t from-white/70 via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4" />
         </div>
       ))}
     </div>
@@ -338,17 +235,17 @@ export default function Gallery() {
           <div className="relative w-32 md:w-48 h-24 md:h-32 flex-shrink-0 overflow-hidden rounded-lg">
             <img
               src={image.url}
-              alt={image.title}
+              alt={`Image ${image.id}`}
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-zoom-in"
               onClick={() => openLightbox(index)}
             />
           </div>
           <div className="flex flex-col justify-center py-4 pr-4 md:pr-8 flex-1">
             <h3 className="dark:text-white text-gray-900 font-bold text-lg md:text-xl mb-2 group-hover:text-[#E4BF3C] transition-colors">
-              {image.title}
+              {/* title removed */}
             </h3>
             <p className="dark:text-gray-400 text-gray-600 text-sm md:text-base">
-              {image.description}
+              {/* description removed */}
             </p>
           </div>
           <div className="hidden md:flex items-center pr-4">
@@ -447,16 +344,12 @@ export default function Gallery() {
             </button>
 
             <div className="mt-3 text-center text-sm text-gray-100 dark:text-gray-300">
-              <div className="font-semibold">{images[lightboxIndex].title}</div>
-              <div className="text-gray-200/80 mt-1">
-                {images[lightboxIndex].description}
-              </div>
               <div className="text-xs text-gray-200/70 mt-2">
                 {lightboxIndex + 1} / {images.length}
               </div>
             </div>
           </div>
-        </div >
+        </div>
       )}
 
       <style jsx>{`
