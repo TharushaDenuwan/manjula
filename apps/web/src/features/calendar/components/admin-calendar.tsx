@@ -1,26 +1,28 @@
 "use client";
 
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
 } from "@repo/ui/components/alert-dialog";
 import { Button } from "@repo/ui/components/button";
 import { Calendar } from "@repo/ui/components/calendar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@repo/ui/components/card";
-import { format, isSaturday, isSunday, startOfToday } from "date-fns";
+import { format, isSaturday, isSunday, isWithinInterval, parseISO, startOfToday } from "date-fns";
 import { Calendar as CalendarIcon, Clock, ExternalLink, Loader2, Trash2, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { deleteCalendar } from "../actions/delete-calendar.action";
 import { CalendarResponse, getAllCalendar } from "../actions/get-all-calendar.action";
+import { getShopClosedDays, ShopClosedDay } from "../actions/shop-availability.action";
 import { BookSlotDialog } from "./book-slot-dialog";
+import { ClosedDaysManager } from "./closed-days-manager";
 
 const SLOTS = [
   { id: "1", start: "08:00", end: "09:30", label: "08:00 - 09:30" },
@@ -34,17 +36,20 @@ export function AdminCalendar() {
   // Initialize with today's date to ensure consistency between server and client
   const [date, setDate] = useState<Date | undefined>(startOfToday());
   const [bookings, setBookings] = useState<CalendarResponse[]>([]);
+  const [closedDays, setClosedDays] = useState<ShopClosedDay[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchBookings = async () => {
     setIsLoading(true);
     try {
-      // In a real app, you'd pass the date range to filtered backend
-      // For now we fetch recent bookings and filter client side
-      const response = await getAllCalendar({ limit: 100, page: 1 });
-      setBookings(response.data);
+      const [bookingsResponse, closedDaysResponse] = await Promise.all([
+        getAllCalendar({ limit: 100, page: 1 }),
+        getShopClosedDays()
+      ]);
+      setBookings(bookingsResponse.data);
+      setClosedDays(closedDaysResponse);
     } catch (error) {
-      toast.error("Failed to load bookings");
+      toast.error("Failed to load calendar data");
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +73,19 @@ export function AdminCalendar() {
   const selectedDateStr = date ? format(date, "yyyy-MM-dd") : "";
   const dayBookings = bookings.filter(b => b.bookingDate === selectedDateStr);
 
-  const isWeekend = date ? (isSaturday(date) || isSunday(date)) : false;
+  const isShopClosed = (checkDate: Date) => {
+    if (isSaturday(checkDate) || isSunday(checkDate)) return true;
+
+    return closedDays.some(range => {
+      const start = parseISO(range.startDate);
+      const end = parseISO(range.endDate);
+      start.setHours(0, 0, 0, 0);
+      end.setHours(23, 59, 59, 999);
+      return isWithinInterval(checkDate, { start, end });
+    });
+  };
+
+  const isWeekend = date ? isShopClosed(date) : false;
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
@@ -120,7 +137,7 @@ export function AdminCalendar() {
       </div>
 
       {/* Slots Area */}
-      <div className="flex-1">
+      <div className="flex-1 space-y-8">
         <Card className="h-full border-border">
           <CardHeader className="flex flex-row items-center justify-between">
             <div>
@@ -241,6 +258,9 @@ export function AdminCalendar() {
             )}
           </CardContent>
         </Card>
+
+        {/* Closed Days Management */}
+        <ClosedDaysManager />
       </div>
     </div>
   );

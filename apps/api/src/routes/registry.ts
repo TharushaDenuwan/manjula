@@ -12,6 +12,7 @@ import order from "./order/order.index";
 import post from "./post/post.index";
 import product from "./product/product.index";
 import reviwe from "./reviwe/reviwe.index";
+import shopAvailability from "./shop-availability/shop-availability.index";
 import system from "./system/system.index";
 import tasks from "./tasks/tasks.index";
 
@@ -26,6 +27,7 @@ export function registerRoutes(app: AppOpenAPI) {
     .route("/contacts", contact)
     .route("/orders", order)
     .route("/calendar", calendar)
+    .route("/shop-availability", shopAvailability)
     .route("/products", product);
 }
 
