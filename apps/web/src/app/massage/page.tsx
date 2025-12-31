@@ -11,13 +11,18 @@ import {
 } from "@repo/ui/components/card";
 import { motion } from "framer-motion";
 import {
+  AlertCircle,
   ArrowLeft,
   ArrowRight,
+  CalendarCheck,
   Clock,
+  CreditCard,
   Heart,
+  Info,
   Leaf,
   MessageCircle,
   Move,
+  Phone,
   Sparkles,
   Target,
   Wind,
@@ -166,33 +171,17 @@ export default function MassagePage() {
 
   const pricingPlans = [
     {
-      duration: "1 Stunde",
-      price: "€ 80,-",
-      subtitle: "Pro Behandlung",
-      optimalFor: [
-        "SHIROABHYANGA - ACHTSAME FREIHEIT",
-        "NATURKRAFT - KRÄUTERSTEMPEL MASSAGE",
-        "VITALE KOMBIMASSAGE",
-        "PROBLEMZONEN BEHANDLUNG",
-      ],
-    },
-    {
       duration: "1 1/2 Stunden",
-      price: "€ 120,-",
-      subtitle: "Pro Behandlung",
-      optimalFor: [
-        "ABHYANGA - GENUSSVOLLE HARMONIE",
-        "INTENSIVE GELENKSMASSAGE",
-        "MARMA PUNKT THERAPIE",
-      ],
-    },
-    {
-      duration: "2 Stunden",
-      price: "€ 140,-",
+      price: "€ 150,-",
       subtitle: "Pro Behandlung",
       upgrade: true,
-      description: "für alle Anwendungen",
-      optimalFor: "Optimal für einen noch intensiveren Effekt",
+      description: "Behandlungsdauer & Preis",
+      optimalFor: [
+        "Dauer: 1,5 Stunden",
+        "Individuelle Massageanwendung",
+        "Inkl. Anamnese & Beratung",
+        "Hochwertige Kräuteröle",
+      ],
     },
   ];
 
@@ -417,7 +406,7 @@ export default function MassagePage() {
 
       {/* Pricing Section */}
       <section className="py-20 md:py-28 px-4 sm:px-6 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <motion.div
             className="text-center mb-16"
@@ -453,161 +442,226 @@ export default function MassagePage() {
             </motion.p>
           </motion.div>
 
-          {/* Pricing Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-            {pricingPlans.map((plan, index) => (
-              <motion.div
-                key={index}
-                className={`relative group ${plan.upgrade ? "md:-mt-4 md:mb-4" : ""}`}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
-                whileHover={{
-                  y: plan.upgrade ? -8 : -12,
-                  scale: plan.upgrade ? 1.03 : 1.02,
-                }}
-              >
-                {/* Popular Badge */}
-                {plan.upgrade && (
+          {/* Pricing Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
+            {/* Left Column: Pricing Card */}
+            <div className="max-w-md mx-auto lg:mx-0 w-full order-2 lg:order-1">
+              {pricingPlans.map((plan, index) => (
+                <motion.div
+                  key={index}
+                  className="relative group"
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6 }}
+                  whileHover={{
+                    y: -12,
+                    scale: 1.02,
+                  }}
+                >
+                  {/* Recommended Badge */}
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                     <div className="bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] text-[#0F172A] text-xs font-bold px-4 py-1.5 rounded-full shadow-lg uppercase tracking-wider">
-                      Empfohlen
+                      Premium Behandlung
                     </div>
                   </div>
-                )}
 
-                <Card
-                  className={`
-                    relative h-full bg-white dark:bg-gray-800 rounded-2xl border overflow-hidden
-                    ${
-                      plan.upgrade
-                        ? "border-[#D4AF37] shadow-2xl ring-2 ring-[#D4AF37]/20 scale-105"
-                        : "border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/50 dark:hover:border-[#D4AF37]/50 shadow-lg hover:shadow-2xl"
-                    }
-                    transition-all duration-500 hover:-translate-y-2
-                  `}
-                >
-                  {/* Header with gradient */}
-                  <div
-                    className={`relative ${plan.upgrade ? "bg-gradient-to-br from-[#D4AF37]/10 via-[#D4AF37]/5 to-transparent" : "bg-gradient-to-br from-gray-50 dark:from-gray-700 to-transparent"} pt-8 pb-6 px-6`}
+                  <Card
+                    className="relative h-full bg-white dark:bg-gray-800 rounded-2xl border border-[#D4AF37] shadow-2xl ring-2 ring-[#D4AF37]/20 transition-all duration-500 overflow-hidden"
                   >
-                    {/* Duration Badge */}
-                    <div className="inline-flex items-center justify-center w-full mb-4">
-                      <div
-                        className={`px-4 py-1.5 rounded-full text-sm font-semibold ${
-                          plan.upgrade
-                            ? "bg-[#D4AF37] text-[#0F172A]"
-                            : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                        }`}
-                      >
-                        {plan.duration}
+                    {/* Header with gradient */}
+                    <div className="relative bg-gradient-to-br from-[#D4AF37]/10 via-[#D4AF37]/5 to-transparent pt-10 pb-8 px-6">
+                      {/* Duration Badge */}
+                      <div className="inline-flex items-center justify-center w-full mb-4">
+                        <div className="px-6 py-2 rounded-full text-base font-bold bg-[#D4AF37] text-[#0F172A]">
+                          {plan.duration}
+                        </div>
+                      </div>
+
+                      {/* Price */}
+                      <div className="text-center">
+                        <div className="flex items-baseline justify-center gap-1">
+                          <span className="text-6xl md:text-7xl font-bold text-[#0F172A] dark:text-white tracking-tight">
+                            {plan.price.split(",")[0]}
+                          </span>
+                          <span className="text-2xl text-gray-500 dark:text-gray-400">
+                            {plan.price.includes(",")
+                              ? plan.price.split(",")[1]
+                              : ""}
+                          </span>
+                        </div>
+                        <p className="text-lg text-gray-500 dark:text-gray-400 mt-2 font-medium">
+                          {plan.subtitle}
+                        </p>
                       </div>
                     </div>
 
-                    {/* Price */}
-                    <div className="text-center mb-2">
-                      <div className="flex items-baseline justify-center gap-1">
-                        <span className="text-5xl md:text-6xl font-bold text-[#0F172A] dark:text-white tracking-tight">
-                          {plan.price.split(",")[0]}
-                        </span>
-                        <span className="text-xl text-gray-500 dark:text-gray-400">
-                          {plan.price.includes(",")
-                            ? plan.price.split(",")[1]
-                            : ""}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
-                        {plan.subtitle}
-                      </p>
-                      {plan.description && (
-                        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1 italic">
-                          {plan.description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <CardContent className="p-6 space-y-6">
-                    {/* Services List */}
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
-                        <p className="text-sm font-semibold text-[#0F172A] dark:text-white uppercase tracking-wider whitespace-nowrap">
-                          Enthaltene Anwendungen
-                        </p>
-                        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
-                      </div>
-                      {Array.isArray(plan.optimalFor) ? (
-                        <ul className="space-y-3">
+                    {/* Content */}
+                    <CardContent className="p-8 space-y-8">
+                      {/* Services List */}
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-2 mb-4">
+                          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
+                          <p className="text-sm font-bold text-[#0F172A] dark:text-white uppercase tracking-wider whitespace-nowrap px-2">
+                            Leistungen
+                          </p>
+                          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
+                        </div>
+                        <ul className="space-y-4">
                           {plan.optimalFor.map((item, idx) => (
                             <li
                               key={idx}
-                              className="flex items-start gap-3 group/item"
+                              className="flex items-start gap-3"
                             >
-                              <div
-                                className={`mt-1 flex-shrink-0 w-1.5 h-1.5 rounded-full ${
-                                  plan.upgrade
-                                    ? "bg-[#D4AF37]"
-                                    : "bg-gray-300 dark:bg-gray-600 group-hover/item:bg-[#D4AF37] transition-colors"
-                                }`}
-                              />
-                              <span className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                              <div className="mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-[#D4AF37]" />
+                              <span className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                                 {item}
                               </span>
                             </li>
                           ))}
                         </ul>
-                      ) : (
-                        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center py-2">
-                          {plan.optimalFor}
-                        </p>
-                      )}
+                      </div>
+
+                      {/* CTA Button */}
+                      <Button
+                        asChild
+                        className="group/btn w-full py-8 text-lg font-bold transition-all duration-300 bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
+                      >
+                        <Link href="/termin-buchen">
+                          Termin telefonisch anfragen
+                          <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover/btn:translate-x-1" />
+                        </Link>
+                      </Button>
+
+                      <p className="text-center text-sm text-gray-500 italic">
+                        Keine Online-Buchung möglich
+                      </p>
+                    </CardContent>
+
+                    <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#D4AF37] via-[#E6C45A] to-[#D4AF37]" />
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Right Column: Important Notes */}
+            <motion.div
+              className="order-1 lg:order-2"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-10 border border-gray-200 dark:border-gray-700 shadow-xl relative overflow-hidden h-full">
+                {/* Decorative background element */}
+                <div className="absolute top-0 right-0 w-40 h-40 bg-[#D4AF37]/5 rounded-bl-full -mr-20 -mt-20" />
+
+                <div className="relative z-10 space-y-8">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3">
+                      <Sparkles className="w-8 h-8 text-[#D4AF37]" />
+                      <h3 className="text-2xl md:text-3xl font-bold text-[#0F172A] dark:text-white">✨ Wichtige Hinweise</h3>
+                    </div>
+                    <p className="text-[#D4AF37] font-semibold text-lg ml-11">
+                      Damit Ihr Besuch so angenehm wie möglich wird
+                    </p>
+                  </div>
+
+                  <div className="grid gap-8 text-gray-700 dark:text-gray-300">
+                    {/* Booking Section */}
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-3 border-b border-gray-100 dark:border-gray-700 pb-2">
+                        <Phone className="w-5 h-5 text-[#D4AF37]" />
+                        Buchung & Stornierung
+                      </h4>
+
+                      <div className="space-y-4 ml-8">
+                        <div>
+                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">Telefonische Buchung</p>
+                          <ul className="space-y-2 text-sm list-disc pl-4">
+                            <li>Termine können ausschließlich telefonisch vereinbart werden.</li>
+                            <li>Online-Buchungen sind nicht möglich.</li>
+                            <li>Termine können frühestens 1-2 Tage im Voraus gebucht werden.</li>
+                          </ul>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 dark:bg-gray-700/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
+                          <div>
+                            <p className="text-xs font-bold uppercase text-[#D4AF37] mb-1">Dauer</p>
+                            <p className="font-bold">1,5 Stunden</p>
+                          </div>
+                          <div>
+                            <p className="text-xs font-bold uppercase text-[#D4AF37] mb-1">Preis</p>
+                            <p className="font-bold">€150</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* CTA Button */}
-                    <Button
-                      asChild
-                      className={`
-                        group/btn w-full py-6 text-base font-semibold transition-all duration-300
-                        ${
-                          plan.upgrade
-                            ? "bg-gradient-to-r from-[#D4AF37] to-[#E6C45A] hover:from-[#C19A2F] hover:to-[#D4AF37] text-[#0F172A] shadow-lg hover:shadow-xl"
-                            : "bg-[#0F172A] hover:bg-[#1e293b] text-white hover:scale-105"
-                        }
-                        transform hover:scale-105
-                      `}
-                    >
-                      <Link href="/termin-buchen">
-                        Jetzt buchen
-                        <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover/btn:translate-x-1" />
-                      </Link>
-                    </Button>
-                  </CardContent>
+                    {/* Payment Section */}
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-3 border-b border-gray-100 dark:border-gray-700 pb-2">
+                        <CreditCard className="w-5 h-5 text-[#D4AF37]" />
+                        Zahlungsbedingungen
+                      </h4>
+                      <div className="space-y-4 ml-8">
+                        <div>
+                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">Anzahlung</p>
+                          <ul className="space-y-2 text-sm list-disc pl-4">
+                            <li>Anzahlung von 35 % <span className="font-bold text-[#D4AF37]">(€52,50)</span> innerhalb von 24h leisten.</li>
+                            <li>Zahlungsnachweis (z.B. Überweisungsbeleg) per WhatsApp oder SMS übermitteln.</li>
+                            <li>Termin gilt erst nach Eingang der Anzahlung als verbindlich.</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">Restzahlung</p>
+                          <p className="text-sm">Der Restbetrag <span className="font-bold text-[#D4AF37]">(€97,50)</span> ist am Tag der Behandlung zu bezahlen.</p>
+                        </div>
+                      </div>
+                    </div>
 
-                  {/* Decorative bottom border */}
-                  {plan.upgrade && (
-                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#D4AF37] via-[#E6C45A] to-[#D4AF37]" />
-                  )}
-                </Card>
-              </motion.div>
-            ))}
+                    {/* Storno Section */}
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-3 border-b border-gray-100 dark:border-gray-700 pb-2">
+                        <CalendarCheck className="w-5 h-5 text-[#D4AF37]" />
+                        Stornierung & Pünktlichkeit
+                      </h4>
+                      <div className="space-y-4 ml-8">
+                        <div>
+                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">Fristen</p>
+                          <ul className="space-y-2 text-sm list-disc pl-4">
+                            <li>Kostenfrei bis 24h vorher (bei Buchung {'>'} 2 Tage im Voraus).</li>
+                            <li>Kostenfrei bis 6h vorher (bei Buchung 1 Tag im Voraus).</li>
+                            <li>Bei späteren Stornierungen oder No-Show wird die Anzahlung einbehalten.</li>
+                          </ul>
+                        </div>
+                        <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl border border-amber-100 dark:border-amber-900/30">
+                          <p className="flex items-center gap-2 font-bold text-sm text-amber-800 dark:text-amber-400 mb-1">
+                            <AlertCircle className="w-4 h-4" /> Pünktlichkeit
+                          </p>
+                          <p className="text-sm text-amber-900/80 dark:text-amber-300/80">
+                            Bitte 10 Min. früher erscheinen (Anamnese). Bei Verspätung verkürzt sich die Zeit, der volle Preis bleibt fällig.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* General Notes */}
+                    <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
+                      <div className="flex flex-wrap gap-4 justify-center text-sm text-gray-500 font-medium">
+                        <span className="flex items-center gap-1.5"><Info className="w-4 h-4 text-[#D4AF37]" /> Nur nach Termin</span>
+                        <span className="flex items-center gap-1.5"><Info className="w-4 h-4 text-[#D4AF37]" /> Max. 5 Kund:innen/Tag</span>
+                      </div>
+                      <p className="mt-6 text-center text-xs text-gray-400 leading-relaxed italic">
+                        Mit der telefonischen Buchung erklärst du dich mit diesen Buchungs- & Stornierungsbedingungen einverstanden. Bei Fragen kontaktieren Sie uns bitte vorab.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
-          {/* Additional Info */}
-          <motion.div
-            className="mt-12 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Alle Preise verstehen sich inklusive MwSt. • Flexible
-              Terminvereinbarung möglich
-            </p>
-          </motion.div>
         </div>
       </section>
 
