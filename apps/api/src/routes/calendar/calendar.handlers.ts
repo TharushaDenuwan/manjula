@@ -39,20 +39,11 @@ export const list: AppRouteHandler<ListRoute> = async (c) => {
 // Create new calendar booking
 export const create: AppRouteHandler<CreateRoute> = async (c) => {
   const body = c.req.valid("json");
-  const session = c.get("user");
-
-  if (!session) {
-    return c.json(
-      { message: HttpStatusPhrases.UNAUTHORIZED },
-      HttpStatusCodes.UNAUTHORIZED
-    );
-  }
 
   const [inserted] = await db
     .insert(calendar)
     .values({
       ...body,
-      userId: session.id,
       createdAt: new Date(),
     })
     .returning();
