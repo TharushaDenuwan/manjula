@@ -27,17 +27,17 @@ const data = {
       icon: IconBuildings,
     },
     {
-      name: "Posts",
+      name: "Add Posts",
       url: "/admin/post",
       icon: IconBuildings,
     },
     {
-      name: "Products",
+      name: "Add Products",
       url: "/admin/product",
       icon: IconBuildings,
     },
     {
-      name: "Contact",
+      name: "Mails",
       url: "/admin/contact",
       icon: IconBuildings,
     },
