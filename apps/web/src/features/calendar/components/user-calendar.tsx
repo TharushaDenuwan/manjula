@@ -162,15 +162,33 @@ export function UserCalendar() {
                           )}>
                             {slot.label}
                           </span>
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-col gap-3">
                             {isBooked ? (
-                              <span className="flex items-center gap-1.5 text-sm font-semibold text-red-500/80 bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded text-red-600 dark:text-red-400">
-                                <XCircle className="w-3.5 h-3.5" /> Belegt
-                              </span>
+                              <>
+                                <span className="flex items-center gap-1.5 text-sm font-semibold text-red-500/80 bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded text-red-600 dark:text-red-400 w-fit">
+                                  <XCircle className="w-3.5 h-3.5" /> Belegt
+                                </span>
+                                <span className="sm:hidden text-xs text-gray-400 font-medium italic">
+                                  Bereits reserviert
+                                </span>
+                              </>
                             ) : (
-                              <span className="flex items-center gap-1.5 text-sm font-semibold text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded">
-                                <CheckCircle2 className="w-3.5 h-3.5" /> Verfügbar
-                              </span>
+                              <>
+                                <span className="flex items-center gap-1.5 text-sm font-semibold text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded w-fit">
+                                  <CheckCircle2 className="w-3.5 h-3.5" /> Verfügbar
+                                </span>
+                                <div className="sm:hidden mt-1">
+                                  <BookSlotDialog
+                                    date={selectedDateStr}
+                                    slot={slot}
+                                    onSuccess={fetchBookings}
+                                  >
+                                    <div className="bg-[#D4AF37] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-[#D4AF37]/20 active:scale-95 transition-all text-center">
+                                      Termin buchen
+                                    </div>
+                                  </BookSlotDialog>
+                                </div>
+                              </>
                             )}
                           </div>
                         </div>
@@ -181,15 +199,17 @@ export function UserCalendar() {
                           Reserviert
                         </div>
                       ) : (
-                        <BookSlotDialog
-                          date={selectedDateStr}
-                          slot={slot}
-                          onSuccess={fetchBookings}
-                        >
-                          <div className="hidden sm:flex items-center gap-2 font-bold px-4 py-2 rounded-full text-sm text-white bg-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md cursor-pointer">
-                            Termin buchen
-                          </div>
-                        </BookSlotDialog>
+                        <div className="hidden sm:block">
+                          <BookSlotDialog
+                            date={selectedDateStr}
+                            slot={slot}
+                            onSuccess={fetchBookings}
+                          >
+                            <div className="flex items-center gap-2 font-bold px-4 py-2 rounded-full text-sm text-white bg-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md cursor-pointer">
+                              Termin buchen
+                            </div>
+                          </BookSlotDialog>
+                        </div>
                       )}
                     </motion.div>
                   );
