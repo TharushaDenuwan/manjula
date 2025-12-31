@@ -102,7 +102,7 @@ export default function Gallery() {
     setCurrentIndex((prev) => (prev + 1) % images.length);
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number) => {
     setDirection(index > currentIndex ? "next" : "prev");
     setCurrentIndex(index);
   };
@@ -330,7 +330,7 @@ export default function Gallery() {
             <div className="flex items-center justify-center">
               <img
                 src={images[lightboxIndex].url}
-                alt={images[lightboxIndex].title}
+                alt={`Image ${images[lightboxIndex].id}`}
                 className="max-h-[85vh] w-auto max-w-full object-contain rounded-md shadow-2xl"
               />
             </div>
