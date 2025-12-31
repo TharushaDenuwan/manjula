@@ -1018,15 +1018,15 @@ export default function MassagePage() {
             <div
               className="flex transition-transform duration-1000 ease-in-out h-full will-change-transform"
               style={{
-                transform: `translateX(calc(-100% * ${currentSlide} / ${carouselImages.length}))`,
-                width: `${carouselImages.length * 100}%`,
+                transform: `translateX(calc(-100% * ${currentSlide} / ${CAROUSEL_IMAGES.length}))`,
+                width: `${CAROUSEL_IMAGES.length * 100}%`,
               }}
             >
-              {carouselImages.map((image, index) => (
+              {CAROUSEL_IMAGES.map((image, index) => (
                 <div
                   key={index}
                   className="relative h-full flex-shrink-0"
-                  style={{ width: `${100 / carouselImages.length}%` }}
+                  style={{ width: `${100 / CAROUSEL_IMAGES.length}%` }}
                 >
                   <img
                     src={image}
@@ -1107,10 +1107,10 @@ export default function MassagePage() {
             ref={servicesRef}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
-            {services.map((service, index) => {
+            {SERVICES.map((service, index) => {
               const IconComponent = service.icon;
-              const isLastItem = index === services.length - 1;
-              const itemsInLastRow = services.length % 3;
+              const isLastItem = index === service.length - 1;
+              const itemsInLastRow = service.length % 3;
               const shouldCenter = isLastItem && itemsInLastRow === 1;
 
               return (
@@ -1263,7 +1263,7 @@ export default function MassagePage() {
 
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-            {pricingPlans.map((plan, index) => (
+            {PRICING_PLANS.map((plan, index) => (
               <motion.div
                 key={index}
                 className={`relative group ${plan.upgrade ? "md:-mt-4 md:mb-4" : ""}`}
