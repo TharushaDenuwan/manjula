@@ -130,6 +130,7 @@ export default function TerminInfoPage() {
           </motion.div>
         </motion.div>
       </div>
+
     </div>
   );
 }

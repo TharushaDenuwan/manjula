@@ -51,6 +51,11 @@ const data = {
       url: "/admin/reviews",
       icon: IconBuildings,
     },
+    {
+      name: "Calendar",
+      url: "/admin/calendar",
+      icon: IconBuildings,
+    },
   ],
 };
 

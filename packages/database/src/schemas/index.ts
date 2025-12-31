@@ -13,3 +13,5 @@ export * from "./reviwe.schema";
 export * from "./contact.schema";
 
 export * from "./orders.schema";
+
+export * from "./calendar.schema";

@@ -6,6 +6,7 @@ import { BASE_PATH } from "../lib/constants";
 import index from "./index.route";
 import media from "./media/media.index";
 
+import calendar from "./calendar/calendar.index";
 import contact from "./contact/contact.index";
 import order from "./order/order.index";
 import post from "./post/post.index";
@@ -24,6 +25,7 @@ export function registerRoutes(app: AppOpenAPI) {
     .route("/reviwes", reviwe)
     .route("/contacts", contact)
     .route("/orders", order)
+    .route("/calendar", calendar)
     .route("/products", product);
 }
 

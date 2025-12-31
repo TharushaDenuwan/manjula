@@ -1,5 +1,6 @@
 "use client";
 
+import { UserCalendar } from "@/features/calendar/components/user-calendar";
 import { Button } from "@repo/ui/components/button";
 import {
   Card,
@@ -367,6 +368,50 @@ export default function MassagePage() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gray-50 dark:bg-gray-800/20 border-t border-gray-100 dark:border-gray-800" id="calendar">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.h2
+              className="text-4xl md:text-5xl font-bold text-[#0F172A] dark:text-white mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Terminverfügbarkeit
+            </motion.h2>
+            <motion.div
+              className="w-24 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent mx-auto mb-6"
+              initial={{ width: 0 }}
+              whileInView={{ width: 96 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            />
+            <motion.p
+              className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              Prüfen Sie hier ganz einfach, ob Ihr Wunschtermin noch frei ist.
+              <br />
+              <span className="text-sm text-[#D4AF37] font-medium mt-2 block">
+                Hinweis: Buchungen sind nur telefonisch oder per Nachricht möglich.
+              </span>
+            </motion.p>
+          </motion.div>
+
+          <UserCalendar />
         </div>
       </section>
 
