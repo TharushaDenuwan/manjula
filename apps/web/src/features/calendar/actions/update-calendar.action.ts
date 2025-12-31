@@ -8,6 +8,7 @@ export interface UpdateCalendarSchema {
   customerName?: string;
   customerEmail?: string | null;
   customerPhone?: string | null;
+  paymentSlip?: string;
   bookingDate?: string;
   startTime?: string;
   endTime?: string;
@@ -22,6 +23,7 @@ export interface CalendarResponse {
   customerName: string;
   customerEmail: string | null;
   customerPhone: string | null;
+  paymentSlip: string;
   bookingDate: string;
   startTime: string;
   endTime: string;
@@ -45,6 +47,7 @@ export async function updateCalendar(
       customerName: data.customerName,
       customerEmail: data.customerEmail,
       customerPhone: data.customerPhone,
+      paymentSlip: data.paymentSlip,
       bookingDate: data.bookingDate,
       startTime: data.startTime,
       endTime: data.endTime,

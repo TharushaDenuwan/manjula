@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { Calendar as CalendarIcon, CheckCircle2, Clock, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CalendarResponse, getAllCalendar } from "../actions/get-all-calendar.action";
+import { BookSlotDialog } from "./book-slot-dialog";
 
 const SLOTS = [
   { id: "1", start: "08:00", end: "09:30", label: "08:00 - 09:30" },
@@ -22,18 +23,19 @@ export function UserCalendar() {
   const [bookings, setBookings] = useState<CalendarResponse[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchBookings = async () => {
+    setIsLoading(true);
+    try {
+      const response = await getAllCalendar({ limit: 100, page: 1 });
+      setBookings(response.data);
+    } catch (error) {
+      console.error("Failed to load bookings");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchBookings = async () => {
-      setIsLoading(true);
-      try {
-        const response = await getAllCalendar({ limit: 100, page: 1 });
-        setBookings(response.data);
-      } catch (error) {
-        console.error("Failed to load bookings");
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchBookings();
   }, []);
 
@@ -174,14 +176,21 @@ export function UserCalendar() {
                         </div>
                       </div>
 
-                      <div className={cn(
-                        "hidden sm:flex items-center gap-2 font-bold px-4 py-2 rounded-full text-sm",
-                        isBooked
-                          ? "text-gray-300 dark:text-gray-600 bg-gray-100 dark:bg-gray-800"
-                          : "text-white bg-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md"
-                      )}>
-                        {isBooked ? "Reserviert" : "Termin frei"}
-                      </div>
+                      {isBooked ? (
+                        <div className="hidden sm:flex items-center gap-2 font-bold px-4 py-2 rounded-full text-sm text-gray-300 dark:text-gray-600 bg-gray-100 dark:bg-gray-800">
+                          Reserviert
+                        </div>
+                      ) : (
+                        <BookSlotDialog
+                          date={selectedDateStr}
+                          slot={slot}
+                          onSuccess={fetchBookings}
+                        >
+                          <div className="hidden sm:flex items-center gap-2 font-bold px-4 py-2 rounded-full text-sm text-white bg-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md cursor-pointer">
+                            Termin buchen
+                          </div>
+                        </BookSlotDialog>
+                      )}
                     </motion.div>
                   );
                 })}

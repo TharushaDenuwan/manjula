@@ -8,6 +8,7 @@ export interface CalendarResponse {
   customerName: string;
   customerEmail: string | null;
   customerPhone: string | null;
+  paymentSlip: string;
   bookingDate: string;
   startTime: string;
   endTime: string;

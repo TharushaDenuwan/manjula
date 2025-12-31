@@ -15,7 +15,7 @@ import { Button } from "@repo/ui/components/button";
 import { Calendar } from "@repo/ui/components/calendar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@repo/ui/components/card";
 import { format, isSaturday, isSunday, startOfToday } from "date-fns";
-import { Calendar as CalendarIcon, Clock, Loader2, Trash2, User } from "lucide-react";
+import { Calendar as CalendarIcon, Clock, ExternalLink, Loader2, Trash2, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { deleteCalendar } from "../actions/delete-calendar.action";
@@ -192,7 +192,18 @@ export function AdminCalendar() {
                       {/* Actions */}
                       <div className="flex items-center gap-2">
                         {isBooked ? (
-                           <AlertDialog>
+                          <>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="text-[#D4AF37] hover:text-[#C19A2F] hover:bg-amber-50"
+                              asChild
+                            >
+                              <a href={booking.paymentSlip} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="w-4 h-4" />
+                              </a>
+                            </Button>
+                            <AlertDialog>
                              <AlertDialogTrigger asChild>
                                <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700 hover:bg-red-50">
                                  <Trash2 className="w-4 h-4" />
@@ -214,6 +225,7 @@ export function AdminCalendar() {
                                </AlertDialogFooter>
                              </AlertDialogContent>
                            </AlertDialog>
+                          </>
                         ) : (
                           <BookSlotDialog
                             date={format(date, "yyyy-MM-dd")}

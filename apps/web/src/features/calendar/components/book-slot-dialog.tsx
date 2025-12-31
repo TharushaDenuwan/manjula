@@ -25,9 +25,10 @@ interface BookSlotDialogProps {
     id: string;
   };
   onSuccess: () => void;
+  children?: React.ReactNode;
 }
 
-export function BookSlotDialog({ date, slot, onSuccess }: BookSlotDialogProps) {
+export function BookSlotDialog({ date, slot, onSuccess, children }: BookSlotDialogProps) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,6 +36,7 @@ export function BookSlotDialog({ date, slot, onSuccess }: BookSlotDialogProps) {
   const [customerName, setCustomerName] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
+  const [paymentSlip, setPaymentSlip] = useState("");
   const [notes, setNotes] = useState("");
 
   const handleBook = async (e: React.FormEvent) => {
@@ -50,6 +52,7 @@ export function BookSlotDialog({ date, slot, onSuccess }: BookSlotDialogProps) {
         customerName,
         customerEmail: customerEmail || null,
         customerPhone: customerPhone || null,
+        paymentSlip: paymentSlip,
         notes: notes || null,
         status: "confirmed",
         userId: null // Admin creating for a guest usually, or we could add user selection later
@@ -70,26 +73,29 @@ export function BookSlotDialog({ date, slot, onSuccess }: BookSlotDialogProps) {
     setCustomerName("");
     setCustomerEmail("");
     setCustomerPhone("");
+    setPaymentSlip("");
     setNotes("");
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" className="w-full bg-[#E4BF3C] hover:bg-[#d4ae2c] text-black">
-          <Plus className="w-4 h-4 mr-1" /> Book Slot
-        </Button>
+        {children || (
+          <Button size="sm" className="w-full bg-[#D4AF37] hover:bg-[#C19A2F] text-white">
+            <Plus className="w-4 h-4 mr-1" /> Book Slot
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Book Appointment</DialogTitle>
+          <DialogTitle>Termin buchen</DialogTitle>
           <div className="text-sm text-muted-foreground">
             {date} • {slot.start} - {slot.end}
           </div>
         </DialogHeader>
         <form onSubmit={handleBook} className="grid gap-4 py-4">
           <div className="grid gap-2">
-            <Label htmlFor="name">Customer Name *</Label>
+            <Label htmlFor="name">Name *</Label>
             <Input
               id="name"
               value={customerName}
@@ -99,12 +105,22 @@ export function BookSlotDialog({ date, slot, onSuccess }: BookSlotDialogProps) {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="phone">Phone Number</Label>
+            <Label htmlFor="phone">Telefonnummer</Label>
             <Input
               id="phone"
               value={customerPhone}
               onChange={(e) => setCustomerPhone(e.target.value)}
               placeholder="+43..."
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="payment_slip">Zahlungsbeleg URL *</Label>
+            <Input
+              id="payment_slip"
+              value={paymentSlip}
+              onChange={(e) => setPaymentSlip(e.target.value)}
+              required
+              placeholder="https://example.com/slip.jpg"
             />
           </div>
           <div className="grid gap-2">
@@ -118,7 +134,7 @@ export function BookSlotDialog({ date, slot, onSuccess }: BookSlotDialogProps) {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="notes">Notes</Label>
+            <Label htmlFor="notes">Notizen</Label>
             <Textarea
               id="notes"
               value={notes}
@@ -127,9 +143,9 @@ export function BookSlotDialog({ date, slot, onSuccess }: BookSlotDialogProps) {
             />
           </div>
           <DialogFooter>
-            <Button type="submit" disabled={isLoading} className="bg-[#E4BF3C] hover:bg-[#d4ae2c] text-black">
+            <Button type="submit" disabled={isLoading} className="bg-[#D4AF37] hover:bg-[#C19A2F] text-white">
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              Box Appointment
+              Termin buchen
             </Button>
           </DialogFooter>
         </form>

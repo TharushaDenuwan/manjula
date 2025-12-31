@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1763809792170,
-      "tag": "0000_tiny_cerebro",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1763887358165,
-      "tag": "0002_awesome_venus",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1763892189113,
-      "tag": "0003_natural_carmella_unuscione",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1766301355211,
-      "tag": "0004_grey_shockwave",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1767161835924,
-      "tag": "0005_flowery_nitro",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1767162166697,
-      "tag": "0006_demonic_the_hunter",
+      "when": 1767169002682,
+      "tag": "0000_old_bucky",
       "breakpoints": true
     }
   ]

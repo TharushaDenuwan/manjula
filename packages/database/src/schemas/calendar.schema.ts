@@ -23,6 +23,7 @@ export const calendar = pgTable("calendar", {
   customerName: varchar("customer_name", { length: 255 }).notNull(),
   customerEmail: varchar("customer_email", { length: 255 }),
   customerPhone: varchar("customer_phone", { length: 255 }),
+  paymentSlip: varchar("payment_slip", { length: 255 }).notNull(),
 
   // Booking details
   bookingDate: date("booking_date").notNull(),

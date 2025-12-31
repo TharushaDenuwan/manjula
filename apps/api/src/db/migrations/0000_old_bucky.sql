@@ -1,4 +1,5 @@
 CREATE TYPE "public"."media_type" AS ENUM('image', 'video', 'audio', 'document');--> statement-breakpoint
+CREATE TYPE "public"."review_status" AS ENUM('pending', 'approved', 'rejected');--> statement-breakpoint
 CREATE TABLE "account" (
 	"id" text PRIMARY KEY NOT NULL,
 	"account_id" text NOT NULL,
@@ -13,6 +14,33 @@ CREATE TABLE "account" (
 	"password" text,
 	"created_at" timestamp NOT NULL,
 	"updated_at" timestamp NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "calendar" (
+	"id" text PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"user_id" text,
+	"customer_name" varchar(255) NOT NULL,
+	"customer_email" varchar(255),
+	"customer_phone" varchar(255),
+	"payment_slip" varchar(255) NOT NULL,
+	"booking_date" date NOT NULL,
+	"start_time" varchar(5) NOT NULL,
+	"end_time" varchar(5) NOT NULL,
+	"slot_index" varchar(10),
+	"status" varchar(50) DEFAULT 'confirmed' NOT NULL,
+	"notes" text,
+	"updated_at" timestamp DEFAULT now(),
+	"created_at" timestamp DEFAULT now()
+);
+--> statement-breakpoint
+CREATE TABLE "contact" (
+	"id" text PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"name" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL,
+	"phone" varchar(255) NOT NULL,
+	"message" text NOT NULL,
+	"updated_at" timestamp DEFAULT now(),
+	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE "invitation" (
@@ -42,6 +70,19 @@ CREATE TABLE "member" (
 	"user_id" text NOT NULL,
 	"role" text DEFAULT 'member' NOT NULL,
 	"created_at" timestamp NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "order" (
+	"id" text PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"product_name" varchar(255) NOT NULL,
+	"description" text,
+	"price" varchar(100),
+	"quantity" integer,
+	"name" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL,
+	"contact_no" varchar(255) NOT NULL,
+	"updated_at" timestamp DEFAULT now(),
+	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE "organization" (
@@ -89,6 +130,7 @@ CREATE TABLE "review" (
 	"name" varchar(255) NOT NULL,
 	"comment" text,
 	"helpful_count" integer DEFAULT 0,
+	"status" "review_status" DEFAULT 'pending' NOT NULL,
 	"updated_at" timestamp DEFAULT now(),
 	"created_at" timestamp DEFAULT now()
 );
@@ -140,6 +182,7 @@ CREATE TABLE "verification" (
 );
 --> statement-breakpoint
 ALTER TABLE "account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "calendar" ADD CONSTRAINT "calendar_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "invitation" ADD CONSTRAINT "invitation_organization_id_organization_id_fk" FOREIGN KEY ("organization_id") REFERENCES "public"."organization"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "invitation" ADD CONSTRAINT "invitation_inviter_id_user_id_fk" FOREIGN KEY ("inviter_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "media" ADD CONSTRAINT "media_uploaded_by_user_id_fk" FOREIGN KEY ("uploaded_by") REFERENCES "public"."user"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
