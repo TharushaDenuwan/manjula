@@ -62,6 +62,23 @@ export async function addCalendar(
 
   const calendarData = (await response.json()) as CalendarResponse;
 
+  // Send confirmation email if customer email is provided
+  if (data.customerEmail) {
+    try {
+      const { sendBookingConfirmation } = await import("./send-booking-confirmation");
+      await sendBookingConfirmation({
+        customerName: data.customerName,
+        customerEmail: data.customerEmail,
+        bookingDate: data.bookingDate,
+        startTime: data.startTime,
+        endTime: data.endTime,
+      });
+    } catch (emailError) {
+      console.error("Failed to send booking confirmation email:", emailError);
+      // We don't throw here to avoid failing the booking if only the email fails
+    }
+  }
+
   // Revalidate the booking page to show updated availability
   revalidatePath("/termin-buchen");
 
