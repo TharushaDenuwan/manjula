@@ -18,16 +18,30 @@ export async function sendBookingConfirmation({
   startTime,
   endTime,
 }: BookingDetails) {
-  if (!customerEmail) return;
+  if (!customerEmail) {
+    console.warn("No customer email provided, skipping confirmation email");
+    return;
+  }
+
+  if (!process.env.RESEND_API_KEY) {
+    console.error("RESEND_API_KEY is not configured");
+    throw new Error("Email service not configured");
+  }
 
   try {
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    const fromName = process.env.RESEND_FROM_NAME || 'Manjula Ayurveda';
-    const fromAddress = fromEmail.includes('@') && !fromEmail.includes('<')
-      ? `${fromName} <${fromEmail}>`
-      : fromEmail;
+    const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+    const fromName = process.env.RESEND_FROM_NAME || "Manjula Ayurveda";
+    const fromAddress =
+      fromEmail.includes("@") && !fromEmail.includes("<")
+        ? `${fromName} <${fromEmail}>`
+        : fromEmail;
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_CLIENT_APP_URL || 'http://localhost:3000';
+    console.log(`Attempting to send booking confirmation to: ${customerEmail}`);
+
+    const baseUrl =
+      process.env.NEXT_PUBLIC_APP_URL ||
+      process.env.NEXT_PUBLIC_CLIENT_APP_URL ||
+      "http://localhost:3000";
     const logoUrl = `${baseUrl}/assets/logo.png`;
 
     // Format date for display
@@ -144,7 +158,20 @@ export async function sendBookingConfirmation({
         relax@manjula.at | +43 664 88 65 34 30
       `,
     });
+
+    console.log(
+      `✅ Booking confirmation email sent successfully to: ${customerEmail}`
+    );
   } catch (error) {
-    console.error("Error sending booking confirmation email:", error);
+    console.error("❌ Error sending booking confirmation email:", error);
+    console.error("Failed for email:", customerEmail);
+
+    // If it's a Resend API error, log more details
+    if (error && typeof error === "object" && "message" in error) {
+      console.error("Error details:", error.message);
+    }
+
+    // Re-throw the error so the calling function knows it failed
+    throw error;
   }
 }

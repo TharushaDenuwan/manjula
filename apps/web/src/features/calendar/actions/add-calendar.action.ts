@@ -65,7 +65,9 @@ export async function addCalendar(
   // Send confirmation email if customer email is provided
   if (data.customerEmail) {
     try {
-      const { sendBookingConfirmation } = await import("./send-booking-confirmation");
+      const { sendBookingConfirmation } = await import(
+        "./send-booking-confirmation"
+      );
       await sendBookingConfirmation({
         customerName: data.customerName,
         customerEmail: data.customerEmail,
@@ -73,9 +75,34 @@ export async function addCalendar(
         startTime: data.startTime,
         endTime: data.endTime,
       });
+      console.log(
+        `Booking confirmation email queued for: ${data.customerEmail}`
+      );
     } catch (emailError) {
       console.error("Failed to send booking confirmation email:", emailError);
+
+      // Check if it's a Resend sandbox mode issue
+      if (
+        emailError &&
+        typeof emailError === "object" &&
+        "message" in emailError
+      ) {
+        const errorMessage = String(emailError.message);
+        if (
+          errorMessage.includes("sandbox") ||
+          errorMessage.includes("verified")
+        ) {
+          console.error(
+            "⚠️  RESEND SANDBOX MODE DETECTED: Only verified email addresses can receive emails."
+          );
+          console.error(
+            "To fix: Add your domain in Resend dashboard or verify individual email addresses."
+          );
+        }
+      }
+
       // We don't throw here to avoid failing the booking if only the email fails
+      // But we could add a warning to the response
     }
   }
 
