@@ -147,13 +147,13 @@ export function SiginForm({
                     Sign In
                   </Button>
                 </div>
-                <div className="text-center text-sm">
+                {/* <div className="text-center text-sm">
                   {`Don't have an account?`}
                   {` `}
                   <Link href="/signup" className="underline underline-offset-4">
                     Sign Up
                   </Link>
-                </div>
+                </div> */}
               </div>
             </form>
           </form.AppForm>
