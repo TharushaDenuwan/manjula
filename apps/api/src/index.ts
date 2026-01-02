@@ -25,8 +25,12 @@ import env from "./env";
 const app = registerRoutes(createApp());
 configureOpenAPI(app);
 
-const port = parseInt(env.PORT || "5000", 10);
+const port = env.PORT;
 
-app.listen(port, () => {
-  console.log(`🚀 API running on port ${port}`);
+// Bun-compatible server
+Bun.serve({
+  port,
+  fetch: app.fetch, // This is why you exported `fetch`
 });
+
+console.log(`🚀 API running on port ${port}`);
