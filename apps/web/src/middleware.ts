@@ -13,9 +13,9 @@ const authRoutes = [
 
 const protectedRoutes = ["/admin", "/account"];
 
-// Use internal backend URL for server-side API calls
-const BACKEND_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+// Use internal backend URL for server-side API calls (no SSL)
+const INTERNAL_API_URL =
+  process.env.INTERNAL_API_URL || "http://localhost:5000";
 
 export default async function authMiddleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -31,7 +31,7 @@ export default async function authMiddleware(request: NextRequest) {
     const { data: session } = await betterFetch<Session>(
       "/api/auth/get-session",
       {
-        baseURL: BACKEND_URL,
+        baseURL: INTERNAL_API_URL,
         headers: {
           //get the cookie from the request
           cookie: request.headers.get("cookie") || "",
@@ -72,7 +72,7 @@ export default async function authMiddleware(request: NextRequest) {
         const { data: organizationsList } = await betterFetch(
           "/api/auth/organization/list",
           {
-            baseURL: BACKEND_URL,
+            baseURL: INTERNAL_API_URL,
             headers: {
               //get the cookie from the request
               cookie: request.headers.get("cookie") || "",
@@ -87,7 +87,7 @@ export default async function authMiddleware(request: NextRequest) {
           const switchRes = await betterFetch(
             "/api/auth/organization/set-active",
             {
-              baseURL: BACKEND_URL,
+              baseURL: INTERNAL_API_URL,
               headers: {
                 cookie: request.headers.get("cookie") || "",
               },
