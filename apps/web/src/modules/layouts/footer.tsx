@@ -142,7 +142,7 @@ export function Footer() {
                 { label: "AGB", href: "#" },
               ].map((item) => (
                 <Link
-                  key={item.href}
+                  key={item.label}
                   href={item.href}
                   className="text-gray-500 dark:text-gray-400 hover:text-amber-400 dark:hover:text-amber-500 text-sm transition-colors"
                 >

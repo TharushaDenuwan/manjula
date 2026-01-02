@@ -14,4 +14,5 @@ export * from "./contact.schema";
 
 export * from "./orders.schema";
 
+export * from "./availability.schema";
 export * from "./calendar.schema";
