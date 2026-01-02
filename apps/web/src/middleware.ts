@@ -8,10 +8,14 @@ const authRoutes = [
   "/signup",
   "/reset-password",
   "/forgot-password",
-  "/email-verified"
+  "/email-verified",
 ];
 
 const protectedRoutes = ["/admin", "/account"];
+
+// Use internal backend URL for server-side API calls
+const BACKEND_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 
 export default async function authMiddleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -23,15 +27,15 @@ export default async function authMiddleware(request: NextRequest) {
   requestHeaders.set("x-url", request.url);
 
   if (authRoutes.includes(pathname) || isProtectedPath) {
-    // Fetch session
+    // Fetch session using internal backend URL
     const { data: session } = await betterFetch<Session>(
       "/api/auth/get-session",
       {
-        baseURL: request.nextUrl.origin,
+        baseURL: BACKEND_URL,
         headers: {
           //get the cookie from the request
-          cookie: request.headers.get("cookie") || ""
-        }
+          cookie: request.headers.get("cookie") || "",
+        },
       }
     );
 
@@ -68,11 +72,11 @@ export default async function authMiddleware(request: NextRequest) {
         const { data: organizationsList } = await betterFetch(
           "/api/auth/organization/list",
           {
-            baseURL: request.nextUrl.origin,
+            baseURL: BACKEND_URL,
             headers: {
               //get the cookie from the request
-              cookie: request.headers.get("cookie") || ""
-            }
+              cookie: request.headers.get("cookie") || "",
+            },
           }
         );
 
@@ -83,12 +87,12 @@ export default async function authMiddleware(request: NextRequest) {
           const switchRes = await betterFetch(
             "/api/auth/organization/set-active",
             {
-              baseURL: request.nextUrl.origin,
+              baseURL: BACKEND_URL,
               headers: {
-                cookie: request.headers.get("cookie") || ""
+                cookie: request.headers.get("cookie") || "",
               },
               method: "POST",
-              body: { organizationId: orgId }
+              body: { organizationId: orgId },
             }
           );
 
@@ -121,6 +125,6 @@ export const config = {
     // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     // Always run for API routes
-    "/(api|trpc)(.*)"
-  ]
+    "/(api|trpc)(.*)",
+  ],
 };
