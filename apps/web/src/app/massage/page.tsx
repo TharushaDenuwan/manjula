@@ -568,26 +568,23 @@ export default function MassagePage() {
                   </div>
 
                   <div className="grid gap-8 text-gray-700 dark:text-gray-300">
-                    {/* Booking Section */}
+                    {/* Booking Methods Section */}
                     <div className="space-y-4">
                       <h4 className="text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-3 border-b border-gray-100 dark:border-gray-700 pb-2">
-                        <Phone className="w-5 h-5 text-[#D4AF37]" />
-                        Buchung & Stornierung
+                        <CalendarCheck className="w-5 h-5 text-[#D4AF37]" />
+                        Termine
                       </h4>
 
                       <div className="space-y-4 ml-8">
-                        <div>
-                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">Telefonische Buchung</p>
-                          <ul className="space-y-2 text-sm list-disc pl-4">
-                            <li>Termine können ausschließlich telefonisch vereinbart werden.</li>
-                            <li>Online-Buchungen sind nicht möglich.</li>
-                            <li>Termine können frühestens 1-2 Tage im Voraus gebucht werden.</li>
-                          </ul>
-                        </div>
+                        <ul className="space-y-2 text-sm list-disc pl-4">
+                          <li>Termine können vorrangig online über das Buchungssystem vereinbart werden.</li>
+                          <li>Telefonische Buchungen sind ergänzend möglich, insbesondere bei Rückfragen oder Sonderfällen.</li>
+                          <li>Termine können frühestens 2 Tage im Voraus gebucht werden.</li>
+                        </ul>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 dark:bg-gray-700/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 dark:bg-gray-700/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700 mt-4">
                           <div>
-                            <p className="text-xs font-bold uppercase text-[#D4AF37] mb-1">Dauer</p>
+                            <p className="text-xs font-bold uppercase text-[#D4AF37] mb-1">Behandlungsdauer</p>
                             <p className="font-bold">1,5 Stunden</p>
                           </div>
                           <div>
@@ -602,15 +599,14 @@ export default function MassagePage() {
                     <div className="space-y-4">
                       <h4 className="text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-3 border-b border-gray-100 dark:border-gray-700 pb-2">
                         <CreditCard className="w-5 h-5 text-[#D4AF37]" />
-                        Zahlungsbedingungen
+                        Anzahlung & Restzahlung
                       </h4>
                       <div className="space-y-4 ml-8">
                         <div>
                           <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">Anzahlung</p>
                           <ul className="space-y-2 text-sm list-disc pl-4">
-                            <li>Anzahlung von 35 % <span className="font-bold text-[#D4AF37]">(€52,50)</span> innerhalb von 24h leisten.</li>
-                            <li>Zahlungsnachweis (z.B. Überweisungsbeleg) per WhatsApp oder SMS übermitteln.</li>
-                            <li>Termin gilt erst nach Eingang der Anzahlung als verbindlich.</li>
+                            <li>Mit jeder Buchung ist eine Anzahlung von 35% <span className="font-bold text-[#D4AF37]">(€52,50)</span> zu leisten.</li>
+                            <li>Der Termin gilt erst nach Eingang der Anzahlung als verbindlich reserviert.</li>
                           </ul>
                         </div>
                         <div>
@@ -620,29 +616,62 @@ export default function MassagePage() {
                       </div>
                     </div>
 
-                    {/* Storno Section */}
+                    {/* Online Booking Section */}
                     <div className="space-y-4">
                       <h4 className="text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-3 border-b border-gray-100 dark:border-gray-700 pb-2">
                         <CalendarCheck className="w-5 h-5 text-[#D4AF37]" />
-                        Stornierung & Pünktlichkeit
+                        Online-Buchung
                       </h4>
                       <div className="space-y-4 ml-8">
-                        <div>
-                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">Fristen</p>
-                          <ul className="space-y-2 text-sm list-disc pl-4">
-                            <li>Kostenfrei bis 24h vorher (bei Buchung {'>'} 2 Tage im Voraus).</li>
-                            <li>Kostenfrei bis 6h vorher (bei Buchung 1 Tag im Voraus).</li>
-                            <li>Bei späteren Stornierungen oder No-Show wird die Anzahlung einbehalten.</li>
-                          </ul>
-                        </div>
-                        <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl border border-amber-100 dark:border-amber-900/30">
-                          <p className="flex items-center gap-2 font-bold text-sm text-amber-800 dark:text-amber-400 mb-1">
-                            <AlertCircle className="w-4 h-4" /> Pünktlichkeit
-                          </p>
-                          <p className="text-sm text-amber-900/80 dark:text-amber-300/80">
-                            Bitte 10 Min. früher erscheinen (Anamnese). Bei Verspätung verkürzt sich die Zeit, der volle Preis bleibt fällig.
-                          </p>
-                        </div>
+                        <ul className="space-y-2 text-sm list-disc pl-4">
+                          <li>Online-Buchungen sind für Termine möglich, die mindestens 2 Tage im Voraus liegen.</li>
+                          <li>Bei Online-Buchungen ist die Anzahlung direkt im Buchungsvorgang zu leisten.</li>
+                          <li>Eine kostenfreie Stornierung ist bis 24 Stunden vor dem Termin möglich.</li>
+                          <li>Bei späterer Stornierung oder Nichterscheinen wird die Anzahlung einbehalten.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Phone Booking Section */}
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-3 border-b border-gray-100 dark:border-gray-700 pb-2">
+                        <Phone className="w-5 h-5 text-[#D4AF37]" />
+                        Telefonische Buchung
+                      </h4>
+                      <div className="space-y-4 ml-8">
+                        <ul className="space-y-2 text-sm list-disc pl-4">
+                          <li>Die Anzahlung ist innerhalb von 24 Stunden nach dem Telefonat zu leisten.</li>
+                          <li>Nach Durchführung der Zahlung ist ein Zahlungsnachweis (z.B. Überweisungsbestätigung) per Telefon (z.B. WhatsApp oder SMS) zu übermitteln.</li>
+                          <li>Der Termin gilt erst nach Eingang der Anzahlung und Übermittlung des Zahlungsnachweises als verbindlich reserviert.</li>
+                          <li>Erfolgt kein Zahlungseingang oder kein Zahlungsnachweis innerhalb von 24 Stunden, kann der Termin ohne weitere Benachrichtigung freigegeben werden.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Cancellation Section */}
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-bold text-[#0F172A] dark:text-white flex items-center gap-3 border-b border-gray-100 dark:border-gray-700 pb-2">
+                        <AlertCircle className="w-5 h-5 text-[#D4AF37]" />
+                        Stornierung & Umbuchung
+                      </h4>
+                      <div className="space-y-4 ml-8">
+                        <ul className="space-y-2 text-sm list-disc pl-4">
+                          <li>Eine kostenfreie Stornierung oder Umbuchung ist bis 24 Stunden vor dem Termin möglich.</li>
+                          <li>Bei späterer Stornierung oder Nichterscheinen (No-Show) wird die Anzahlung <span className="font-bold text-[#D4AF37]">(€52,50)</span> einbehalten.</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Punctuality Section */}
+                    <div className="space-y-4">
+                      <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl border border-amber-100 dark:border-amber-900/30">
+                        <p className="flex items-center gap-2 font-bold text-sm text-amber-800 dark:text-amber-400 mb-2">
+                          <Clock className="w-4 h-4" /> Pünktlichkeit
+                        </p>
+                        <ul className="space-y-1 text-sm text-amber-900/80 dark:text-amber-300/80 list-disc pl-4">
+                          <li>Bitte mindestens 10 Minuten vor dem Termin erscheinen, um den Anamnesebogen und die Einwilligung auszufüllen.</li>
+                          <li>Bei verspätetem Erscheinen verkürzt sich die Behandlungszeit, der volle Preis bleibt fällig.</li>
+                        </ul>
                       </div>
                     </div>
 
@@ -653,7 +682,7 @@ export default function MassagePage() {
                         <span className="flex items-center gap-1.5"><Info className="w-4 h-4 text-[#D4AF37]" /> Max. 5 Kund:innen/Tag</span>
                       </div>
                       <p className="mt-6 text-center text-xs text-gray-400 leading-relaxed italic">
-                        Mit der telefonischen Buchung erklärst du dich mit diesen Buchungs- & Stornierungsbedingungen einverstanden. Bei Fragen kontaktieren Sie uns bitte vorab.
+                        Mit der Buchung – online oder telefonisch – erklärst du dich mit diesen Buchungs- & Stornierungsbedingungen einverstanden.
                       </p>
                     </div>
                   </div>
