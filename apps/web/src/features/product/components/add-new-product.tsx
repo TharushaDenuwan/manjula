@@ -3,6 +3,7 @@ import { PlusCircleIcon } from "lucide-react";
 import { useCallback, useId, useState } from "react";
 import { z } from "zod";
 
+import { ImagePicker } from "@/components/image-picker";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -12,14 +13,17 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from "@repo/ui/components/dialog";
 import { Input } from "@repo/ui/components/input";
 import { useAppForm } from "@repo/ui/components/tanstack-form";
 import { Textarea } from "@repo/ui/components/textarea";
 
 import { toast } from "sonner";
-import { addProduct, type AddProductSchema } from "../actions/add-product.action";
+import {
+  addProduct,
+  type AddProductSchema,
+} from "../actions/add-product.action";
 
 const addProductSchema = z.object({
   productName: z.string().min(1, "Product name is required"),
@@ -28,7 +32,7 @@ const addProductSchema = z.object({
   price: z.string().nullable(),
   quantity: z.number().nullable().optional(),
   manufactureDate: z.string().nullable(),
-  expirationDate: z.string().nullable()
+  expirationDate: z.string().nullable(),
 });
 
 interface AddNewProductProps {
@@ -48,7 +52,7 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
       price: null,
       quantity: null,
       manufactureDate: null,
-      expirationDate: null
+      expirationDate: null,
     } as AddProductSchema,
     onSubmit: async ({ value }) => {
       try {
@@ -61,7 +65,7 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
           price: value.price || null,
           quantity: value.quantity || null,
           manufactureDate: value.manufactureDate || null,
-          expirationDate: value.expirationDate || null
+          expirationDate: value.expirationDate || null,
         });
 
         toast.success("Product created successfully!", { id: toastId });
@@ -71,12 +75,12 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
         const err = error as Error;
         console.error("Failed to add product:", error);
         toast.error(`Failed: ${err.message}`, {
-          id: toastId
+          id: toastId,
         });
       } finally {
         setOpen(false);
       }
-    }
+    },
   });
 
   const handleSubmit = useCallback(
@@ -127,16 +131,12 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
                 name="productImageUrl"
                 children={(field) => (
                   <field.FormItem>
-                    <field.FormLabel>Image URL (Optional)</field.FormLabel>
+                    <field.FormLabel>Product Image (Optional)</field.FormLabel>
                     <field.FormControl>
-                      <Input
-                        type="url"
-                        placeholder="https://example.com/image.jpg"
-                        value={field.state.value || ""}
-                        onChange={(e) =>
-                          field.handleChange(e.target.value || null)
-                        }
-                        onBlur={field.handleBlur}
+                      <ImagePicker
+                        value={field.state.value}
+                        onChange={(url) => field.handleChange(url)}
+                        disabled={form.state.isSubmitting}
                       />
                     </field.FormControl>
                     <field.FormMessage />
@@ -215,7 +215,9 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
                   name="manufactureDate"
                   children={(field) => (
                     <field.FormItem>
-                      <field.FormLabel>Manufacture Date (Optional)</field.FormLabel>
+                      <field.FormLabel>
+                        Manufacture Date (Optional)
+                      </field.FormLabel>
                       <field.FormControl>
                         <Input
                           type="date"
@@ -243,7 +245,9 @@ export function AddNewProduct({ onSuccess }: AddNewProductProps = {}) {
                   name="expirationDate"
                   children={(field) => (
                     <field.FormItem>
-                      <field.FormLabel>Expiration Date (Optional)</field.FormLabel>
+                      <field.FormLabel>
+                        Expiration Date (Optional)
+                      </field.FormLabel>
                       <field.FormControl>
                         <Input
                           type="date"
