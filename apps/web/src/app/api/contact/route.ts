@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const recipientEmail = to || 'tharushadenuwan35@gmail.com';
+    const recipientEmail = to || "tharushadenuwan35@gmail.com";
 
     // Check if Resend API key is configured
     if (!process.env.RESEND_API_KEY) {
@@ -27,7 +27,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Get the base URL for logo
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_CLIENT_APP_URL || 'http://localhost:3000';
+    const baseUrl =
+      process.env.NEXT_PUBLIC_APP_URL ||
+      process.env.NEXT_PUBLIC_CLIENT_APP_URL ||
+      "http://localhost:3000";
     const logoUrl = `${baseUrl}/assets/logo.png`;
 
     // Beautiful email template
@@ -142,11 +145,12 @@ export async function POST(req: NextRequest) {
     `;
 
     // Send email using Resend
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    const fromName = process.env.RESEND_FROM_NAME || 'Manjula Ayurveda';
-    const fromAddress = fromEmail.includes('@') && !fromEmail.includes('<')
-      ? `${fromName} <${fromEmail}>`
-      : fromEmail;
+    const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+    const fromName = process.env.RESEND_FROM_NAME || "Manjula Ayurveda";
+    const fromAddress =
+      fromEmail.includes("@") && !fromEmail.includes("<")
+        ? `${fromName} <${fromEmail}>`
+        : fromEmail;
 
     await resend.emails.send({
       from: fromAddress,
@@ -173,9 +177,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "Nachricht erfolgreich gesendet"
+      message: "Nachricht erfolgreich gesendet",
     });
-
   } catch (error) {
     console.error("Error sending contact email:", error);
     return NextResponse.json(
