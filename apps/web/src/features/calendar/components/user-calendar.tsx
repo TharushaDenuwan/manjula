@@ -17,6 +17,7 @@ import {
   parseISO,
   startOfToday,
 } from "date-fns";
+import { de } from "date-fns/locale";
 import { motion } from "framer-motion";
 import {
   Calendar as CalendarIcon,
@@ -69,11 +70,13 @@ export function UserCalendar() {
     fetchData();
   }, []);
 
-  const selectedDateStr = date ? format(date, "yyyy-MM-dd") : "";
+  const selectedDateStr = date
+    ? format(date, "yyyy-MM-dd", { locale: de })
+    : "";
   const dayBookings = bookings.filter((b) => b.bookingDate === selectedDateStr);
 
   const getClosureReason = (checkDate: Date) => {
-    if (isSaturday(checkDate) || isSunday(checkDate)) return "Weekend";
+    if (isSaturday(checkDate) || isSunday(checkDate)) return "Wochenende";
 
     const range = closedDays.find((range) => {
       const start = parseISO(range.startDate);
@@ -134,6 +137,7 @@ export function UserCalendar() {
               selected={date}
               onSelect={setDate}
               disabled={(date) => date < startOfToday()}
+              locale={de}
               modifiers={{
                 closed: (date) => isShopClosed(date),
               }}
@@ -146,6 +150,8 @@ export function UserCalendar() {
                   "bg-[#D4AF37] text-white hover:bg-[#C19A2F] focus:bg-[#C19A2F] rounded-lg font-bold shadow-md",
                 day_today:
                   "bg-[#D4AF37]/10 text-[#D4AF37] font-bold rounded-lg border border-[#D4AF37]/20",
+                head_cell:
+                  "h-9 w-9 text-center text-sm font-medium text-muted-foreground",
                 cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
                 day: cn(
                   "h-9 w-9 p-0 font-normal aria-selected:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
@@ -184,7 +190,7 @@ export function UserCalendar() {
               <div>
                 <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
                   {date
-                    ? format(date, "EEEE, MMMM d, yyyy")
+                    ? format(date, "EEEE, d. MMMM yyyy", { locale: de })
                     : "Bitte wählen Sie ein Datum"}
                 </CardTitle>
                 <CardDescription className="mt-1">
