@@ -67,9 +67,9 @@ export default function TerminInfoPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              Bitte berücksichtigen Sie bei Ihrer Terminwahl meinen
+              Buchen Sie Ihren persönlichen Termin für eine entspannende
               <br />
-              nächsten <strong className="font-bold">Heimat-Urlaub</strong> von
+              <strong className="font-bold">Ayurveda-Behandlung</strong>.
             </motion.p>
 
             <motion.p
@@ -79,7 +79,7 @@ export default function TerminInfoPage() {
               transition={{ duration: 0.6, delay: 0.7, type: "spring" }}
               whileHover={{ scale: 1.05 }}
             >
-              16.05. – 18.06.2025
+              Ihre Auszeit wartet auf Sie
             </motion.p>
 
             <motion.p
@@ -108,7 +108,7 @@ export default function TerminInfoPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1 }}
             >
-              Vielen Dank!
+              Ich freue mich auf Sie!
             </motion.p>
           </motion.div>
 
@@ -130,7 +130,6 @@ export default function TerminInfoPage() {
           </motion.div>
         </motion.div>
       </div>
-
     </div>
   );
 }
