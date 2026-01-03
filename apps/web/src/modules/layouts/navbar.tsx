@@ -3,8 +3,11 @@
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@repo/ui/components/button";
 import { cn } from "@repo/ui/lib/utils";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { ThemeToggle } from "./theme-toggle";
 
 type Props = {};
 
@@ -12,99 +15,180 @@ export function Navbar({}: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const { data: session } = authClient.useSession();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const navItems = [
+    { href: "/", label: "Home" },
+    { href: "/massage", label: "Massage" },
+    { href: "/yoga", label: "Yoga" },
+    { href: "/ayurveda", label: "Ayurveda" },
+    { href: "/produkts", label: "Produkts" },
+    { href: "/gallary", label: "Gallary" },
+    { href: "/termin-buchen", label: "Termin buchen" },
+  ];
 
   return (
     <>
-      {/* Sticky Navbar with Glass Effect */}
+      {/* Sticky Navbar - White Background */}
       <div
         className={cn(
-          "fixed top-0 left-0 w-full z-50 h-16 flex items-center justify-between px-4 lg:px-6 bg-white/30 backdrop-blur-md border-b border-gray-200/50 shadow-sm"
+          "fixed top-0 left-0 w-full z-50 h-16 flex items-center justify-between px-4 lg:px-8 bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-800 shadow-sm"
         )}
       >
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className="flex items-center gap-2">
             <img
-              src="/assets/bloonsoo.png" // Replace with your actual logo path
+              src="/assets/logo.png"
               alt="Bloonsoo Logo"
-              className="h-28 w-50 object-contain"
+              className="h-15 w-auto object-contain"
             />
-            {/* <span
-              className={cn(
-                "font-black text-2xl font-heading transition-colors text-gray-900 hover:text-[#003580]"
-              )}
-            >
-              Bloonsoo
-            </span> */}
           </Link>
         </div>
 
-        {/* Centered Navigation Links */}
-        <nav className="flex-1 flex justify-center items-center gap-6">
-          <Link
-            href="/about"
-            className={cn(
-              "font-medium text-sm hover:underline transition-colors text-gray-700 hover:text-[#003580]",
-              pathname === "/about" && "text-[#003580] font-semibold"
-            )}
-          >
-            About
-          </Link>
-          <Link
-            href="/article"
-            className={cn(
-              "font-medium text-sm hover:underline transition-colors text-gray-700 hover:text-[#003580]",
-              pathname === "/articles" && "text-[#003580] font-semibold"
-            )}
-          >
-            Read
-          </Link>
-          <Link
-            href="/contact"
-            className={cn(
-              "font-medium text-sm hover:underline transition-colors text-gray-700 hover:text-[#003580]",
-              pathname === "/contact" && "text-[#003580] font-semibold"
-            )}
-          >
-            Contact
-          </Link>
-          <Link
-            href="/search"
-            className={cn(
-              "font-medium text-sm hover:underline transition-colors text-gray-700 hover:text-[#003580]",
-              pathname === "/search" && "text-[#003580] font-semibold"
-            )}
-          >
-            Explore
-          </Link>
+        {/* Centered Navigation Links - Desktop Only */}
+        <nav className="hidden md:flex flex-1 justify-center items-center gap-8">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "font-medium text-sm transition-colors",
+                pathname === item.href
+                  ? "text-[#E4BF3C] font-semibold"
+                  : "text-black dark:text-white hover:text-[#E4BF3C]"
+              )}
+            >
+              {item.label}
+            </Link>
+          ))}
         </nav>
 
-        {/* Buttons */}
-        <div className="flex items-center gap-2">
-          {/* <Button
-            asChild
-            variant="ghost"
-            className={cn(
-              "text-gray-900 border border-gray-300 hover:bg-[#003580]/10"
-            )}
-          >
-            <Link href="/account">List your Property</Link>
-          </Button> */}
+        {/* Right Side Actions */}
+        <div className="flex items-center gap-3">
+          {/* Theme Toggle - Desktop Only */}
+          <div className="hidden md:flex">
+            <ThemeToggle />
+          </div>
+
+          {/* Admin Login Button - Desktop Only */}
           <Button
             variant="outline"
             className={cn(
-              "text-[#003580] border-[#003580]/20 hover:bg-[#003580]/10 cursor-pointer"
+              "hidden md:flex text-white bg-[#E4BF3C] hover:bg-yellow-300 hover:text-white cursor-pointer border-none"
             )}
             onClick={() => {
               const activeOrgId = session?.session?.activeOrganizationId;
               if (activeOrgId) {
                 router.push("/account");
               } else {
-                router.push("/account/booking-details");
+                router.push("/account");
               }
             }}
           >
-            My Account
+            Admin Login
+          </Button>
+
+          {/* Theme Toggle - Mobile */}
+          <div className="md:hidden">
+            <ThemeToggle />
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Sidebar Backdrop */}
+      <div
+        className={cn(
+          "fixed inset-0 bg-black/50 z-40 md:hidden transition-opacity duration-300",
+          isMobileMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        )}
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* Mobile Sidebar */}
+      <div
+        className={cn(
+          "fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white dark:bg-gray-900 shadow-2xl z-50 md:hidden transform transition-transform duration-300 ease-in-out",
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        )}
+      >
+        {/* Sidebar Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
+          <Link
+            href="/"
+            className="flex items-center gap-2"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <img
+              src="/assets/logo.png"
+              alt="AYURVEDA by Manjula"
+              className="h-10 w-auto object-contain"
+            />
+          </Link>
+          <button
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="p-2 rounded-lg text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Close menu"
+          >
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Sidebar Navigation */}
+        <nav className="flex flex-col p-4 space-y-2">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={cn(
+                "px-4 py-3 rounded-lg font-medium text-base transition-colors",
+                pathname === item.href
+                  ? "text-[#E4BF3C] font-semibold bg-[#E4BF3C]/10"
+                  : "text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-[#E4BF3C]"
+              )}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Sidebar Footer */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200 dark:border-gray-800 space-y-2">
+          <div className="flex justify-center">
+            <ThemeToggle />
+          </div>
+          <Button
+            variant="outline"
+            className={cn(
+              "w-full text-white bg-[#E4BF3C] hover:bg-[#f6d355] hover:text-white cursor-pointer border-none"
+            )}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              const activeOrgId = session?.session?.activeOrganizationId;
+              if (activeOrgId) {
+                router.push("/account");
+              } else {
+                router.push("/account");
+              }
+            }}
+          >
+            Admin Login
           </Button>
         </div>
       </div>

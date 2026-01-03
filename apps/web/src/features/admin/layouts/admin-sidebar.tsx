@@ -1,6 +1,7 @@
 "use client";
 
-import { IconBuildings, IconUsers } from "@tabler/icons-react";
+import { IconBuildings } from "@tabler/icons-react";
+import Image from "next/image";
 import * as React from "react";
 
 import { NavUser } from "@/components/dashboard/nav-user";
@@ -13,7 +14,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@repo/ui/components/sidebar";
-import { PiBuilding } from "react-icons/pi";
+import Link from "next/link";
 import { getUserDetails } from "./get-user-details";
 
 import { AdminSidebarNav } from "./sidebar-nav";
@@ -21,48 +22,38 @@ import { AdminSidebarNav } from "./sidebar-nav";
 const data = {
   main: [
     {
-      name: "Users",
-      url: "/admin/users",
-      icon: IconUsers,
-    },
-    {
-      name: "Hotels",
-      url: "/admin/hotels",
+      name: "Dashboard",
+      url: "/admin",
       icon: IconBuildings,
     },
     {
-      name: "Bookings",
-      url: "/admin/roomBookings",
+      name: "Add Posts",
+      url: "/admin/post",
       icon: IconBuildings,
     },
     {
-      name: "payments",
-      url: "/admin/adminPayments",
+      name: "Add Products",
+      url: "/admin/product",
       icon: IconBuildings,
     },
     {
-      name: "Property Class",
-      url: "/admin/property-class",
+      name: "Mails",
+      url: "/admin/contact",
       icon: IconBuildings,
     },
     {
-      name: "Hotel Types",
-      url: "/admin/hotel-types",
+      name: "Orders",
+      url: "/admin/orders",
       icon: IconBuildings,
     },
     {
-      name: "Article",
-      url: "/admin/article-management",
+      name: "Reviews",
+      url: "/admin/reviews",
       icon: IconBuildings,
     },
     {
-      name: "Ads",
-      url: "/admin/ad-management",
-      icon: IconBuildings,
-    },
-    {
-      name: "Home sections",
-      url: "/admin/property-types",
+      name: "Calendar",
+      url: "/admin/calendar",
       icon: IconBuildings,
     },
   ],
@@ -79,17 +70,18 @@ export function AdminSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
+              className="data-[slot=sidebar-menu-button]:!p-6"
             >
-              <div>
-                <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded">
-                  <PiBuilding className="size-4" />
-                </div>
-
-                <span className="text-base font-semibold font-heading">
-                  {`Bloonsoo Admin`}
-                </span>
-              </div>
+              <Link href="/" className="flex items-center  w-full ">
+                <Image
+                  src="/assets/logo.png"
+                  alt="AYURVEDA by Manjula"
+                  width={120}
+                  height={40}
+                  className="h-auto w-full max-w-[120px] object-contain"
+                  priority
+                />
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
