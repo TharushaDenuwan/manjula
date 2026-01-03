@@ -33,6 +33,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "manjula2026.s3.eu-central-1.amazonaws.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "images.unsplash.com",
         port: "",
         pathname: "/**",

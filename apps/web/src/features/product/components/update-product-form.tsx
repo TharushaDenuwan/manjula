@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useId } from "react";
 import { z } from "zod";
 
+import { ImagePicker } from "@/components/image-picker";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -10,7 +11,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@repo/ui/components/dialog";
 import { Input } from "@repo/ui/components/input";
 import { useAppForm } from "@repo/ui/components/tanstack-form";
@@ -20,7 +21,7 @@ import { toast } from "sonner";
 import {
   updateProduct,
   type ProductResponse,
-  type UpdateProductSchema
+  type UpdateProductSchema,
 } from "../actions/update-product.action";
 
 const updateProductSchema = z.object({
@@ -30,7 +31,7 @@ const updateProductSchema = z.object({
   price: z.string().nullable().optional(),
   quantity: z.number().nullable().optional(),
   manufactureDate: z.string().nullable().optional(),
-  expirationDate: z.string().nullable().optional()
+  expirationDate: z.string().nullable().optional(),
 });
 
 interface UpdateProductFormProps {
@@ -44,7 +45,7 @@ export function UpdateProductForm({
   product,
   open,
   onOpenChange,
-  onSuccess
+  onSuccess,
 }: UpdateProductFormProps) {
   const toastId = useId();
 
@@ -57,7 +58,7 @@ export function UpdateProductForm({
       price: product.price,
       quantity: product.quantity,
       manufactureDate: product.manufactureDate,
-      expirationDate: product.expirationDate
+      expirationDate: product.expirationDate,
     } as UpdateProductSchema,
     onSubmit: async ({ value }) => {
       try {
@@ -70,7 +71,7 @@ export function UpdateProductForm({
           price: value.price ?? null,
           quantity: value.quantity ?? null,
           manufactureDate: value.manufactureDate ?? null,
-          expirationDate: value.expirationDate ?? null
+          expirationDate: value.expirationDate ?? null,
         });
 
         toast.success("Product updated successfully!", { id: toastId });
@@ -80,10 +81,10 @@ export function UpdateProductForm({
         const err = error as Error;
         console.error("Failed to update product:", error);
         toast.error(`Failed: ${err.message}`, {
-          id: toastId
+          id: toastId,
         });
       }
-    }
+    },
   });
 
   // Reset form when product changes or dialog opens
@@ -96,7 +97,7 @@ export function UpdateProductForm({
         price: product.price,
         quantity: product.quantity,
         manufactureDate: product.manufactureDate,
-        expirationDate: product.expirationDate
+        expirationDate: product.expirationDate,
       });
     }
   }, [open, product, form]);
@@ -132,7 +133,9 @@ export function UpdateProductForm({
                       <Input
                         placeholder="Enter product name"
                         value={(field.state.value as string) || ""}
-                        onChange={(e) => field.handleChange(e.target.value as any)}
+                        onChange={(e) =>
+                          field.handleChange(e.target.value as any)
+                        }
                         onBlur={field.handleBlur}
                       />
                     </field.FormControl>
@@ -145,16 +148,12 @@ export function UpdateProductForm({
                 name="productImageUrl"
                 children={(field) => (
                   <field.FormItem>
-                    <field.FormLabel>Image URL (Optional)</field.FormLabel>
+                    <field.FormLabel>Product Image (Optional)</field.FormLabel>
                     <field.FormControl>
-                      <Input
-                        type="url"
-                        placeholder="https://example.com/image.jpg"
-                        value={(field.state.value as string | null) || ""}
-                        onChange={(e) =>
-                          field.handleChange((e.target.value || null) as any)
-                        }
-                        onBlur={field.handleBlur}
+                      <ImagePicker
+                        value={field.state.value as string | null}
+                        onChange={(url) => field.handleChange(url as any)}
+                        disabled={form.state.isSubmitting}
                       />
                     </field.FormControl>
                     <field.FormMessage />
@@ -213,10 +212,14 @@ export function UpdateProductForm({
                       <Input
                         type="number"
                         placeholder="Enter quantity (e.g., 100)"
-                        value={(field.state.value as number | null)?.toString() || ""}
+                        value={
+                          (field.state.value as number | null)?.toString() || ""
+                        }
                         onChange={(e) =>
                           field.handleChange(
-                            (e.target.value ? parseInt(e.target.value, 10) : null) as any
+                            (e.target.value
+                              ? parseInt(e.target.value, 10)
+                              : null) as any
                           )
                         }
                         onBlur={field.handleBlur}
@@ -233,7 +236,9 @@ export function UpdateProductForm({
                   name="manufactureDate"
                   children={(field) => (
                     <field.FormItem>
-                      <field.FormLabel>Manufacture Date (Optional)</field.FormLabel>
+                      <field.FormLabel>
+                        Manufacture Date (Optional)
+                      </field.FormLabel>
                       <field.FormControl>
                         <Input
                           type="date"
@@ -261,7 +266,9 @@ export function UpdateProductForm({
                   name="expirationDate"
                   children={(field) => (
                     <field.FormItem>
-                      <field.FormLabel>Expiration Date (Optional)</field.FormLabel>
+                      <field.FormLabel>
+                        Expiration Date (Optional)
+                      </field.FormLabel>
                       <field.FormControl>
                         <Input
                           type="date"
