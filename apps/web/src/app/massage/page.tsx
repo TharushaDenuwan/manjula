@@ -401,8 +401,8 @@ export default function MassagePage() {
               Prüfen Sie hier ganz einfach, ob Ihr Wunschtermin noch frei ist.
               <br />
               <span className="text-sm text-[#D4AF37] font-medium mt-2 block">
-                Hinweis: Buchungen sind nur telefonisch oder per Nachricht
-                möglich.
+                Hinweis: Buchungen sind direkt über den Kalender oder
+                telefonisch möglich.
               </span>
             </motion.p>
           </motion.div>
@@ -535,8 +535,8 @@ export default function MassagePage() {
                         </Link>
                       </Button>
 
-                      <p className="text-center text-sm text-gray-500 italic">
-                        Keine Online-Buchung möglich
+                      <p className="text-center text-sm text-[#D4AF37] font-semibold">
+                        Buchen Sie Ihren Termin direkt im Kalender
                       </p>
                     </CardContent>
 
