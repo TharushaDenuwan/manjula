@@ -52,7 +52,10 @@ export function ReviewSection() {
     const scroll = () => {
       if (!isPaused && scrollContainer) {
         scrollPos += 0.5; // Adjust speed here
-        if (scrollPos >= scrollContainer.scrollHeight - scrollContainer.clientHeight) {
+        if (
+          scrollPos >=
+          scrollContainer.scrollHeight - scrollContainer.clientHeight
+        ) {
           scrollPos = 0; // Reset to top
         }
         scrollContainer.scrollTop = scrollPos;
@@ -107,11 +110,11 @@ export function ReviewSection() {
     interactive?: boolean;
   }) => {
     return (
-      <div className="flex gap-1">
+      <div className="flex gap-0.5 sm:gap-1">
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}
-            className={`w-6 h-6 ${
+            className={`w-5 h-5 sm:w-6 sm:h-6 ${
               star <= rating ? "fill-[#D4AF37] text-[#D4AF37]" : "text-gray-300"
             } ${interactive ? "cursor-pointer hover:scale-110 transition-transform" : ""}`}
             onClick={() => interactive && onRatingChange?.(star)}
@@ -122,37 +125,39 @@ export function ReviewSection() {
   };
 
   return (
-    <section className="py-24 px-6 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+    <section className="py-12 sm:py-16 md:py-24 px-4 sm:px-6 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl font-bold text-[#0F172A] dark:text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#0F172A] dark:text-white mb-3 sm:mb-4">
             Kundenbewertungen
           </h2>
-          <p className="text-[#D4AF37] text-xl">Was unsere Kunden sagen</p>
+          <p className="text-[#D4AF37] text-base sm:text-lg md:text-xl">
+            Was unsere Kunden sagen
+          </p>
         </motion.div>
 
         {/* Two Column Layout */}
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12">
           {/* Left Side - Review Form */}
           <motion.div
-            className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl border border-[#D4AF37]/20"
+            className="bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl border border-[#D4AF37]/20"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-3xl font-bold text-[#0F172A] dark:text-white mb-6">
+            <h3 className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-white mb-4 sm:mb-6">
               Bewertung schreiben
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               {/* Name */}
               <div>
                 <label className="block text-sm font-semibold text-[#0F172A] dark:text-white mb-2">
@@ -213,31 +218,31 @@ export function ReviewSection() {
 
           {/* Right Side - Reviews List */}
           <motion.div
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6 mt-8 lg:mt-0"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-3xl font-bold text-[#0F172A] dark:text-white mb-6">
+            <h3 className="text-2xl sm:text-3xl font-bold text-[#0F172A] dark:text-white mb-4 sm:mb-6">
               Alle Bewertungen ({reviews.length})
             </h3>
 
             {/* Reviews List with Smoke Effect */}
             <div className="relative">
               {/* Top Smoke Gradient */}
-              <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-gray-50 via-gray-50/60 to-transparent dark:from-gray-800 dark:via-gray-800/60 z-10 pointer-events-none" />
+              <div className="absolute top-0 left-0 right-0 h-12 sm:h-16 md:h-20 bg-gradient-to-b from-gray-50 via-gray-50/60 to-transparent dark:from-gray-800 dark:via-gray-800/60 z-10 pointer-events-none" />
 
               {/* Reviews List */}
               <div
                 ref={scrollRef}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
-                className="space-y-4 max-h-[600px] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] py-8"
+                className="space-y-3 sm:space-y-4 max-h-[400px] sm:max-h-[500px] md:max-h-[600px] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] py-4 sm:py-6 md:py-8"
               >
                 {reviews.length === 0 ? (
-                  <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700">
-                    <p className="text-gray-500 dark:text-gray-400 text-lg">
+                  <div className="text-center py-8 sm:py-12 md:py-16 bg-white dark:bg-gray-800 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-gray-700">
+                    <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base md:text-lg px-4">
                       Noch keine Bewertungen vorhanden. Seien Sie der Erste!
                     </p>
                   </div>
@@ -245,19 +250,19 @@ export function ReviewSection() {
                   reviews.map((review, index) => (
                     <motion.div
                       key={review.id}
-                      className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow"
+                      className="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: index * 0.05 }}
                     >
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] font-bold text-lg shrink-0">
+                      <div className="flex items-start justify-between mb-2 sm:mb-3">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] font-bold text-base sm:text-lg shrink-0">
                             {review.name.charAt(0).toUpperCase()}
                           </div>
                           <div>
-                            <h4 className="text-lg font-semibold text-[#0F172A] dark:text-white">
+                            <h4 className="text-base sm:text-lg font-semibold text-[#0F172A] dark:text-white">
                               {review.name}
                             </h4>
                             {review.createdAt && (
@@ -277,7 +282,7 @@ export function ReviewSection() {
                         <StarRating rating={review.rating} />
                       </div>
                       {review.comment && (
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
                           {review.comment}
                         </p>
                       )}
@@ -287,7 +292,7 @@ export function ReviewSection() {
               </div>
 
               {/* Bottom Smoke Gradient */}
-              <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-50 via-gray-50/60 to-transparent dark:from-gray-800 dark:via-gray-800/60 z-10 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 h-12 sm:h-16 md:h-20 bg-gradient-to-t from-gray-50 via-gray-50/60 to-transparent dark:from-gray-800 dark:via-gray-800/60 z-10 pointer-events-none" />
             </div>
           </motion.div>
         </div>
