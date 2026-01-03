@@ -1,7 +1,8 @@
 "use client";
-import { useCallback, useId, useEffect } from "react";
+import { useCallback, useEffect, useId } from "react";
 import { z } from "zod";
 
+import { ImagePicker } from "@/components/image-picker";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -10,7 +11,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@repo/ui/components/dialog";
 import { Input } from "@repo/ui/components/input";
 import { useAppForm } from "@repo/ui/components/tanstack-form";
@@ -19,8 +20,8 @@ import { Textarea } from "@repo/ui/components/textarea";
 import { toast } from "sonner";
 import {
   updatePost,
+  type PostResponse,
   type UpdatePostSchema,
-  type PostResponse
 } from "../actions/update-post.action";
 
 const updatePostSchema = z.object({
@@ -28,7 +29,7 @@ const updatePostSchema = z.object({
   postImageUrl: z.string().nullable().optional(),
   description: z.string().nullable().optional(),
   startDate: z.string().nullable().optional(),
-  endDate: z.string().nullable().optional()
+  endDate: z.string().nullable().optional(),
 });
 
 interface UpdatePostFormProps {
@@ -42,7 +43,7 @@ export function UpdatePostForm({
   post,
   open,
   onOpenChange,
-  onSuccess
+  onSuccess,
 }: UpdatePostFormProps) {
   const toastId = useId();
 
@@ -53,7 +54,7 @@ export function UpdatePostForm({
       postImageUrl: post.postImageUrl,
       description: post.description,
       startDate: post.startDate,
-      endDate: post.endDate
+      endDate: post.endDate,
     } as UpdatePostSchema,
     onSubmit: async ({ value }) => {
       try {
@@ -64,7 +65,7 @@ export function UpdatePostForm({
           postImageUrl: value.postImageUrl ?? null,
           description: value.description ?? null,
           startDate: value.startDate ?? null,
-          endDate: value.endDate ?? null
+          endDate: value.endDate ?? null,
         });
 
         toast.success("Post updated successfully!", { id: toastId });
@@ -74,10 +75,10 @@ export function UpdatePostForm({
         const err = error as Error;
         console.error("Failed to update post:", error);
         toast.error(`Failed: ${err.message}`, {
-          id: toastId
+          id: toastId,
         });
       }
-    }
+    },
   });
 
   // Reset form when post changes or dialog opens
@@ -135,16 +136,12 @@ export function UpdatePostForm({
                 name="postImageUrl"
                 children={(field) => (
                   <field.FormItem>
-                    <field.FormLabel>Image URL (Optional)</field.FormLabel>
+                    <field.FormLabel>Post Image (Optional)</field.FormLabel>
                     <field.FormControl>
-                      <Input
-                        type="url"
-                        placeholder="https://example.com/image.jpg"
-                        value={field.state.value || ""}
-                        onChange={(e) =>
-                          field.handleChange(e.target.value || null)
-                        }
-                        onBlur={field.handleBlur}
+                      <ImagePicker
+                        value={field.state.value}
+                        onChange={(url) => field.handleChange(url)}
+                        disabled={form.state.isSubmitting}
                       />
                     </field.FormControl>
                     <field.FormMessage />

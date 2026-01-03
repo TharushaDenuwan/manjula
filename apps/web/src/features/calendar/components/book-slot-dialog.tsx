@@ -1,5 +1,6 @@
 "use client";
 
+import { FileUploader } from "@/components/file-uploader";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -163,19 +164,22 @@ export function BookSlotDialog({
           {/* Payment Slip Upload - Moved up for emphasis */}
           <div className="grid gap-2">
             <Label htmlFor="payment_slip" className="flex items-center gap-1">
-              Zahlungsbeleg URL <span className="text-red-500">*</span>
+              Zahlungsbeleg <span className="text-red-500">*</span>
             </Label>
-            <Input
-              id="payment_slip"
+            <FileUploader
               value={paymentSlip}
-              onChange={(e) => setPaymentSlip(e.target.value)}
-              required
-              placeholder="https://example.com/slip.jpg"
-              className="border-[#D4AF37]/30 focus:border-[#D4AF37]"
+              onChange={(url) => setPaymentSlip(url || "")}
+              disabled={isLoading}
+              folder="payment-slips"
+              accept={{
+                "image/*": [".png", ".jpg", ".jpeg", ".gif", ".webp"],
+                "application/pdf": [".pdf"],
+              }}
+              maxSize={10 * 1024 * 1024}
+              label="Zahlungsbeleg hochladen (Bild oder PDF)"
             />
             <p className="text-xs text-muted-foreground">
-              Laden Sie Ihren Zahlungsbeleg hoch (z.B. auf Google Drive,
-              Dropbox) und fügen Sie den Link hier ein.
+              Laden Sie Ihren Zahlungsbeleg als Bild oder PDF hoch.
             </p>
           </div>
 

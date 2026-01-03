@@ -3,6 +3,7 @@ import { PlusCircleIcon } from "lucide-react";
 import { useCallback, useId, useState } from "react";
 import { z } from "zod";
 
+import { ImagePicker } from "@/components/image-picker";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -12,7 +13,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from "@repo/ui/components/dialog";
 import { Input } from "@repo/ui/components/input";
 import { useAppForm } from "@repo/ui/components/tanstack-form";
@@ -26,7 +27,7 @@ const addPostSchema = z.object({
   postImageUrl: z.string().nullable(),
   description: z.string().nullable(),
   startDate: z.string().nullable(),
-  endDate: z.string().nullable()
+  endDate: z.string().nullable(),
 });
 
 interface AddNewPostProps {
@@ -44,7 +45,7 @@ export function AddNewPost({ onSuccess }: AddNewPostProps = {}) {
       postImageUrl: null,
       description: null,
       startDate: null,
-      endDate: null
+      endDate: null,
     } as AddPostSchema,
     onSubmit: async ({ value }) => {
       try {
@@ -55,7 +56,7 @@ export function AddNewPost({ onSuccess }: AddNewPostProps = {}) {
           postImageUrl: value.postImageUrl || null,
           description: value.description || null,
           startDate: value.startDate || null,
-          endDate: value.endDate || null
+          endDate: value.endDate || null,
         });
 
         toast.success("Post created successfully!", { id: toastId });
@@ -65,12 +66,12 @@ export function AddNewPost({ onSuccess }: AddNewPostProps = {}) {
         const err = error as Error;
         console.error("Failed to add post:", error);
         toast.error(`Failed: ${err.message}`, {
-          id: toastId
+          id: toastId,
         });
       } finally {
         setOpen(false);
       }
-    }
+    },
   });
 
   const handleSubmit = useCallback(
@@ -121,16 +122,12 @@ export function AddNewPost({ onSuccess }: AddNewPostProps = {}) {
                 name="postImageUrl"
                 children={(field) => (
                   <field.FormItem>
-                    <field.FormLabel>Image URL (Optional)</field.FormLabel>
+                    <field.FormLabel>Post Image (Optional)</field.FormLabel>
                     <field.FormControl>
-                      <Input
-                        type="url"
-                        placeholder="https://example.com/image.jpg"
-                        value={field.state.value || ""}
-                        onChange={(e) =>
-                          field.handleChange(e.target.value || null)
-                        }
-                        onBlur={field.handleBlur}
+                      <ImagePicker
+                        value={field.state.value}
+                        onChange={(url) => field.handleChange(url)}
+                        disabled={form.state.isSubmitting}
                       />
                     </field.FormControl>
                     <field.FormMessage />

@@ -71,6 +71,61 @@ export default function YogaPage() {
         </div>
       </section>
 
+      {/* YOGA POLICY SECTION */}
+      <section className="bg-gradient-to-b from-white to-amber-50 py-16 md:py-20">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="bg-white rounded-2xl p-8 md:p-12 shadow-xl border border-amber-100">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#D7B11E] mb-3">
+                Yoga Sessions (Samstag)
+              </h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-transparent via-[#D7B11E] to-transparent mx-auto"></div>
+            </div>
+
+            <div className="space-y-6 text-gray-700">
+              <p className="text-lg font-medium text-center">
+                Wir bieten Yoga-Sessions jeden Samstag an.
+              </p>
+
+              <ul className="space-y-3 text-base">
+                <li className="flex items-start gap-3">
+                  <div className="mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-[#D7B11E]"></div>
+                  <span>Die Einheiten finden vor Ort statt.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-[#D7B11E]"></div>
+                  <span>
+                    Es werden sowohl private Einzelstunden als auch
+                    Gruppensessions angeboten.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-[#D7B11E]"></div>
+                  <span>
+                    Die Teilnahme ist ausschließlich nach telefonischer
+                    Terminvereinbarung möglich.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <div className="mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-[#D7B11E]"></div>
+                  <span>
+                    Uhrzeiten und Ablauf werden individuell bzw. je nach
+                    Gruppengröße festgelegt.
+                  </span>
+                </li>
+              </ul>
+
+              <div className="mt-8 pt-6 border-t border-amber-100">
+                <p className="text-center text-base font-medium text-gray-800">
+                  Für Terminvereinbarungen bitten wir um telefonische
+                  Kontaktaufnahme.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* TWO BUTTONS */}
       <section className="bg-gradient-to-b from-amber-50 to-white py-24">
         <div className="max-w-6xl mx-auto px-6">
