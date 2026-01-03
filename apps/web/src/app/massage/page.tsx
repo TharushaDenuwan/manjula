@@ -186,7 +186,7 @@ export default function MassagePage() {
   ];
 
   return (
-    <div className="w-full bg-white dark:bg-gray-900 min-h-screen">
+    <div className="w-full max-w-full overflow-x-hidden bg-white dark:bg-gray-900 min-h-screen">
       {/* Hero Section with Sliding Carousel */}
       <section className="relative w-full min-h-[50vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Image Carousel Background */}
@@ -241,7 +241,7 @@ export default function MassagePage() {
         </button>
 
         {/* Hero Content */}
-        <div className="relative z-20 max-w-5xl mx-auto px-6 text-center text-white">
+        <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 text-center text-white">
           <motion.div
             className="space-y-6"
             initial={{ opacity: 0, y: 50 }}
@@ -249,7 +249,7 @@ export default function MassagePage() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight break-words"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -268,7 +268,7 @@ export default function MassagePage() {
             />
 
             <motion.p
-              className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed opacity-95"
+              className="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed opacity-95 break-words px-2"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -282,8 +282,8 @@ export default function MassagePage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900 overflow-x-hidden">
+        <div className="max-w-7xl mx-auto w-full">
           <div
             ref={servicesRef}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
@@ -311,7 +311,7 @@ export default function MassagePage() {
                     scale: 1.02,
                   }}
                 >
-                  <Card className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500">
+                  <Card className="group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#D4AF37]/40 dark:hover:border-[#D4AF37]/40 hover:shadow-xl transition-all duration-500 h-full w-full max-w-full">
                     <CardHeader className="text-center pb-4">
                       {/* Icon Circle */}
                       <div className="flex justify-center mb-4">
@@ -331,7 +331,10 @@ export default function MassagePage() {
 
                     <CardContent className="space-y-4">
                       {/* Description */}
-                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center">
+                      <p
+                        className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center break-words hyphens-auto"
+                        lang="de"
+                      >
                         {service.description}
                       </p>
 
@@ -360,8 +363,11 @@ export default function MassagePage() {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50 dark:bg-gray-800/20 border-t border-gray-100 dark:border-gray-800" id="calendar">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <section
+        className="py-20 bg-gray-50 dark:bg-gray-800/20 border-t border-gray-100 dark:border-gray-800 overflow-x-hidden"
+        id="calendar"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
           <motion.div
             className="text-center mb-12"
             initial={{ opacity: 0, y: 30 }}
@@ -395,7 +401,8 @@ export default function MassagePage() {
               Prüfen Sie hier ganz einfach, ob Ihr Wunschtermin noch frei ist.
               <br />
               <span className="text-sm text-[#D4AF37] font-medium mt-2 block">
-                Hinweis: Buchungen sind nur telefonisch oder per Nachricht möglich.
+                Hinweis: Buchungen sind nur telefonisch oder per Nachricht
+                möglich.
               </span>
             </motion.p>
           </motion.div>
@@ -405,8 +412,8 @@ export default function MassagePage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 md:py-28 px-4 sm:px-6 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-20 md:py-28 px-4 sm:px-6 bg-gradient-to-b from-gray-50 via-white to-gray-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 overflow-x-hidden">
+        <div className="max-w-6xl mx-auto w-full">
           {/* Section Header */}
           <motion.div
             className="text-center mb-16"
@@ -466,9 +473,7 @@ export default function MassagePage() {
                     </div>
                   </div>
 
-                  <Card
-                    className="relative h-full bg-white dark:bg-gray-800 rounded-2xl border border-[#D4AF37] shadow-2xl ring-2 ring-[#D4AF37]/20 transition-all duration-500 overflow-hidden"
-                  >
+                  <Card className="relative h-full bg-white dark:bg-gray-800 rounded-2xl border border-[#D4AF37] shadow-2xl ring-2 ring-[#D4AF37]/20 transition-all duration-500 overflow-hidden">
                     {/* Header with gradient */}
                     <div className="relative bg-gradient-to-br from-[#D4AF37]/10 via-[#D4AF37]/5 to-transparent pt-10 pb-8 px-6">
                       {/* Duration Badge */}
@@ -509,10 +514,7 @@ export default function MassagePage() {
                         </div>
                         <ul className="space-y-4">
                           {plan.optimalFor.map((item, idx) => (
-                            <li
-                              key={idx}
-                              className="flex items-start gap-3"
-                            >
+                            <li key={idx} className="flex items-start gap-3">
                               <div className="mt-1.5 flex-shrink-0 w-2 h-2 rounded-full bg-[#D4AF37]" />
                               <span className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                                 {item}
@@ -560,7 +562,9 @@ export default function MassagePage() {
                   <div className="space-y-2">
                     <div className="flex items-center gap-3">
                       <Sparkles className="w-8 h-8 text-[#D4AF37]" />
-                      <h3 className="text-2xl md:text-3xl font-bold text-[#0F172A] dark:text-white">✨ Wichtige Hinweise</h3>
+                      <h3 className="text-2xl md:text-3xl font-bold text-[#0F172A] dark:text-white">
+                        ✨ Wichtige Hinweise
+                      </h3>
                     </div>
                     <p className="text-[#D4AF37] font-semibold text-lg ml-11">
                       Damit Ihr Besuch so angenehm wie möglich wird
@@ -577,18 +581,31 @@ export default function MassagePage() {
 
                       <div className="space-y-4 ml-8">
                         <ul className="space-y-2 text-sm list-disc pl-4">
-                          <li>Termine können vorrangig online über das Buchungssystem vereinbart werden.</li>
-                          <li>Telefonische Buchungen sind ergänzend möglich, insbesondere bei Rückfragen oder Sonderfällen.</li>
-                          <li>Termine können frühestens 2 Tage im Voraus gebucht werden.</li>
+                          <li>
+                            Termine können vorrangig online über das
+                            Buchungssystem vereinbart werden.
+                          </li>
+                          <li>
+                            Telefonische Buchungen sind ergänzend möglich,
+                            insbesondere bei Rückfragen oder Sonderfällen.
+                          </li>
+                          <li>
+                            Termine können frühestens 2 Tage im Voraus gebucht
+                            werden.
+                          </li>
                         </ul>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 dark:bg-gray-700/30 p-4 rounded-xl border border-gray-100 dark:border-gray-700 mt-4">
                           <div>
-                            <p className="text-xs font-bold uppercase text-[#D4AF37] mb-1">Behandlungsdauer</p>
+                            <p className="text-xs font-bold uppercase text-[#D4AF37] mb-1">
+                              Behandlungsdauer
+                            </p>
                             <p className="font-bold">1,5 Stunden</p>
                           </div>
                           <div>
-                            <p className="text-xs font-bold uppercase text-[#D4AF37] mb-1">Preis</p>
+                            <p className="text-xs font-bold uppercase text-[#D4AF37] mb-1">
+                              Preis
+                            </p>
                             <p className="font-bold">€150</p>
                           </div>
                         </div>
@@ -603,15 +620,34 @@ export default function MassagePage() {
                       </h4>
                       <div className="space-y-4 ml-8">
                         <div>
-                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">Anzahlung</p>
+                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">
+                            Anzahlung
+                          </p>
                           <ul className="space-y-2 text-sm list-disc pl-4">
-                            <li>Mit jeder Buchung ist eine Anzahlung von 35% <span className="font-bold text-[#D4AF37]">(€52,50)</span> zu leisten.</li>
-                            <li>Der Termin gilt erst nach Eingang der Anzahlung als verbindlich reserviert.</li>
+                            <li>
+                              Mit jeder Buchung ist eine Anzahlung von 35%{" "}
+                              <span className="font-bold text-[#D4AF37]">
+                                (€52,50)
+                              </span>{" "}
+                              zu leisten.
+                            </li>
+                            <li>
+                              Der Termin gilt erst nach Eingang der Anzahlung
+                              als verbindlich reserviert.
+                            </li>
                           </ul>
                         </div>
                         <div>
-                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">Restzahlung</p>
-                          <p className="text-sm">Der Restbetrag <span className="font-bold text-[#D4AF37]">(€97,50)</span> ist am Tag der Behandlung zu bezahlen.</p>
+                          <p className="font-bold text-sm uppercase tracking-wider text-gray-500 mb-2">
+                            Restzahlung
+                          </p>
+                          <p className="text-sm">
+                            Der Restbetrag{" "}
+                            <span className="font-bold text-[#D4AF37]">
+                              (€97,50)
+                            </span>{" "}
+                            ist am Tag der Behandlung zu bezahlen.
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -624,10 +660,22 @@ export default function MassagePage() {
                       </h4>
                       <div className="space-y-4 ml-8">
                         <ul className="space-y-2 text-sm list-disc pl-4">
-                          <li>Online-Buchungen sind für Termine möglich, die mindestens 2 Tage im Voraus liegen.</li>
-                          <li>Bei Online-Buchungen ist die Anzahlung direkt im Buchungsvorgang zu leisten.</li>
-                          <li>Eine kostenfreie Stornierung ist bis 24 Stunden vor dem Termin möglich.</li>
-                          <li>Bei späterer Stornierung oder Nichterscheinen wird die Anzahlung einbehalten.</li>
+                          <li>
+                            Online-Buchungen sind für Termine möglich, die
+                            mindestens 2 Tage im Voraus liegen.
+                          </li>
+                          <li>
+                            Bei Online-Buchungen ist die Anzahlung direkt im
+                            Buchungsvorgang zu leisten.
+                          </li>
+                          <li>
+                            Eine kostenfreie Stornierung ist bis 24 Stunden vor
+                            dem Termin möglich.
+                          </li>
+                          <li>
+                            Bei späterer Stornierung oder Nichterscheinen wird
+                            die Anzahlung einbehalten.
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -640,10 +688,26 @@ export default function MassagePage() {
                       </h4>
                       <div className="space-y-4 ml-8">
                         <ul className="space-y-2 text-sm list-disc pl-4">
-                          <li>Die Anzahlung ist innerhalb von 24 Stunden nach dem Telefonat zu leisten.</li>
-                          <li>Nach Durchführung der Zahlung ist ein Zahlungsnachweis (z.B. Überweisungsbestätigung) per Telefon (z.B. WhatsApp oder SMS) zu übermitteln.</li>
-                          <li>Der Termin gilt erst nach Eingang der Anzahlung und Übermittlung des Zahlungsnachweises als verbindlich reserviert.</li>
-                          <li>Erfolgt kein Zahlungseingang oder kein Zahlungsnachweis innerhalb von 24 Stunden, kann der Termin ohne weitere Benachrichtigung freigegeben werden.</li>
+                          <li>
+                            Die Anzahlung ist innerhalb von 24 Stunden nach dem
+                            Telefonat zu leisten.
+                          </li>
+                          <li>
+                            Nach Durchführung der Zahlung ist ein
+                            Zahlungsnachweis (z.B. Überweisungsbestätigung) per
+                            Telefon (z.B. WhatsApp oder SMS) zu übermitteln.
+                          </li>
+                          <li>
+                            Der Termin gilt erst nach Eingang der Anzahlung und
+                            Übermittlung des Zahlungsnachweises als verbindlich
+                            reserviert.
+                          </li>
+                          <li>
+                            Erfolgt kein Zahlungseingang oder kein
+                            Zahlungsnachweis innerhalb von 24 Stunden, kann der
+                            Termin ohne weitere Benachrichtigung freigegeben
+                            werden.
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -656,8 +720,18 @@ export default function MassagePage() {
                       </h4>
                       <div className="space-y-4 ml-8">
                         <ul className="space-y-2 text-sm list-disc pl-4">
-                          <li>Eine kostenfreie Stornierung oder Umbuchung ist bis 24 Stunden vor dem Termin möglich.</li>
-                          <li>Bei späterer Stornierung oder Nichterscheinen (No-Show) wird die Anzahlung <span className="font-bold text-[#D4AF37]">(€52,50)</span> einbehalten.</li>
+                          <li>
+                            Eine kostenfreie Stornierung oder Umbuchung ist bis
+                            24 Stunden vor dem Termin möglich.
+                          </li>
+                          <li>
+                            Bei späterer Stornierung oder Nichterscheinen
+                            (No-Show) wird die Anzahlung{" "}
+                            <span className="font-bold text-[#D4AF37]">
+                              (€52,50)
+                            </span>{" "}
+                            einbehalten.
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -669,8 +743,15 @@ export default function MassagePage() {
                           <Clock className="w-4 h-4" /> Pünktlichkeit
                         </p>
                         <ul className="space-y-1 text-sm text-amber-900/80 dark:text-amber-300/80 list-disc pl-4">
-                          <li>Bitte mindestens 10 Minuten vor dem Termin erscheinen, um den Anamnesebogen und die Einwilligung auszufüllen.</li>
-                          <li>Bei verspätetem Erscheinen verkürzt sich die Behandlungszeit, der volle Preis bleibt fällig.</li>
+                          <li>
+                            Bitte mindestens 10 Minuten vor dem Termin
+                            erscheinen, um den Anamnesebogen und die
+                            Einwilligung auszufüllen.
+                          </li>
+                          <li>
+                            Bei verspätetem Erscheinen verkürzt sich die
+                            Behandlungszeit, der volle Preis bleibt fällig.
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -678,11 +759,19 @@ export default function MassagePage() {
                     {/* General Notes */}
                     <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
                       <div className="flex flex-wrap gap-4 justify-center text-sm text-gray-500 font-medium">
-                        <span className="flex items-center gap-1.5"><Info className="w-4 h-4 text-[#D4AF37]" /> Nur nach Termin</span>
-                        <span className="flex items-center gap-1.5"><Info className="w-4 h-4 text-[#D4AF37]" /> Max. 5 Kund:innen/Tag</span>
+                        <span className="flex items-center gap-1.5">
+                          <Info className="w-4 h-4 text-[#D4AF37]" /> Nur nach
+                          Termin
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <Info className="w-4 h-4 text-[#D4AF37]" /> Max. 5
+                          Kund:innen/Tag
+                        </span>
                       </div>
                       <p className="mt-6 text-center text-xs text-gray-400 leading-relaxed italic">
-                        Mit der Buchung – online oder telefonisch – erklärst du dich mit diesen Buchungs- & Stornierungsbedingungen einverstanden.
+                        Mit der Buchung – online oder telefonisch – erklärst du
+                        dich mit diesen Buchungs- & Stornierungsbedingungen
+                        einverstanden.
                       </p>
                     </div>
                   </div>
@@ -690,13 +779,12 @@ export default function MassagePage() {
               </div>
             </motion.div>
           </div>
-
         </div>
       </section>
 
       {/* Contact CTA Section */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="py-16 md:py-24 px-4 sm:px-6 bg-white dark:bg-gray-900 overflow-x-hidden">
+        <div className="max-w-4xl mx-auto text-center w-full">
           <motion.div
             className="bg-gradient-to-br from-[#D4AF37]/5 dark:from-[#D4AF37]/10 to-transparent rounded-2xl p-12 border border-[#D4AF37]/20 dark:border-[#D4AF37]/30 shadow-lg"
             initial={{ opacity: 0, y: 50 }}
