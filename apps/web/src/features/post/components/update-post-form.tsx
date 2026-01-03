@@ -84,11 +84,13 @@ export function UpdatePostForm({
   // Reset form when post changes or dialog opens
   useEffect(() => {
     if (open) {
-      form.setFieldValue("postTitle", post.postTitle);
-      form.setFieldValue("postImageUrl", post.postImageUrl);
-      form.setFieldValue("description", post.description);
-      form.setFieldValue("startDate", post.startDate);
-      form.setFieldValue("endDate", post.endDate);
+      form.reset({
+        postTitle: post.postTitle,
+        postImageUrl: post.postImageUrl,
+        description: post.description,
+        startDate: post.startDate,
+        endDate: post.endDate,
+      } as UpdatePostSchema);
     }
   }, [open, post, form]);
 
@@ -122,8 +124,10 @@ export function UpdatePostForm({
                     <field.FormControl>
                       <Input
                         placeholder="Enter post title"
-                        value={field.state.value || ""}
-                        onChange={(e) => field.handleChange(e.target.value)}
+                        value={(field.state.value as string) || ""}
+                        onChange={(e) =>
+                          field.handleChange(e.target.value as any)
+                        }
                         onBlur={field.handleBlur}
                       />
                     </field.FormControl>
@@ -139,8 +143,8 @@ export function UpdatePostForm({
                     <field.FormLabel>Post Image (Optional)</field.FormLabel>
                     <field.FormControl>
                       <ImagePicker
-                        value={field.state.value}
-                        onChange={(url) => field.handleChange(url)}
+                        value={(field.state.value as string | null) ?? null}
+                        onChange={(url) => field.handleChange(url as any)}
                         disabled={form.state.isSubmitting}
                       />
                     </field.FormControl>
@@ -157,9 +161,9 @@ export function UpdatePostForm({
                     <field.FormControl>
                       <Textarea
                         placeholder="Enter post description"
-                        value={field.state.value || ""}
+                        value={(field.state.value as string | null) || ""}
                         onChange={(e) =>
-                          field.handleChange(e.target.value || null)
+                          field.handleChange((e.target.value || null) as any)
                         }
                         onBlur={field.handleBlur}
                         rows={4}
@@ -181,14 +185,14 @@ export function UpdatePostForm({
                           type="date"
                           value={
                             field.state.value
-                              ? new Date(field.state.value)
+                              ? new Date(field.state.value as string)
                                   .toISOString()
                                   .split("T")[0]
                               : ""
                           }
                           onChange={(e) =>
                             field.handleChange(
-                              e.target.value ? e.target.value : null
+                              (e.target.value ? e.target.value : null) as any
                             )
                           }
                           onBlur={field.handleBlur}
@@ -209,14 +213,14 @@ export function UpdatePostForm({
                           type="date"
                           value={
                             field.state.value
-                              ? new Date(field.state.value)
+                              ? new Date(field.state.value as string)
                                   .toISOString()
                                   .split("T")[0]
                               : ""
                           }
                           onChange={(e) =>
                             field.handleChange(
-                              e.target.value ? e.target.value : null
+                              (e.target.value ? e.target.value : null) as any
                             )
                           }
                           onBlur={field.handleBlur}
