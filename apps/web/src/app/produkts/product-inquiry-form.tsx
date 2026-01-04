@@ -59,7 +59,7 @@ export function ProductInquiryForm({
       setIsSubmitting(true);
       toast.loading("Anfrage wird gesendet...", { id: toastId });
 
-      const response = await fetch("/api/orders", {
+      const response = await fetch("/api/product-inquiry", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ export function ProductInquiryForm({
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          contactNo: formData.telephone,
+          telephone: formData.telephone,
           productName: product.productName,
           productDescription: product.description,
           price: product.price,

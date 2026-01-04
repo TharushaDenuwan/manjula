@@ -632,7 +632,7 @@ export function Hero() {
     setLoading(true);
     try {
       // Send email (existing functionality)
-      const emailResponse = await fetch("/api/contacts", {
+      const emailResponse = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
