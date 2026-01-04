@@ -644,7 +644,9 @@ export function Hero() {
       });
 
       if (!emailResponse.ok) {
-        throw new Error("Failed to send email");
+        const errorData = await emailResponse.json().catch(() => ({}));
+        console.error("Email API error:", errorData);
+        throw new Error(errorData.error || "Failed to send email");
       }
 
       // Save contact to database
@@ -659,9 +661,24 @@ export function Hero() {
       alert("Nachricht gesendet! Vielen Dank 🙏");
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert(
-        "Es gab einen Fehler beim Senden Ihrer Nachricht. Bitte versuchen Sie es erneut."
-      );
+
+      // Provide more helpful error messages
+      let errorMessage =
+        "Es gab einen Fehler beim Senden Ihrer Nachricht. Bitte versuchen Sie es erneut.";
+
+      if (error instanceof Error) {
+        if (error.message.includes("E-Mail-Service nicht konfiguriert")) {
+          errorMessage =
+            "E-Mail-Service ist nicht konfiguriert. Bitte kontaktieren Sie uns direkt per Telefon.";
+        } else if (error.message.includes("Failed to fetch")) {
+          errorMessage =
+            "Verbindungsfehler. Bitte überprüfen Sie Ihre Internetverbindung.";
+        }
+        // Log the actual error for debugging
+        console.error("Detailed error:", error.message);
+      }
+
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
