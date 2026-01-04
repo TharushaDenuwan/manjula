@@ -11,9 +11,11 @@ const nextConfig: NextConfig = {
   ],
   async rewrites() {
     return [
+      // Only rewrite specific backend API paths, not all /api routes
+      // This allows Next.js API routes like /api/contact to work
       {
-        source: "/api/:path*",
-        destination: "http://manjula.cloud/api/:path*",
+        source: "/api/backend/:path*",
+        destination: "https://manjula.cloud/api/:path*",
       },
     ];
   },
