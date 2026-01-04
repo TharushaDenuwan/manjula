@@ -1,7 +1,7 @@
 "use client";
 
-import { ProductResponse } from "@/features/product/actions/get-all-product.action";
 import { addOrder } from "@/features/order/actions/add-order.action";
+import { ProductResponse } from "@/features/product/actions/get-all-product.action";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -59,7 +59,7 @@ export function ProductInquiryForm({
       setIsSubmitting(true);
       toast.loading("Anfrage wird gesendet...", { id: toastId });
 
-      const response = await fetch("/api/product-inquiry", {
+      const response = await fetch("/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -246,7 +246,11 @@ export function ProductInquiryForm({
                 Abbrechen
               </Button>
             </DialogClose>
-            <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              loading={isSubmitting}
+            >
               Anfrage senden
             </Button>
           </DialogFooter>
