@@ -514,7 +514,6 @@
 // }
 
 "use client";
-import { addContact } from "@/features/admin-contact/actions/add-acontact.action";
 import { Button } from "@repo/ui/components/button";
 import { motion, useAnimation, useInView } from "framer-motion";
 import Link from "next/link";
@@ -631,7 +630,7 @@ export function Hero() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Send email (existing functionality)
+      // Send email via local Next.js API (has Resend configured)
       const emailResponse = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -649,13 +648,19 @@ export function Hero() {
         throw new Error(errorData.error || "Failed to send email");
       }
 
-      // Save contact to database
-      await addContact({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-      });
+      // Also save to backend database
+      await fetch("/api/backend/contacts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }),
+      }).catch((err) => console.error("Database save error:", err));
 
       setFormData({ name: "", email: "", phone: "", message: "" });
       alert("Nachricht gesendet! Vielen Dank 🙏");

@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "http://manjula.cloud/api/:path*",
+        source: "/api/backend/:path*",
+        destination: "https://manjula.cloud/api/:path*",
       },
     ];
   },
