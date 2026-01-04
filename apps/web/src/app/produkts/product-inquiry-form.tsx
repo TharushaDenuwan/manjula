@@ -67,7 +67,7 @@ export function ProductInquiryForm({
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          telephone: formData.telephone,
+          contactNo: formData.telephone,
           productName: product.productName,
           productDescription: product.description,
           price: product.price,
