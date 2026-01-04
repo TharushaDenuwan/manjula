@@ -630,26 +630,8 @@ export function Hero() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Send email via local Next.js API (has Resend configured)
-      const emailResponse = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          to: "tharushadenuwan35@gmail.com",
-        }),
-      });
-
-      if (!emailResponse.ok) {
-        const errorData = await emailResponse.json().catch(() => ({}));
-        console.error("Email API error:", errorData);
-        throw new Error(errorData.error || "Failed to send email");
-      }
-
-      // Also save to backend database
-      await fetch("/api/backend/contacts", {
+      // Save to backend database
+      const response = await fetch("/api/backend/contacts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -660,30 +642,19 @@ export function Hero() {
           phone: formData.phone,
           message: formData.message,
         }),
-      }).catch((err) => console.error("Database save error:", err));
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save contact");
+      }
 
       setFormData({ name: "", email: "", phone: "", message: "" });
       alert("Nachricht gesendet! Vielen Dank 🙏");
     } catch (error) {
       console.error("Error submitting form:", error);
-
-      // Provide more helpful error messages
-      let errorMessage =
-        "Es gab einen Fehler beim Senden Ihrer Nachricht. Bitte versuchen Sie es erneut.";
-
-      if (error instanceof Error) {
-        if (error.message.includes("E-Mail-Service nicht konfiguriert")) {
-          errorMessage =
-            "E-Mail-Service ist nicht konfiguriert. Bitte kontaktieren Sie uns direkt per Telefon.";
-        } else if (error.message.includes("Failed to fetch")) {
-          errorMessage =
-            "Verbindungsfehler. Bitte überprüfen Sie Ihre Internetverbindung.";
-        }
-        // Log the actual error for debugging
-        console.error("Detailed error:", error.message);
-      }
-
-      alert(errorMessage);
+      alert(
+        "Es gab einen Fehler beim Senden Ihrer Nachricht. Bitte versuchen Sie es erneut."
+      );
     } finally {
       setLoading(false);
     }
