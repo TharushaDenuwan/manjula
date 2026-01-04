@@ -631,7 +631,7 @@ export function Hero() {
     setLoading(true);
     try {
       // Save to backend database
-      const response = await fetch("/api/backend/contacts", {
+      const response = await fetch("/api/contacts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
