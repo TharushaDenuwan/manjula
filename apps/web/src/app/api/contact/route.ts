@@ -152,7 +152,13 @@ export async function POST(req: NextRequest) {
         ? `${fromName} <${fromEmail}>`
         : fromEmail;
 
-    await resend.emails.send({
+    console.log("\n📧 === SENDING CONTACT EMAIL ===");
+    console.log("From:", fromAddress);
+    console.log("To:", recipientEmail);
+    console.log("Reply-To:", email);
+    console.log("Customer:", name);
+
+    const emailResult = await resend.emails.send({
       from: fromAddress,
       to: recipientEmail,
       replyTo: email,
@@ -175,14 +181,51 @@ export async function POST(req: NextRequest) {
       `,
     });
 
+    // Check for errors from Resend
+    if (emailResult.error) {
+      console.error("❌ Resend API Error:", emailResult.error);
+      throw new Error(emailResult.error.message || "Email sending failed");
+    }
+
+    console.log("✅ Contact email sent successfully!");
+    console.log("Email ID:", emailResult.data?.id);
+    console.log("Sent to:", recipientEmail);
+    console.log("=== EMAIL SENT SUCCESSFULLY ===");
+
     return NextResponse.json({
       success: true,
       message: "Nachricht erfolgreich gesendet",
+      emailId: emailResult.data?.id,
     });
   } catch (error) {
-    console.error("Error sending contact email:", error);
+    console.error("\n❌ === ERROR SENDING CONTACT EMAIL ===");
+    console.error("Error:", error);
+
+    if (error instanceof Error) {
+      console.error("Message:", error.message);
+      console.error("Stack:", error.stack);
+    }
+
+    // Log configuration for debugging
+    console.error("\n🔧 Configuration:");
+    console.error(
+      "- RESEND_API_KEY:",
+      process.env.RESEND_API_KEY ? "✓ Set" : "✗ Missing"
+    );
+    console.error(
+      "- RESEND_FROM_EMAIL:",
+      process.env.RESEND_FROM_EMAIL || "Not set (using default)"
+    );
+    console.error("=== ERROR END ===");
+
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+
     return NextResponse.json(
-      { error: "Fehler beim Senden der Nachricht" },
+      {
+        error: "Fehler beim Senden der Nachricht",
+        details: errorMessage,
+      },
       { status: 500 }
     );
   }
