@@ -1,6 +1,14 @@
 "use client";
 
-import { IconBuildings } from "@tabler/icons-react";
+import {
+  IconArticle,
+  IconCalendar,
+  IconLayoutDashboard,
+  IconMail,
+  IconPackage,
+  IconShoppingCart,
+  IconStar,
+} from "@tabler/icons-react";
 import Image from "next/image";
 import * as React from "react";
 
@@ -24,37 +32,37 @@ const data = {
     {
       name: "Dashboard",
       url: "/admin",
-      icon: IconBuildings,
+      icon: IconLayoutDashboard,
     },
     {
       name: "Add Posts",
       url: "/admin/post",
-      icon: IconBuildings,
+      icon: IconArticle,
     },
     {
       name: "Add Products",
       url: "/admin/product",
-      icon: IconBuildings,
+      icon: IconPackage,
     },
     {
       name: "Mails",
       url: "/admin/contact",
-      icon: IconBuildings,
+      icon: IconMail,
     },
     {
       name: "Orders",
       url: "/admin/orders",
-      icon: IconBuildings,
+      icon: IconShoppingCart,
     },
     {
       name: "Reviews",
       url: "/admin/reviews",
-      icon: IconBuildings,
+      icon: IconStar,
     },
     {
       name: "Calendar",
       url: "/admin/calendar",
-      icon: IconBuildings,
+      icon: IconCalendar,
     },
   ],
 };
