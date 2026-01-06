@@ -1,14 +1,39 @@
 "use client";
 
 import { Calendar } from "@repo/ui/components/calendar";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@repo/ui/components/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card";
 import { cn } from "@repo/ui/lib/utils";
-import { format, isSaturday, isSunday, isWithinInterval, parseISO, startOfToday } from "date-fns";
+import {
+  format,
+  isSaturday,
+  isSunday,
+  isWithinInterval,
+  parseISO,
+  startOfToday,
+} from "date-fns";
+import { de } from "date-fns/locale";
 import { motion } from "framer-motion";
-import { Calendar as CalendarIcon, CheckCircle2, Clock, XCircle } from "lucide-react";
+import {
+  Calendar as CalendarIcon,
+  CheckCircle2,
+  Clock,
+  XCircle,
+} from "lucide-react";
 import { useEffect, useState } from "react";
-import { CalendarResponse, getAllCalendar } from "../actions/get-all-calendar.action";
-import { getShopClosedDays, ShopClosedDay } from "../actions/shop-availability.action";
+import {
+  CalendarResponse,
+  getAllCalendar,
+} from "../actions/get-all-calendar.action";
+import {
+  getShopClosedDays,
+  ShopClosedDay,
+} from "../actions/shop-availability.action";
 import { BookSlotDialog } from "./book-slot-dialog";
 
 const SLOTS = [
@@ -30,7 +55,7 @@ export function UserCalendar() {
     try {
       const [bookingsResponse, closedDaysResponse] = await Promise.all([
         getAllCalendar({ limit: 100, page: 1 }),
-        getShopClosedDays()
+        getShopClosedDays(),
       ]);
       setBookings(bookingsResponse.data);
       setClosedDays(closedDaysResponse);
@@ -45,13 +70,15 @@ export function UserCalendar() {
     fetchData();
   }, []);
 
-  const selectedDateStr = date ? format(date, "yyyy-MM-dd") : "";
-  const dayBookings = bookings.filter(b => b.bookingDate === selectedDateStr);
+  const selectedDateStr = date
+    ? format(date, "yyyy-MM-dd", { locale: de })
+    : "";
+  const dayBookings = bookings.filter((b) => b.bookingDate === selectedDateStr);
 
   const getClosureReason = (checkDate: Date) => {
-    if (isSaturday(checkDate) || isSunday(checkDate)) return "Weekend";
+    if (isSaturday(checkDate) || isSunday(checkDate)) return "Wochenende";
 
-    const range = closedDays.find(range => {
+    const range = closedDays.find((range) => {
       const start = parseISO(range.startDate);
       const end = parseISO(range.endDate);
       start.setHours(0, 0, 0, 0);
@@ -65,7 +92,7 @@ export function UserCalendar() {
   const isShopClosed = (checkDate: Date) => {
     if (isSaturday(checkDate) || isSunday(checkDate)) return true;
 
-    return closedDays.some(range => {
+    return closedDays.some((range) => {
       const start = parseISO(range.startDate);
       const end = parseISO(range.endDate);
       start.setHours(0, 0, 0, 0);
@@ -74,7 +101,11 @@ export function UserCalendar() {
     });
   };
 
-  const closureReason = date ? (isShopClosed(date) ? getClosureReason(date) : null) : null;
+  const closureReason = date
+    ? isShopClosed(date)
+      ? getClosureReason(date)
+      : null
+    : null;
   const isClosed = !!closureReason;
 
   return (
@@ -93,8 +124,10 @@ export function UserCalendar() {
                 <CalendarIcon className="w-5 h-5 text-[#D4AF37]" />
               </div>
               <div>
-                <CardTitle className="text-xl text-gray-900 dark:text-white">Select Date</CardTitle>
-                <CardDescription>Choose your preferred appointment</CardDescription>
+                <CardTitle className="text-xl text-gray-900 dark:text-white">
+                  Datum auswählen
+                </CardTitle>
+                <CardDescription>Wählen Sie Ihren Wunschtermin</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -104,33 +137,40 @@ export function UserCalendar() {
               selected={date}
               onSelect={setDate}
               disabled={(date) => date < startOfToday()}
+              locale={de}
               modifiers={{
-                closed: (date) => isShopClosed(date)
+                closed: (date) => isShopClosed(date),
               }}
               modifiersClassNames={{
-                closed: "text-red-500 line-through opacity-50"
+                closed: "text-red-500 line-through opacity-50",
               }}
               className="rounded-xl border border-gray-100 dark:border-gray-700 p-3"
               classNames={{
-                day_selected: "bg-[#D4AF37] text-white hover:bg-[#C19A2F] focus:bg-[#C19A2F] rounded-lg font-bold shadow-md",
-                day_today: "bg-[#D4AF37]/10 text-[#D4AF37] font-bold rounded-lg border border-[#D4AF37]/20",
+                day_selected:
+                  "bg-[#D4AF37] text-white hover:bg-[#C19A2F] focus:bg-[#C19A2F] rounded-lg font-bold shadow-md",
+                day_today:
+                  "bg-[#D4AF37]/10 text-[#D4AF37] font-bold rounded-lg border border-[#D4AF37]/20",
+                head_cell:
+                  "h-9 w-9 text-center text-sm font-medium text-muted-foreground",
                 cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                day: cn("h-9 w-9 p-0 font-normal aria-selected:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"),
+                day: cn(
+                  "h-9 w-9 p-0 font-normal aria-selected:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
+                ),
               }}
             />
 
             <div className="w-full flex justify-center gap-4 text-xs font-bold uppercase tracking-wider text-muted-foreground pt-2 border-t border-gray-100 dark:border-gray-700">
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#D4AF37]" />
-                Selected
+                Ausgewählt
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-red-400 opacity-50" />
-                Closed
+                Geschlossen
               </div>
               <div className="flex items-center gap-1.5">
                 <div className="w-1.5 h-1.5 rounded-full bg-gray-300" />
-                Past
+                Vergangen
               </div>
             </div>
           </CardContent>
@@ -149,17 +189,19 @@ export function UserCalendar() {
             <div className="flex justify-between items-center flex-wrap gap-4">
               <div>
                 <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-                  {date ? format(date, "EEEE, MMMM d, yyyy") : "Please select a date"}
+                  {date
+                    ? format(date, "EEEE, d. MMMM yyyy", { locale: de })
+                    : "Bitte wählen Sie ein Datum"}
                 </CardTitle>
                 <CardDescription className="mt-1">
-                  Available appointments for this day
+                  Verfügbare Termine für diesen Tag
                 </CardDescription>
               </div>
               {date && !isClosed && (
-                 <div className="flex items-center gap-2 px-3 py-1 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-full text-xs font-bold uppercase tracking-wider border border-green-100 dark:border-green-900/30">
-                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                   Open
-                 </div>
+                <div className="flex items-center gap-2 px-3 py-1 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-full text-xs font-bold uppercase tracking-wider border border-green-100 dark:border-green-900/30">
+                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  Geöffnet
+                </div>
               )}
             </div>
           </CardHeader>
@@ -169,7 +211,9 @@ export function UserCalendar() {
                 <div className="w-16 h-16 rounded-full bg-gray-50 dark:bg-gray-700/50 flex items-center justify-center">
                   <CalendarIcon className="w-8 h-8 opacity-40" />
                 </div>
-                <p className="text-lg font-medium">Please select a date from the calendar.</p>
+                <p className="text-lg font-medium">
+                  Bitte wählen Sie ein Datum aus dem Kalender.
+                </p>
               </div>
             ) : isClosed ? (
               <div className="flex flex-col items-center justify-center py-20 bg-red-50 dark:bg-red-950/10 rounded-2xl border border-dashed border-red-200 dark:border-red-900 space-y-4">
@@ -177,20 +221,23 @@ export function UserCalendar() {
                   <XCircle className="w-10 h-10 text-red-500 dark:text-red-400" />
                 </div>
                 <div className="text-center px-10">
-                  <p className="text-red-700 dark:text-red-400 font-bold text-xl mb-2 uppercase tracking-widest">Closed</p>
+                  <p className="text-red-700 dark:text-red-400 font-bold text-xl mb-2 uppercase tracking-widest">
+                    Geschlossen
+                  </p>
                   <p className="text-red-600 dark:text-red-400 font-bold text-lg mb-1 italic">
                     "{closureReason}"
                   </p>
                   <p className="text-red-600/60 dark:text-red-400/60 font-medium">
-                    We are unfortunately closed on this day. Please choose another date.
+                    Wir sind an diesem Tag leider geschlossen. Bitte wählen Sie
+                    ein anderes Datum.
                   </p>
                 </div>
               </div>
             ) : (
               <div className="grid gap-4">
                 {SLOTS.map((slot, index) => {
-                  const isBooked = dayBookings.some(b =>
-                    b.startTime === slot.start || b.slotIndex === slot.id
+                  const isBooked = dayBookings.some(
+                    (b) => b.startTime === slot.start || b.slotIndex === slot.id
                   );
 
                   return (
@@ -207,35 +254,42 @@ export function UserCalendar() {
                       )}
                     >
                       <div className="flex items-center gap-5">
-                        <div className={cn(
-                          "p-4 rounded-xl shadow-sm transition-colors duration-300",
-                          isBooked
-                            ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500"
-                            : "bg-[#D4AF37]/10 text-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-white"
-                        )}>
+                        <div
+                          className={cn(
+                            "p-4 rounded-xl shadow-sm transition-colors duration-300",
+                            isBooked
+                              ? "bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500"
+                              : "bg-[#D4AF37]/10 text-[#D4AF37] group-hover:bg-[#D4AF37] group-hover:text-white"
+                          )}
+                        >
                           <Clock className="w-6 h-6" />
                         </div>
                         <div>
-                          <span className={cn(
-                            "text-xl font-bold block mb-1 transition-colors",
-                            isBooked ? "text-gray-400 dark:text-gray-500" : "text-gray-900 dark:text-white"
-                          )}>
+                          <span
+                            className={cn(
+                              "text-xl font-bold block mb-1 transition-colors",
+                              isBooked
+                                ? "text-gray-400 dark:text-gray-500"
+                                : "text-gray-900 dark:text-white"
+                            )}
+                          >
                             {slot.label}
                           </span>
                           <div className="flex flex-col gap-3">
                             {isBooked ? (
                               <>
                                 <span className="flex items-center gap-1.5 text-sm font-semibold text-red-500/80 bg-red-50 dark:bg-red-900/20 px-2 py-0.5 rounded text-red-600 dark:text-red-400 w-fit">
-                                  <XCircle className="w-3.5 h-3.5" /> Booked
+                                  <XCircle className="w-3.5 h-3.5" /> Gebucht
                                 </span>
                                 <span className="sm:hidden text-xs text-gray-400 font-medium italic">
-                                  Already reserved
+                                  Bereits reserviert
                                 </span>
                               </>
                             ) : (
                               <>
                                 <span className="flex items-center gap-1.5 text-sm font-semibold text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2 py-0.5 rounded w-fit">
-                                  <CheckCircle2 className="w-3.5 h-3.5" /> Available
+                                  <CheckCircle2 className="w-3.5 h-3.5" />{" "}
+                                  Verfügbar
                                 </span>
                                 <div className="sm:hidden mt-1">
                                   <BookSlotDialog
@@ -244,7 +298,7 @@ export function UserCalendar() {
                                     onSuccess={fetchData}
                                   >
                                     <div className="bg-[#D4AF37] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-[#D4AF37]/20 active:scale-95 transition-all text-center">
-                                      Book Appointment
+                                      Termin buchen
                                     </div>
                                   </BookSlotDialog>
                                 </div>
@@ -256,7 +310,7 @@ export function UserCalendar() {
 
                       {isBooked ? (
                         <div className="hidden sm:flex items-center gap-2 font-bold px-4 py-2 rounded-full text-sm text-gray-300 dark:text-gray-600 bg-gray-100 dark:bg-gray-800">
-                          Reserved
+                          Reserviert
                         </div>
                       ) : (
                         <div className="hidden sm:block">
@@ -266,7 +320,7 @@ export function UserCalendar() {
                             onSuccess={fetchData}
                           >
                             <div className="flex items-center gap-2 font-bold px-4 py-2 rounded-full text-sm text-white bg-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md cursor-pointer">
-                              Book Appointment
+                              Termin buchen
                             </div>
                           </BookSlotDialog>
                         </div>

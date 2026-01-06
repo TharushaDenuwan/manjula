@@ -7,7 +7,7 @@ const EnvSchema = z.object({
   NEXT_PUBLIC_AWS_REGION: z.string().optional(),
   NEXT_PUBLIC_AWS_ACCESS_KEY_ID: z.string().optional(),
   NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY: z.string().optional(),
-  NEXT_PUBLIC_AWS_S3_BUCKET: z.string().optional()
+  NEXT_PUBLIC_AWS_S3_BUCKET: z.string().optional(),
 });
 
 export type Env = z.infer<typeof EnvSchema>;
@@ -27,7 +27,9 @@ try {
   const error = err as ZodError;
   console.error("❌ Invalid environment variables");
   console.error(error.flatten());
-  process.exit(0);
+  // Removed process.exit() for Edge Runtime compatibility
+  // In production, this will throw and fail the build
+  throw new Error("Invalid environment variables");
 }
 
 export { env };

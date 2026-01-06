@@ -514,7 +514,6 @@
 // }
 
 "use client";
-import { addContact } from "@/features/admin-contact/actions/add-acontact.action";
 import { Button } from "@repo/ui/components/button";
 import { motion, useAnimation, useInView } from "framer-motion";
 import Link from "next/link";
@@ -631,29 +630,23 @@ export function Hero() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Send email (existing functionality)
-      const emailResponse = await fetch("/api/contact", {
+      // Save to backend database
+      const response = await fetch("/api/contacts", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...formData,
-          to: "tharushadenuwan35@gmail.com",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
         }),
       });
 
-      if (!emailResponse.ok) {
-        throw new Error("Failed to send email");
+      if (!response.ok) {
+        throw new Error("Failed to save contact");
       }
-
-      // Save contact to database
-      await addContact({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-      });
 
       setFormData({ name: "", email: "", phone: "", message: "" });
       alert("Nachricht gesendet! Vielen Dank 🙏");

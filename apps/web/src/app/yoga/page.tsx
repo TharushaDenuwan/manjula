@@ -2,9 +2,7 @@
 
 "use client";
 
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function YogaPage() {
@@ -120,45 +118,29 @@ export default function YogaPage() {
                   Für Terminvereinbarungen bitten wir um telefonische
                   Kontaktaufnahme.
                 </p>
+                <div className="mt-6 text-center">
+                  <a
+                    href="tel:+436648865343"
+                    className="inline-flex items-center gap-2 bg-[#D7B11E] hover:bg-[#C5A01B] text-white font-semibold px-8 py-4 rounded-lg transition-colors shadow-md hover:shadow-lg"
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    +43 664 88653430
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TWO BUTTONS */}
-      <section className="bg-gradient-to-b from-amber-50 to-white py-24">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <Link
-              href="/kontakt"
-              className="group block bg-white rounded-3xl p-12 shadow-2xl hover:shadow-3xl hover:-translate-y-4 transition-all duration-500 border border-amber-100 hover:border-[#D7B11E]"
-            >
-              <h3 className="text-4xl md:text-4xl font-bold text-[#D7B11E] mb-6">
-                Individuelle Anfrage
-              </h3>
-              <p className="text-gray-700 text-lg mb-8">
-                Privatstunden, Personal-Coaching oder maßgeschneiderte Programme
-              </p>
-              <span className="inline-flex items-center text-[#D7B11E] font-bold text-xl group-hover:translate-x-4 transition">
-                Jetzt anfragen <ArrowRight className="ml-3 w-7 h-7" />
-              </span>
-            </Link>
-
-            <Link
-              href="/team-events"
-              className="group block bg-[#D7B11E] rounded-3xl p-12 shadow-2xl hover:shadow-3xl hover:-translate-y-4 transition-all duration-500"
-            >
-              <h3 className="text-4xl font-bold text-white mb-6">
-                Team-Events
-              </h3>
-              <p className="text-amber-50 text-lg mb-8">
-                Firmen-Yoga, Workshops & Teambuilding mit Achtsamkeit
-              </p>
-              <span className="inline-flex items-center text-white font-bold text-xl group-hover:translate-x-4 transition">
-                Mehr erfahren <ArrowRight className="ml-3 w-7 h-7" />
-              </span>
-            </Link>
           </div>
         </div>
       </section>

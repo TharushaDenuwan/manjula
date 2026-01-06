@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
+import path from "path";
 
 const nextConfig: NextConfig = {
+  outputFileTracingRoot: path.join(__dirname, "../../"),
   transpilePackages: [
     "@repo/ui",
     "@nextplate/api",
@@ -12,8 +14,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "http://manjula.cloud/api/:path*",
+        source: "/api/backend/:path*",
+        destination: "https://manjula.cloud/api/:path*",
       },
     ];
   },

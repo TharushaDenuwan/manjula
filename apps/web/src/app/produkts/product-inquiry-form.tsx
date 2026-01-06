@@ -1,7 +1,6 @@
 "use client";
 
 import { ProductResponse } from "@/features/product/actions/get-all-product.action";
-import { addOrder } from "@/features/order/actions/add-order.action";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -59,7 +58,8 @@ export function ProductInquiryForm({
       setIsSubmitting(true);
       toast.loading("Anfrage wird gesendet...", { id: toastId });
 
-      const response = await fetch("/api/product-inquiry", {
+      // Send email via local Next.js API
+      const emailResponse = await fetch("/api/product-inquiry", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,22 +75,28 @@ export function ProductInquiryForm({
         }),
       });
 
-      const data = await response.json();
+      const emailData = await emailResponse.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Fehler beim Senden der Anfrage");
+      if (!emailResponse.ok) {
+        throw new Error(emailData.error || "Fehler beim Senden der Anfrage");
       }
 
-      // Save order to database
-      await addOrder({
-        productName: product.productName,
-        description: product.description || null,
-        price: product.price || null,
-        quantity: quantity,
-        name: formData.name,
-        email: formData.email,
-        contactNo: formData.telephone,
-      });
+      // Also save to backend database
+      await fetch("/api/backend/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          contactNo: formData.telephone,
+          productName: product.productName,
+          productDescription: product.description,
+          price: product.price,
+          quantity: quantity,
+        }),
+      }).catch((err) => console.error("Database save error:", err));
 
       toast.success("Anfrage erfolgreich gesendet!", { id: toastId });
       setFormData({ name: "", email: "", telephone: "" });
@@ -246,7 +252,11 @@ export function ProductInquiryForm({
                 Abbrechen
               </Button>
             </DialogClose>
-            <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              loading={isSubmitting}
+            >
               Anfrage senden
             </Button>
           </DialogFooter>

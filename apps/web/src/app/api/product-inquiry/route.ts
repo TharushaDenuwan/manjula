@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       productName,
       productDescription,
       price,
-      quantity
+      quantity,
     } = body;
 
     if (!name || !email || !telephone || !productName || !quantity) {
@@ -23,7 +23,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const recipientEmail = 'tharushadenuwan35@gmail.com';
+    // Send to both admin and customer
+    const adminEmail = "tharushadenuwan35@gmail.com";
+    const recipientEmails = [adminEmail, email]; // Send to both
 
     // Check if Resend API key is configured
     if (!process.env.RESEND_API_KEY) {
@@ -35,7 +37,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Get the base URL for logo
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_CLIENT_APP_URL || 'http://localhost:3000';
+    const baseUrl =
+      process.env.NEXT_PUBLIC_APP_URL ||
+      process.env.NEXT_PUBLIC_CLIENT_APP_URL ||
+      "http://localhost:3000";
     const logoUrl = `${baseUrl}/assets/logo.png`;
 
     // Beautiful email template for product inquiry
@@ -85,7 +90,9 @@ export async function POST(req: NextRequest) {
                         </tr>
                       </table>
 
-                      ${productDescription ? `
+                      ${
+                        productDescription
+                          ? `
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 12px;">
                         <tr>
                           <td width="140" style="color: #666666; font-size: 14px; font-weight: 600; vertical-align: top; padding-bottom: 8px;">
@@ -96,9 +103,13 @@ export async function POST(req: NextRequest) {
                           </td>
                         </tr>
                       </table>
-                      ` : ''}
+                      `
+                          : ""
+                      }
 
-                      ${price ? `
+                      ${
+                        price
+                          ? `
                       <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 12px;">
                         <tr>
                           <td width="140" style="color: #666666; font-size: 14px; font-weight: 600; vertical-align: top; padding-bottom: 8px;">
@@ -109,7 +120,9 @@ export async function POST(req: NextRequest) {
                           </td>
                         </tr>
                       </table>
-                      ` : ''}
+                      `
+                          : ""
+                      }
 
                       <table width="100%" cellpadding="0" cellspacing="0">
                         <tr>
@@ -198,15 +211,23 @@ export async function POST(req: NextRequest) {
     `;
 
     // Send email using Resend
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-    const fromName = process.env.RESEND_FROM_NAME || 'Manjula Ayurveda';
-    const fromAddress = fromEmail.includes('@') && !fromEmail.includes('<')
-      ? `${fromName} <${fromEmail}>`
-      : fromEmail;
+    const fromEmail = process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
+    const fromName = process.env.RESEND_FROM_NAME || "Manjula Ayurveda";
+    const fromAddress =
+      fromEmail.includes("@") && !fromEmail.includes("<")
+        ? `${fromName} <${fromEmail}>`
+        : fromEmail;
 
-    await resend.emails.send({
+    console.log("\n📧 === SENDING PRODUCT INQUIRY EMAIL ===");
+    console.log("From:", fromAddress);
+    console.log("To:", recipientEmails);
+    console.log("Reply-To:", email);
+    console.log("Product:", productName);
+    console.log("Customer:", name);
+
+    const emailResult = await resend.emails.send({
       from: fromAddress,
-      to: recipientEmail,
+      to: recipientEmails,
       replyTo: email,
       subject: `Neue Produktanfrage: ${productName} von ${name}`,
       html: emailHtml,
@@ -215,8 +236,8 @@ export async function POST(req: NextRequest) {
 
         Produktinformationen:
         Produktname: ${productName}
-        ${productDescription ? `Beschreibung: ${productDescription}` : ''}
-        ${price ? `Preis: ${price}` : ''}
+        ${productDescription ? `Beschreibung: ${productDescription}` : ""}
+        ${price ? `Preis: ${price}` : ""}
         Gewünschte Anzahl: ${quantity}
 
         Kontaktinformationen:
@@ -231,15 +252,52 @@ export async function POST(req: NextRequest) {
       `,
     });
 
+    // Check for errors from Resend
+    if (emailResult.error) {
+      console.error("❌ Resend API Error:", emailResult.error);
+      throw new Error(emailResult.error.message || "Email sending failed");
+    }
+
+    console.log("✅ Product inquiry email sent successfully!");
+    console.log("Email ID:", emailResult.data?.id);
+    console.log("Sent to:", recipientEmails);
+    console.log("=== EMAIL SENT SUCCESSFULLY ===");
+
     return NextResponse.json({
       success: true,
-      message: "Produktanfrage erfolgreich gesendet"
+      message: "Produktanfrage erfolgreich gesendet",
+      emailId: emailResult.data?.id,
     });
-
   } catch (error) {
-    console.error("Error sending product inquiry email:", error);
+    console.error("\n❌ === ERROR SENDING PRODUCT INQUIRY EMAIL ===");
+    console.error("Error:", error);
+
+    if (error instanceof Error) {
+      console.error("Message:", error.message);
+      console.error("Stack:", error.stack);
+    }
+
+    // Log configuration for debugging
+    console.error("\n🔧 Configuration:");
+    console.error(
+      "- RESEND_API_KEY:",
+      process.env.RESEND_API_KEY ? "✓ Set" : "✗ Missing"
+    );
+    console.error(
+      "- RESEND_FROM_EMAIL:",
+      process.env.RESEND_FROM_EMAIL || "Not set (using default)"
+    );
+    // console.error("- Recipients:", adminEmail, email);
+    console.error("=== ERROR END ===");
+
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+
     return NextResponse.json(
-      { error: "Fehler beim Senden der Anfrage" },
+      {
+        error: "Fehler beim Senden der Anfrage",
+        details: errorMessage,
+      },
       { status: 500 }
     );
   }

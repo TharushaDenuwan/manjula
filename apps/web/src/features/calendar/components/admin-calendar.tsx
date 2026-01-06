@@ -13,14 +13,40 @@ import {
 } from "@repo/ui/components/alert-dialog";
 import { Button } from "@repo/ui/components/button";
 import { Calendar } from "@repo/ui/components/calendar";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@repo/ui/components/card";
-import { format, isSaturday, isSunday, isWithinInterval, parseISO, startOfToday } from "date-fns";
-import { Calendar as CalendarIcon, Clock, ExternalLink, Loader2, Trash2, User } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@repo/ui/components/card";
+import {
+  format,
+  isSaturday,
+  isSunday,
+  isWithinInterval,
+  parseISO,
+  startOfToday,
+} from "date-fns";
+import {
+  Calendar as CalendarIcon,
+  Clock,
+  ExternalLink,
+  Loader2,
+  Trash2,
+  User,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { deleteCalendar } from "../actions/delete-calendar.action";
-import { CalendarResponse, getAllCalendar } from "../actions/get-all-calendar.action";
-import { getShopClosedDays, ShopClosedDay } from "../actions/shop-availability.action";
+import {
+  CalendarResponse,
+  getAllCalendar,
+} from "../actions/get-all-calendar.action";
+import {
+  getShopClosedDays,
+  ShopClosedDay,
+} from "../actions/shop-availability.action";
 import { BookSlotDialog } from "./book-slot-dialog";
 import { ClosedDaysManager } from "./closed-days-manager";
 
@@ -44,7 +70,7 @@ export function AdminCalendar() {
     try {
       const [bookingsResponse, closedDaysResponse] = await Promise.all([
         getAllCalendar({ limit: 100, page: 1 }),
-        getShopClosedDays()
+        getShopClosedDays(),
       ]);
       setBookings(bookingsResponse.data);
       setClosedDays(closedDaysResponse);
@@ -71,12 +97,12 @@ export function AdminCalendar() {
 
   // Filter bookings for selected date
   const selectedDateStr = date ? format(date, "yyyy-MM-dd") : "";
-  const dayBookings = bookings.filter(b => b.bookingDate === selectedDateStr);
+  const dayBookings = bookings.filter((b) => b.bookingDate === selectedDateStr);
 
   const isShopClosed = (checkDate: Date) => {
     if (isSaturday(checkDate) || isSunday(checkDate)) return true;
 
-    return closedDays.some(range => {
+    return closedDays.some((range) => {
       const start = parseISO(range.startDate);
       const end = parseISO(range.endDate);
       start.setHours(0, 0, 0, 0);
@@ -106,7 +132,8 @@ export function AdminCalendar() {
                 onSelect={setDate}
                 className="rounded-md border shadow-sm p-4 w-full flex justify-center"
                 classNames={{
-                  day_selected: "bg-[#D4AF37] text-white hover:bg-[#C19A2F] focus:bg-[#C19A2F]",
+                  day_selected:
+                    "bg-[#D4AF37] text-white hover:bg-[#C19A2F] focus:bg-[#C19A2F]",
                   day_today: "bg-[#D4AF37]/10 text-[#D4AF37] font-bold",
                 }}
               />
@@ -114,12 +141,12 @@ export function AdminCalendar() {
           </Card>
 
           <Card className="bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900">
-            <CardContent className="p-4">
-              <h4 className="font-bold flex items-center gap-2 mb-2">
+            <CardContent className="p-3 sm:p-4">
+              <h4 className="font-bold flex items-center gap-2 mb-2 text-sm sm:text-base">
                 <Clock className="w-4 h-4 text-amber-600" />
                 Legend
               </h4>
-              <div className="space-y-2 text-sm">
+              <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-green-500"></div>
                   <span>Available</span>
@@ -140,32 +167,39 @@ export function AdminCalendar() {
         {/* Slots Area */}
         <div className="flex-1">
           <Card className="border-border h-fit">
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div>
-                <CardTitle className="text-2xl">
+                <CardTitle className="text-lg sm:text-xl md:text-2xl break-words">
                   {date ? format(date, "EEEE, MMMM do, yyyy") : "Select a date"}
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-sm">
                   Manage appointments for this day
                 </CardDescription>
               </div>
-              {isLoading && <Loader2 className="animate-spin text-muted-foreground" />}
+              {isLoading && (
+                <Loader2 className="animate-spin text-muted-foreground" />
+              )}
             </CardHeader>
             <CardContent>
               {!date ? (
-                <div className="text-center py-20 text-muted-foreground">
+                <div className="text-center py-12 sm:py-20 px-4 text-muted-foreground text-sm sm:text-base">
                   Please select a date to view slots.
                 </div>
               ) : isWeekend ? (
-                <div className="flex flex-col items-center justify-center py-20 bg-red-50 dark:bg-red-950/10 rounded-xl border border-dashed border-red-200">
-                  <span className="text-red-500 font-bold text-lg mb-2">We are Closed</span>
-                  <p className="text-muted-foreground">The center is closed on Saturdays and Sundays.</p>
+                <div className="flex flex-col items-center justify-center py-12 sm:py-20 px-4 bg-red-50 dark:bg-red-950/10 rounded-xl border border-dashed border-red-200">
+                  <span className="text-red-500 font-bold text-base sm:text-lg mb-2">
+                    We are Closed
+                  </span>
+                  <p className="text-muted-foreground text-sm sm:text-base text-center">
+                    The center is closed on Saturdays and Sundays.
+                  </p>
                 </div>
               ) : (
                 <div className="grid gap-4">
                   {SLOTS.map((slot) => {
-                    const booking = dayBookings.find(b =>
-                      b.startTime === slot.start || b.slotIndex === slot.id
+                    const booking = dayBookings.find(
+                      (b) =>
+                        b.startTime === slot.start || b.slotIndex === slot.id
                     );
                     const isBooked = !!booking;
 
@@ -173,83 +207,115 @@ export function AdminCalendar() {
                       <div
                         key={slot.id}
                         className={`
-                          flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border transition-all
-                          ${isBooked
-                            ? "bg-red-50 dark:bg-red-950/10 border-red-100 dark:border-red-900"
-                            : "bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 hover:border-[#D4AF37]/50"}
+                          flex flex-col p-3 sm:p-4 rounded-xl border transition-all
+                          ${
+                            isBooked
+                              ? "bg-red-50 dark:bg-red-950/10 border-red-100 dark:border-red-900"
+                              : "bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 hover:border-[#D4AF37]/50"
+                          }
                         `}
                       >
-                        {/* Time Slot Info */}
-                        <div className="flex items-center gap-4 mb-4 sm:mb-0">
-                          <div className={`
-                            p-3 rounded-lg font-bold text-sm min-w-[120px] text-center
-                            ${isBooked ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}
-                          `}>
-                            {slot.label}
+                        {/* Mobile and Desktop Layout */}
+                        <div className="flex flex-col gap-3">
+                          {/* Time Slot - Always on top */}
+                          <div className="flex items-center justify-between gap-3">
+                            <div
+                              className={`
+                              px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg font-bold text-xs sm:text-sm text-center flex-shrink-0
+                              ${isBooked ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}
+                            `}
+                            >
+                              {slot.label}
+                            </div>
+                            
+                            {/* Actions - Next to time slot on all screens when not booked */}
+                            {!isBooked && (
+                              <div className="flex items-center gap-2">
+                                <BookSlotDialog
+                                  date={format(date, "yyyy-MM-dd")}
+                                  slot={slot}
+                                  onSuccess={fetchBookings}
+                                />
+                              </div>
+                            )}
                           </div>
 
-                          {isBooked ? (
-                            <div className="flex flex-col">
-                              <span className="font-bold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                                <User className="w-4 h-4" /> {booking.customerName}
-                              </span>
-                              <span className="text-sm text-gray-500">
-                                {booking.customerPhone || "No phone"} • {booking.customerEmail || "No email"}
-                              </span>
-                              {booking.notes && (
-                                  <span className="text-xs text-amber-600 mt-1 italic">
-                                    Note: {booking.notes}
-                                  </span>
-                              )}
-                            </div>
-                          ) : (
-                            <span className="text-muted-foreground font-medium">Available</span>
-                          )}
-                        </div>
-
-                        {/* Actions */}
-                        <div className="flex items-center gap-2">
-                          {isBooked ? (
+                          {/* Customer Info - Below time slot when booked */}
+                          {isBooked && (
                             <>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="text-[#D4AF37] hover:text-[#C19A2F] hover:bg-amber-50"
-                                asChild
-                              >
-                                <a href={booking.paymentSlip} target="_blank" rel="noopener noreferrer">
-                                  <ExternalLink className="w-4 h-4" />
-                                </a>
-                              </Button>
-                              <AlertDialog>
-                               <AlertDialogTrigger asChild>
-                                 <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700 hover:bg-red-50">
-                                   <Trash2 className="w-4 h-4" />
-                                 </Button>
-                               </AlertDialogTrigger>
-                               <AlertDialogContent>
-                                 <AlertDialogHeader>
-                                   <AlertDialogTitle>Cancel Appointment?</AlertDialogTitle>
-                                   <AlertDialogDescription>
-                                     This will permanently remove the booking for <strong>{booking.customerName}</strong>.
-                                     This action cannot be undone.
-                                   </AlertDialogDescription>
-                                 </AlertDialogHeader>
-                                 <AlertDialogFooter>
-                                   <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                   <AlertDialogAction onClick={() => handleDelete(booking.id)} className="bg-red-600 hover:bg-red-700">
-                                     Confirm Cancel
-                                   </AlertDialogAction>
-                                 </AlertDialogFooter>
-                               </AlertDialogContent>
-                             </AlertDialog>
+                              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                                <div className="flex flex-col flex-1 min-w-0">
+                                  <span className="font-bold text-sm sm:text-base text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                                    <User className="w-4 h-4 flex-shrink-0" />
+                                    <span className="truncate">
+                                      {booking.customerName}
+                                    </span>
+                                  </span>
+                                  <span className="text-xs sm:text-sm text-gray-500 break-words ml-6">
+                                    {booking.customerPhone || "No phone"} •{" "}
+                                    {booking.customerEmail || "No email"}
+                                  </span>
+                                  {booking.notes && (
+                                    <span className="text-xs text-amber-600 mt-1 italic line-clamp-2 ml-6">
+                                      Note: {booking.notes}
+                                    </span>
+                                  )}
+                                </div>
+
+                                {/* Actions for booked slots */}
+                                <div className="flex items-center gap-2 ml-6 sm:ml-0">
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    className="text-[#D4AF37] hover:text-[#C19A2F] hover:bg-amber-50 h-9 w-9 sm:h-10 sm:w-10"
+                                    asChild
+                                  >
+                                    <a
+                                      href={booking.paymentSlip}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
+                                    </a>
+                                  </Button>
+                                  <AlertDialog>
+                                    <AlertDialogTrigger asChild>
+                                      <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        className="text-red-500 hover:text-red-700 hover:bg-red-50 h-9 w-9 sm:h-10 sm:w-10"
+                                      >
+                                        <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                                      </Button>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent className="max-w-[90vw] sm:max-w-[425px]">
+                                      <AlertDialogHeader>
+                                        <AlertDialogTitle className="text-base sm:text-lg">
+                                          Cancel Appointment?
+                                        </AlertDialogTitle>
+                                        <AlertDialogDescription className="text-sm">
+                                          This will permanently remove the booking
+                                          for{" "}
+                                          <strong>{booking.customerName}</strong>.
+                                          This action cannot be undone.
+                                        </AlertDialogDescription>
+                                      </AlertDialogHeader>
+                                      <AlertDialogFooter>
+                                        <AlertDialogCancel>
+                                          Cancel
+                                        </AlertDialogCancel>
+                                        <AlertDialogAction
+                                          onClick={() => handleDelete(booking.id)}
+                                          className="bg-red-600 hover:bg-red-700"
+                                        >
+                                          Confirm Cancel
+                                        </AlertDialogAction>
+                                      </AlertDialogFooter>
+                                    </AlertDialogContent>
+                                  </AlertDialog>
+                                </div>
+                              </div>
                             </>
-                          ) : (
-                            <BookSlotDialog
-                              date={format(date, "yyyy-MM-dd")}
-                              slot={slot}
-                              onSuccess={fetchBookings}
-                            />
                           )}
                         </div>
                       </div>
@@ -263,7 +329,7 @@ export function AdminCalendar() {
       </div>
 
       {/* Closed Days Management - Now prominent and under everything */}
-      <div className="w-full border-t pt-8">
+      <div className="w-full border-t pt-6 sm:pt-8">
         <ClosedDaysManager />
       </div>
     </div>
