@@ -77,7 +77,7 @@ export function ProductInquiryForm({
         throw new Error(result.error || "Fehler beim Senden der Anfrage");
       }
 
-      // Save order to database
+      // Save order to database using server action
       await addOrder({
         productName: product.productName,
         description: product.description || null,
