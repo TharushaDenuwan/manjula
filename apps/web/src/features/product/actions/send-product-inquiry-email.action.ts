@@ -150,20 +150,21 @@ export async function sendProductInquiryEmail(
     `;
 
     const fromEmail = process.env.RESEND_FROM_EMAIL || "noreply@manjula.cloud";
+    const adminEmails = [
+      "tharushadenuwan35@gmail.com",
+      "noreply@manjula.cloud",
+    ];
+
+    console.log("Sending emails for product inquiry:");
+    console.log("- Admin emails to:", adminEmails.join(", "));
+    console.log("- Customer email to:", email);
 
     // Send all emails in parallel and track results
     const emailPromises = [
-      // Email to primary admin
+      // Email to all admins (using 'to' as array)
       resend.emails.send({
         from: fromEmail,
-        to: fromEmail,
-        subject: `Neue Produktanfrage: ${productName}`,
-        html: adminEmailContent,
-      }),
-      // Email to additional admin
-      resend.emails.send({
-        from: fromEmail,
-        to: "tharushadenuwan35@gmail.com",
+        to: adminEmails,
         subject: `Neue Produktanfrage: ${productName}`,
         html: adminEmailContent,
       }),
@@ -173,25 +174,37 @@ export async function sendProductInquiryEmail(
         to: email,
         subject: "Bestätigung Ihrer Produktanfrage - Manjula",
         html: customerEmailContent,
+        replyTo: "tharushadenuwan35@gmail.com",
       }),
     ];
 
     const results = await Promise.allSettled(emailPromises);
 
-    // Log any failures
+    // Log all results
     results.forEach((result, index) => {
+      const type = index === 0 ? "Admin" : "Customer";
+      const recipient = index === 0 ? adminEmails.join(", ") : email;
+
       if (result.status === "rejected") {
-        const recipient = index === 0 ? fromEmail : index === 1 ? "tharushadenuwan35@gmail.com" : email;
-        console.error(`Failed to send email to ${recipient}:`, result.reason);
+        console.error(
+          `❌ ${type} email to ${recipient} FAILED:`,
+          result.reason
+        );
+      } else {
+        console.log(`✓ ${type} email to ${recipient} sent successfully`);
+        if (result.status === "fulfilled" && result.value) {
+          const emailId = result.value.data?.id;
+          console.log(`  Email ID:`, emailId);
+        }
       }
     });
 
     // Check if customer email was sent successfully
-    const customerEmailResult = results[2];
+    const customerEmailResult = results[1];
     if (customerEmailResult.status === "rejected") {
-      console.error("Customer confirmation email failed:", customerEmailResult.reason);
-    } else {
-      console.log("Customer confirmation email sent successfully to:", email);
+      console.error(
+        "⚠️ CUSTOMER EMAIL FAILED - Customer will not receive confirmation!"
+      );
     }
 
     return { success: true };
