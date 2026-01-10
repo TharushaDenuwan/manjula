@@ -1,7 +1,9 @@
 "use client";
 
-import { ProductResponse } from "@/features/product/actions/get-all-product.action";
 import { addOrder } from "@/features/order/actions/add-order.action";
+import { ProductResponse } from "@/features/product/actions/get-all-product.action";
+// import { sendProductInquiryEmail } from "@/features/product/actions/send-product-inquiry-email.action";
+import { sendProductInquiryEmail } from "@/features/product/actions/send-product-inquiry-email.action";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -13,6 +15,7 @@ import {
   DialogTitle,
 } from "@repo/ui/components/dialog";
 import { Input } from "@repo/ui/components/input";
+import { Loader2 } from "lucide-react";
 import { useId, useState } from "react";
 import { toast } from "sonner";
 
@@ -59,26 +62,19 @@ export function ProductInquiryForm({
       setIsSubmitting(true);
       toast.loading("Anfrage wird gesendet...", { id: toastId });
 
-      const response = await fetch("/api/product-inquiry", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          telephone: formData.telephone,
-          productName: product.productName,
-          productDescription: product.description,
-          price: product.price,
-          quantity: quantity,
-        }),
+      // Send email using server action
+      const result = await sendProductInquiryEmail({
+        name: formData.name,
+        email: formData.email,
+        telephone: formData.telephone,
+        productName: product.productName,
+        productDescription: product.description,
+        price: product.price,
+        quantity: quantity,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Fehler beim Senden der Anfrage");
+      if (!result.success) {
+        throw new Error(result.error || "Fehler beim Senden der Anfrage");
       }
 
       // Save order to database
@@ -246,7 +242,8 @@ export function ProductInquiryForm({
                 Abbrechen
               </Button>
             </DialogClose>
-            <Button type="submit" disabled={isSubmitting} loading={isSubmitting}>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="size-4 animate-spin" />}
               Anfrage senden
             </Button>
           </DialogFooter>
