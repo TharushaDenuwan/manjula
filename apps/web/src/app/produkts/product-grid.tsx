@@ -215,8 +215,8 @@ export function ProductGrid({ products }: ProductGridProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </motion.div>
 
-                <CardHeader className="p-4 pb-3 pt-4">
-                  <CardTitle className="text-lg font-bold text-[#0F172A] dark:text-white mb-1 group-hover:text-[#D4AF37] transition-colors duration-300 line-clamp-2">
+                <CardHeader className="px-4 pt-3 pb-2">
+                  <CardTitle className="text-lg font-bold text-[#0F172A] dark:text-white mb-0.5 group-hover:text-[#D4AF37] transition-colors duration-300 line-clamp-2">
                     {product.productName}
                   </CardTitle>
                   {product.description && (
@@ -226,18 +226,16 @@ export function ProductGrid({ products }: ProductGridProps) {
                   )}
                 </CardHeader>
 
-                <CardContent className="px-4 pb-4 space-y-2">
+                <CardContent className="px-4 pb-4 pt-1 space-y-1">
                   {/* Price */}
                   {product.price && (
                     <div className="flex items-baseline gap-2">
                       <span className="text-2xl font-bold text-[#D4AF37]">
-                        {product.price}
+                        € {product.price.replace("€", "").trim()}
                       </span>
-                      {product.price.includes("€") && (
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                          EUR
-                        </span>
-                      )}
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        EUR
+                      </span>
                     </div>
                   )}
 
