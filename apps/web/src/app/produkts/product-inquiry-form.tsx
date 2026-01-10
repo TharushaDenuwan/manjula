@@ -77,22 +77,16 @@ export function ProductInquiryForm({
         throw new Error(result.error || "Fehler beim Senden der Anfrage");
       }
 
-      // Also save to backend database
-      await fetch("/api/backend/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          contactNo: formData.telephone,
-          productName: product.productName,
-          productDescription: product.description,
-          price: product.price,
-          quantity: quantity,
-        }),
-      }).catch((err) => console.error("Database save error:", err));
+      // Save order to database using server action
+      await addOrder({
+        productName: product.productName,
+        description: product.description || null,
+        price: product.price || null,
+        quantity: quantity,
+        name: formData.name,
+        email: formData.email,
+        contactNo: formData.telephone,
+      });
 
       toast.success("Anfrage erfolgreich gesendet!", { id: toastId });
       setFormData({ name: "", email: "", telephone: "" });
