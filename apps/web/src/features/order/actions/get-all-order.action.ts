@@ -11,6 +11,7 @@ export interface OrderResponse {
   name: string;
   email: string;
   contactNo: string;
+  address: string;
   updatedAt: string | null;
   createdAt: string | null;
 }

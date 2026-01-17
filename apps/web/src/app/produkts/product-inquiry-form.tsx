@@ -37,6 +37,7 @@ export function ProductInquiryForm({
     name: "",
     email: "",
     telephone: "",
+    address: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -44,7 +45,12 @@ export function ProductInquiryForm({
     e.preventDefault();
 
     // Validation
-    if (!formData.name || !formData.email || !formData.telephone) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.telephone ||
+      !formData.address
+    ) {
       toast.error("Bitte füllen Sie alle Felder aus", { id: toastId });
       return;
     }
@@ -67,6 +73,7 @@ export function ProductInquiryForm({
         name: formData.name,
         email: formData.email,
         telephone: formData.telephone,
+        address: formData.address,
         productName: product.productName,
         productDescription: product.description,
         price: product.price,
@@ -85,11 +92,12 @@ export function ProductInquiryForm({
         quantity: quantity,
         name: formData.name,
         email: formData.email,
+        address: formData.address,
         contactNo: formData.telephone,
       });
 
       toast.success("Anfrage erfolgreich gesendet!", { id: toastId });
-      setFormData({ name: "", email: "", telephone: "" });
+      setFormData({ name: "", email: "", telephone: "", address: "" });
       onOpenChange(false);
     } catch (error) {
       const err = error as Error;
@@ -229,6 +237,24 @@ export function ProductInquiryForm({
                   placeholder="+43 123 456 7890"
                   value={formData.telephone}
                   onChange={(e) => handleInputChange(e, "telephone")}
+                  required
+                  className="w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >
+                  Adresse <span className="text-red-500">*</span>
+                </label>
+                <Input
+                  id="address"
+                  type="text"
+                  placeholder="Straße, Hausnummer, PLZ, Stadt"
+                  value={formData.address}
+                  onChange={(e) => handleInputChange(e, "address")}
                   required
                   className="w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                 />
