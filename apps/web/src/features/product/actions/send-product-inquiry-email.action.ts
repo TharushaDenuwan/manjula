@@ -8,6 +8,7 @@ interface SendProductInquiryEmailParams {
   name: string;
   email: string;
   telephone: string;
+  address: string;
   productName: string;
   productDescription?: string | null;
   price?: string | null;
@@ -22,6 +23,7 @@ export async function sendProductInquiryEmail(
       name,
       email,
       telephone,
+      address,
       productName,
       productDescription,
       price,
@@ -84,6 +86,10 @@ export async function sendProductInquiryEmail(
               <td style="padding: 8px 0; font-weight: bold; color: #666;">Telefon:</td>
               <td style="padding: 8px 0;"><a href="tel:${telephone}" style="color: #D4AF37; text-decoration: none;">${telephone}</a></td>
             </tr>
+            <tr>
+              <td style="padding: 8px 0; font-weight: bold; color: #666;">Adresse:</td>
+              <td style="padding: 8px 0;">${address}</td>
+            </tr>
           </table>
         </div>
 
@@ -128,6 +134,10 @@ export async function sendProductInquiryEmail(
             <tr>
               <td style="padding: 8px 0; font-weight: bold; color: #666;">Menge:</td>
               <td style="padding: 8px 0;">${quantity}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; font-weight: bold; color: #666;">Lieferadresse:</td>
+              <td style="padding: 8px 0;">${address}</td>
             </tr>
           </table>
         </div>
