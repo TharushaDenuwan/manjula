@@ -1,6 +1,9 @@
 "use client";
 
+import { addOrder } from "@/features/order/actions/add-order.action";
 import { ProductResponse } from "@/features/product/actions/get-all-product.action";
+// import { sendProductInquiryEmail } from "@/features/product/actions/send-product-inquiry-email.action";
+import { sendProductInquiryEmail } from "@/features/product/actions/send-product-inquiry-email.action";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -12,6 +15,7 @@ import {
   DialogTitle,
 } from "@repo/ui/components/dialog";
 import { Input } from "@repo/ui/components/input";
+import { Loader2 } from "lucide-react";
 import { useId, useState } from "react";
 import { toast } from "sonner";
 
@@ -33,6 +37,7 @@ export function ProductInquiryForm({
     name: "",
     email: "",
     telephone: "",
+    address: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -40,7 +45,12 @@ export function ProductInquiryForm({
     e.preventDefault();
 
     // Validation
-    if (!formData.name || !formData.email || !formData.telephone) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.telephone ||
+      !formData.address
+    ) {
       toast.error("Bitte füllen Sie alle Felder aus", { id: toastId });
       return;
     }
@@ -58,48 +68,36 @@ export function ProductInquiryForm({
       setIsSubmitting(true);
       toast.loading("Anfrage wird gesendet...", { id: toastId });
 
-      // Send email via local Next.js API
-      const emailResponse = await fetch("/api/product-inquiry", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          telephone: formData.telephone,
-          productName: product.productName,
-          productDescription: product.description,
-          price: product.price,
-          quantity: quantity,
-        }),
+      // Send email using server action
+      const result = await sendProductInquiryEmail({
+        name: formData.name,
+        email: formData.email,
+        telephone: formData.telephone,
+        address: formData.address,
+        productName: product.productName,
+        productDescription: product.description,
+        price: product.price,
+        quantity: quantity,
       });
 
-      const emailData = await emailResponse.json();
-
-      if (!emailResponse.ok) {
-        throw new Error(emailData.error || "Fehler beim Senden der Anfrage");
+      if (!result.success) {
+        throw new Error(result.error || "Fehler beim Senden der Anfrage");
       }
 
-      // Also save to backend database
-      await fetch("/api/backend/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          contactNo: formData.telephone,
-          productName: product.productName,
-          productDescription: product.description,
-          price: product.price,
-          quantity: quantity,
-        }),
-      }).catch((err) => console.error("Database save error:", err));
+      // Save order to database using server action
+      await addOrder({
+        productName: product.productName,
+        description: product.description || null,
+        price: product.price || null,
+        quantity: quantity,
+        name: formData.name,
+        email: formData.email,
+        address: formData.address,
+        contactNo: formData.telephone,
+      });
 
       toast.success("Anfrage erfolgreich gesendet!", { id: toastId });
-      setFormData({ name: "", email: "", telephone: "" });
+      setFormData({ name: "", email: "", telephone: "", address: "" });
       onOpenChange(false);
     } catch (error) {
       const err = error as Error;
@@ -243,6 +241,24 @@ export function ProductInquiryForm({
                   className="w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
                 />
               </div>
+
+              <div>
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+                >
+                  Adresse <span className="text-red-500">*</span>
+                </label>
+                <Input
+                  id="address"
+                  type="text"
+                  placeholder="Straße, Hausnummer, PLZ, Stadt"
+                  value={formData.address}
+                  onChange={(e) => handleInputChange(e, "address")}
+                  required
+                  className="w-full dark:bg-gray-700 dark:text-white dark:border-gray-600"
+                />
+              </div>
             </div>
           </div>
 
@@ -252,11 +268,8 @@ export function ProductInquiryForm({
                 Abbrechen
               </Button>
             </DialogClose>
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              loading={isSubmitting}
-            >
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting && <Loader2 className="size-4 animate-spin" />}
               Anfrage senden
             </Button>
           </DialogFooter>

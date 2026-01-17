@@ -516,6 +516,7 @@
 "use client";
 import { Button } from "@repo/ui/components/button";
 import { motion, useAnimation, useInView } from "framer-motion";
+import { Calendar } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { DiscountPosts } from "./discount-posts";
@@ -1073,7 +1074,9 @@ export function Hero() {
                   <div className="mt-4 sm:mt-5 md:mt-6 space-y-1.5 sm:space-y-2 text-sm sm:text-base text-[#5f6164] dark:text-gray-300">
                     <p>☎ Telefon: +43 664 88653430</p>
                     <p>✉ E-Mail: relax@manjula.at</p>
-                    <p>🕉️ Termin nach Vereinbarung</p>
+                    <p className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" /> Termin nach Vereinbarung
+                    </p>
                   </div>
                 </motion.div>
               </motion.div>

@@ -11,6 +11,7 @@ export interface AddOrderSchema {
   name: string;
   email: string;
   contactNo: string;
+  address: string;
 }
 
 export interface OrderResponse {
@@ -22,13 +23,12 @@ export interface OrderResponse {
   name: string;
   email: string;
   contactNo: string;
+  address: string;
   updatedAt: string | null;
   createdAt: string | null;
 }
 
-export async function addOrder(
-  data: AddOrderSchema
-): Promise<OrderResponse> {
+export async function addOrder(data: AddOrderSchema): Promise<OrderResponse> {
   const client = await getClient();
 
   const response = await client.api.orders.$post({
@@ -40,6 +40,7 @@ export async function addOrder(
       name: data.name,
       email: data.email,
       contactNo: data.contactNo,
+      address: data.address,
     },
   });
 

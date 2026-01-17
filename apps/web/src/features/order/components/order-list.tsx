@@ -22,7 +22,10 @@ import { formatDistanceToNow } from "date-fns";
 import { FileText, Loader2, TrashIcon } from "lucide-react";
 import { toast } from "sonner";
 import { deleteOrder } from "../actions/delete-order.action";
-import { getAllOrders, type OrderResponse } from "../actions/get-all-order.action";
+import {
+  getAllOrders,
+  type OrderResponse,
+} from "../actions/get-all-order.action";
 import { OrderCard } from "./order-card";
 
 type Props = {
@@ -40,7 +43,7 @@ export function OrderList({ viewMode }: Props) {
       setIsLoading(true);
       setError(null);
       const response = await getAllOrders({
-        sort: "desc"
+        sort: "desc",
       });
       setOrders(response.data);
     } catch (err) {
@@ -107,6 +110,7 @@ export function OrderList({ viewMode }: Props) {
                 <TableHead>Customer</TableHead>
                 <TableHead>Email</TableHead>
                 <TableHead>Contact No</TableHead>
+                <TableHead>Address</TableHead>
                 <TableHead>Created</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
@@ -130,11 +134,7 @@ export function OrderList({ viewMode }: Props) {
     <div className="space-y-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {orders.map((order) => (
-          <OrderCard
-            key={order.id}
-            order={order}
-            onDelete={handleRefresh}
-          />
+          <OrderCard key={order.id} order={order} onDelete={handleRefresh} />
         ))}
       </div>
     </div>
@@ -153,7 +153,8 @@ function OrderTableRow({
   const [isDescriptionDialogOpen, setIsDescriptionDialogOpen] = useState(false);
 
   const DESCRIPTION_TRUNCATE_LENGTH = 50;
-  const isDescriptionLong = order.description && order.description.length > DESCRIPTION_TRUNCATE_LENGTH;
+  const isDescriptionLong =
+    order.description && order.description.length > DESCRIPTION_TRUNCATE_LENGTH;
   const truncatedDescription = isDescriptionLong
     ? order.description.substring(0, DESCRIPTION_TRUNCATE_LENGTH) + "..."
     : order.description;
@@ -175,7 +176,7 @@ function OrderTableRow({
       const error = err as Error;
       console.error("Failed to delete order:", error);
       toast.error(`Failed: ${error.message}`, {
-        id: toastId
+        id: toastId,
       });
     } finally {
       setIsDeleting(false);
@@ -189,9 +190,7 @@ function OrderTableRow({
       <TableCell>{order.quantity !== null ? order.quantity : "N/A"}</TableCell>
       <TableCell className="max-w-md">
         <div className="flex items-center gap-2">
-          <p className="truncate">
-            {truncatedDescription || "N/A"}
-          </p>
+          <p className="truncate">{truncatedDescription || "N/A"}</p>
           {isDescriptionLong && (
             <Button
               variant="link"
@@ -221,6 +220,9 @@ function OrderTableRow({
           {order.contactNo}
         </a>
       </TableCell>
+      <TableCell className="max-w-xs">
+        <p className="truncate text-sm">{order.address || "N/A"}</p>
+      </TableCell>
       <TableCell className="text-sm text-muted-foreground">
         {order.createdAt
           ? formatDistanceToNow(new Date(order.createdAt), { addSuffix: true })
@@ -240,16 +242,17 @@ function OrderTableRow({
       </TableCell>
 
       {/* Description Dialog */}
-      <Dialog open={isDescriptionDialogOpen} onOpenChange={setIsDescriptionDialogOpen}>
+      <Dialog
+        open={isDescriptionDialogOpen}
+        onOpenChange={setIsDescriptionDialogOpen}
+      >
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <FileText className="w-5 h-5 text-[#D4AF37]" />
               Description for {order.productName}
             </DialogTitle>
-            <DialogDescription>
-              Full product description
-            </DialogDescription>
+            <DialogDescription>Full product description</DialogDescription>
           </DialogHeader>
           <div className="mt-4">
             <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">

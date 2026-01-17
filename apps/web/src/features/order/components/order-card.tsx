@@ -1,6 +1,16 @@
 "use client";
 import { formatDistanceToNow } from "date-fns";
-import { Clock, DollarSign, FileText, Hash, Mail, Package, Phone, TrashIcon, User } from "lucide-react";
+import {
+  Clock,
+  DollarSign,
+  FileText,
+  Hash,
+  Mail,
+  Package,
+  Phone,
+  TrashIcon,
+  User,
+} from "lucide-react";
 import { useId, useState } from "react";
 
 import { Button } from "@repo/ui/components/button";
@@ -9,7 +19,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@repo/ui/components/card";
 import {
   Dialog,
@@ -34,7 +44,8 @@ export function OrderCard({ order, onDelete }: Props) {
   const [isDescriptionDialogOpen, setIsDescriptionDialogOpen] = useState(false);
 
   const DESCRIPTION_TRUNCATE_LENGTH = 100;
-  const isDescriptionLong = order.description && order.description.length > DESCRIPTION_TRUNCATE_LENGTH;
+  const isDescriptionLong =
+    order.description && order.description.length > DESCRIPTION_TRUNCATE_LENGTH;
   const truncatedDescription = isDescriptionLong
     ? order.description.substring(0, DESCRIPTION_TRUNCATE_LENGTH) + "..."
     : order.description;
@@ -56,7 +67,7 @@ export function OrderCard({ order, onDelete }: Props) {
       const error = err as Error;
       console.error("Failed to delete order:", error);
       toast.error(`Failed: ${error.message}`, {
-        id: toastId
+        id: toastId,
       });
     } finally {
       setIsDeleting(false);
@@ -87,17 +98,13 @@ export function OrderCard({ order, onDelete }: Props) {
           {order.price && (
             <div className="flex items-center gap-2 text-sm">
               <DollarSign className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
-              <span className="font-semibold">
-                {order.price}
-              </span>
+              <span className="font-semibold">{order.price}</span>
             </div>
           )}
           {order.quantity !== null && (
             <div className="flex items-center gap-2 text-sm">
               <Hash className="w-4 h-4 text-[#D4AF37] flex-shrink-0" />
-              <span>
-                Quantity: {order.quantity}
-              </span>
+              <span>Quantity: {order.quantity}</span>
             </div>
           )}
         </div>
@@ -150,6 +157,32 @@ export function OrderCard({ order, onDelete }: Props) {
               {order.contactNo}
             </a>
           </div>
+          {order.address && (
+            <div className="flex items-start gap-2 text-sm">
+              <svg
+                className="w-4 h-4 text-[#D4AF37] flex-shrink-0 mt-0.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              <span className="text-foreground break-words">
+                {order.address}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Date Information */}
@@ -178,16 +211,17 @@ export function OrderCard({ order, onDelete }: Props) {
       </CardContent>
 
       {/* Description Dialog */}
-      <Dialog open={isDescriptionDialogOpen} onOpenChange={setIsDescriptionDialogOpen}>
+      <Dialog
+        open={isDescriptionDialogOpen}
+        onOpenChange={setIsDescriptionDialogOpen}
+      >
         <DialogContent className="max-w-2xl">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <FileText className="w-5 h-5 text-[#D4AF37]" />
               Description for {order.productName}
             </DialogTitle>
-            <DialogDescription>
-              Full product description
-            </DialogDescription>
+            <DialogDescription>Full product description</DialogDescription>
           </DialogHeader>
           <div className="mt-4">
             <p className="text-foreground leading-relaxed whitespace-pre-wrap">

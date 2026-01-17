@@ -319,7 +319,7 @@ export function UserCalendar() {
                             slot={slot}
                             onSuccess={fetchData}
                           >
-                            <div className="flex items-center gap-2 font-bold px-4 py-2 rounded-full text-sm text-white bg-[#D4AF37] opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md cursor-pointer">
+                            <div className="flex items-center gap-2 font-bold px-4 py-2 rounded-full text-sm text-white bg-[#D4AF37] transition-all duration-300 shadow-md cursor-pointer hover:shadow-lg hover:bg-[#C19A2F]">
                               Termin buchen
                             </div>
                           </BookSlotDialog>

@@ -6,7 +6,7 @@ import { Toaster } from "sonner";
 import { fontHeading, fontSans } from "../lib/fonts";
 
 export const metadata: Metadata = {
-  title: "Manjula.com",
+  title: "manjula Ayurveda",
   description:
     "Welcome to Manjula.com, your destination for wellness and relaxation.",
 };
