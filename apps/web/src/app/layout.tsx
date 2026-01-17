@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   title: "manjula Ayurveda",
   description:
     "Welcome to Manjula.com, your destination for wellness and relaxation.",
+  icons: {
+    icon: "/assets/logo2.png",
+    apple: "/assets/logo2.png",
+  },
 };
 
 export default function RootLayout({
