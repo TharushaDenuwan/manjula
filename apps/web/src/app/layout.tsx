@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Welcome to Manjula.com, your destination for wellness and relaxation.",
   icons: {
-    icon: "/assets/logo2.png",
+    icon: [{ url: "/assets/logo2.png", type: "image/png", sizes: "32x32" }],
     apple: "/assets/logo2.png",
   },
 };
