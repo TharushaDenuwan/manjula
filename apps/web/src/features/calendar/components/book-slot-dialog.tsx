@@ -1,6 +1,7 @@
 "use client";
 
 import { FileUploader } from "@/components/file-uploader";
+import { authClient } from "@/lib/auth-client";
 import { Button } from "@repo/ui/components/button";
 import {
   Dialog,
@@ -44,11 +45,20 @@ export function BookSlotDialog({
   const [customerPhone, setCustomerPhone] = useState("");
   const [paymentSlip, setPaymentSlip] = useState("");
   const [notes, setNotes] = useState("");
+  const { data: session } = authClient.useSession();
+  const isAdmin = session?.user?.role === "admin";
 
   const handleBook = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
+    // Enforce payment slip for non-admin users
+    if (!isAdmin && !paymentSlip) {
+      toast.error(
+        "Zahlungsbeleg ist erforderlich, um den Termin zu bestätigen."
+      );
+      setIsLoading(false);
+      return;
+    }
     try {
       await addCalendar({
         bookingDate: date,
@@ -164,7 +174,10 @@ export function BookSlotDialog({
           {/* Payment Slip Upload - Moved up for emphasis */}
           <div className="grid gap-2">
             <Label htmlFor="payment_slip" className="flex items-center gap-1">
-              Zahlungsbeleg <span className="text-red-500">*</span>
+              Zahlungsbeleg{" "}
+              {(!isAdmin || undefined) && (
+                <span className="text-red-500">*</span>
+              )}
             </Label>
             <FileUploader
               value={paymentSlip}
@@ -179,7 +192,9 @@ export function BookSlotDialog({
               label="Zahlungsbeleg hochladen (Bild oder PDF)"
             />
             <p className="text-xs text-muted-foreground">
-              Laden Sie Ihren Zahlungsbeleg als Bild oder PDF hoch.
+              {isAdmin
+                ? "Admins können ohne Zahlungsbeleg buchen. Optional können Sie einen Beleg hochladen."
+                : "Laden Sie Ihren Zahlungsbeleg als Bild oder PDF hoch. (Erforderlich)"}
             </p>
           </div>
 
