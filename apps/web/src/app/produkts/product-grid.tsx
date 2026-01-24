@@ -9,6 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/ui/components/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@repo/ui/components/dialog";
 import { Input } from "@repo/ui/components/input";
 import { motion } from "framer-motion";
 import { Mail, Minus, Plus, ShoppingCart, Sparkles } from "lucide-react";
@@ -30,6 +36,9 @@ export function ProductGrid({ products }: ProductGridProps) {
     Record<string, boolean>
   >({});
   const [selectedProductForEmail, setSelectedProductForEmail] =
+    useState<ProductResponse | null>(null);
+  // State to track which product's description is being viewed in full
+  const [selectedProductForDescription, setSelectedProductForDescription] =
     useState<ProductResponse | null>(null);
 
   // Helper function to update selected quantity
@@ -119,6 +128,11 @@ export function ProductGrid({ products }: ProductGridProps) {
     if (!open) {
       setSelectedProductForEmail(null);
     }
+  };
+
+  // Handle description click
+  const handleShowDescription = (product: ProductResponse) => {
+    setSelectedProductForDescription(product);
   };
 
   if (products.length === 0) {
@@ -220,8 +234,16 @@ export function ProductGrid({ products }: ProductGridProps) {
                     {product.productName}
                   </CardTitle>
                   {product.description && (
-                    <CardDescription className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
-                      {product.description}
+                    <CardDescription className="text-sm text-gray-600 dark:text-gray-300">
+                      <span className="line-clamp-2">{product.description}</span>
+                      {product.description.length > 60 && (
+                        <button
+                          onClick={() => handleShowDescription(product)}
+                          className="text-[#D4AF37] hover:underline text-xs font-semibold mt-1 inline-block"
+                        >
+                          Mehr lesen...
+                        </button>
+                      )}
                     </CardDescription>
                   )}
                 </CardHeader>
@@ -383,6 +405,50 @@ export function ProductGrid({ products }: ProductGridProps) {
               onOpenChange={handleEmailDialogClose}
             />
           )}
+
+          {/* Full Description Dialog */}
+          <Dialog
+            open={!!selectedProductForDescription}
+            onOpenChange={(open) =>
+              !open && setSelectedProductForDescription(null)
+            }
+          >
+            <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
+              {selectedProductForDescription && (
+                <>
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold text-[#D4AF37]">
+                      {selectedProductForDescription.productName}
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="py-4">
+                    <div className="relative w-full h-64 bg-gray-100 dark:bg-gray-800 rounded-xl overflow-hidden mb-6">
+                      {selectedProductForDescription.productImageUrl ? (
+                        <Image
+                          src={selectedProductForDescription.productImageUrl}
+                          alt={selectedProductForDescription.productName}
+                          fill
+                          className="object-contain"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <ShoppingCart className="w-16 h-16 text-gray-400" />
+                        </div>
+                      )}
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="text-lg font-semibold text-[#0F172A] dark:text-white border-b border-gray-100 dark:border-gray-700 pb-2">
+                        Beschreibung
+                      </h4>
+                      <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
+                        {selectedProductForDescription.description}
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </section>
