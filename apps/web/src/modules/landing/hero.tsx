@@ -53,7 +53,7 @@
 //         },
 //         body: JSON.stringify({
 //           ...formData,
-//           to: "tharushadenuwan35@gmail.com",
+//           to: "relaxmanjula@gmail.com",
 //         }),
 //       });
 
@@ -640,7 +640,7 @@ export function Hero() {
         },
         body: JSON.stringify({
           ...formData,
-          to: "tharushadenuwan35@gmail.com",
+          to: "relaxmanjula@gmail.com",
         }),
       });
 

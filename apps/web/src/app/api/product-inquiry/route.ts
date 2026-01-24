@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Send to both admin and customer
-    const adminEmail = "tharushadenuwan35@gmail.com";
+    const adminEmail = "relaxmanjula@gmail.com";
     const recipientEmails = [adminEmail, email]; // Send to both
 
     // Check if Resend API key is configured

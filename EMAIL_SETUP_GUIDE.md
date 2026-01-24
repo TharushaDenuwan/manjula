@@ -2,7 +2,7 @@
 
 ## Problem
 
-Booking confirmation emails are only being sent to `tharushadenuwan35@gmail.com` and not to other email addresses that users enter.
+Booking confirmation emails are only being sent to `relaxmanjula@gmail.com` and not to other email addresses that users enter.
 
 ## Root Cause
 
@@ -153,7 +153,7 @@ Or if there's an error:
 
 ## Testing
 
-1. **Test with a verified email** (e.g., `tharushadenuwan35@gmail.com`):
+1. **Test with a verified email** (e.g., `relaxmanjula@gmail.com`):
 
    - Should work ✅
 

@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const recipientEmail = to || "tharushadenuwan35@gmail.com";
+    const recipientEmail = to || "relaxmanjula@gmail.com";
 
     // Check if Resend API key is configured
     if (!process.env.RESEND_API_KEY) {

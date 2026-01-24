@@ -17,7 +17,7 @@ export async function sendContactEmail(data: ContactFormData) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        to: 'tharushadenuwan35@gmail.com',
+        to: 'relaxmanjula@gmail.com',
         subject: `Neue Kontaktanfrage von ${data.name}`,
         html: `
           <h2>Neue Kontaktanfrage</h2>
