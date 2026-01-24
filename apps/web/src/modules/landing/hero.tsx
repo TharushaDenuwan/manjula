@@ -53,7 +53,7 @@
 //         },
 //         body: JSON.stringify({
 //           ...formData,
-//           to: "tharushadenuwan35@gmail.com",
+//           to: "relaxmanjula@gmail.com",
 //         }),
 //       });
 
@@ -748,6 +748,23 @@ export function Hero() {
             >
               Ayubowan
             </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.1, ease: "easeOut" }}
+              className="mt-8"
+            >
+              <Button
+                asChild
+                size="lg"
+                className="bg-[#D4AF37] hover:bg-[#C19A2F] text-[#0F172A] font-bold px-8 py-6 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95 group"
+              >
+                <Link href="/massage#calendar" className="flex items-center gap-3">
+                  <Calendar className="w-6 h-6 transition-transform group-hover:rotate-12" />
+                  <span className="text-xl">Jetzt buchen</span>
+                </Link>
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
       </section>

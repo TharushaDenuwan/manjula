@@ -161,7 +161,7 @@ export async function sendProductInquiryEmail(
 
     const fromEmail = process.env.RESEND_FROM_EMAIL || "noreply@manjula.cloud";
     const adminEmails = [
-      "tharushadenuwan35@gmail.com",
+      "relaxmanjula@gmail.com",
       "noreply@manjula.cloud",
     ];
 
@@ -184,7 +184,7 @@ export async function sendProductInquiryEmail(
         to: email,
         subject: "Bestätigung Ihrer Produktanfrage - Manjula",
         html: customerEmailContent,
-        replyTo: "tharushadenuwan35@gmail.com",
+        replyTo: "relaxmanjula@gmail.com",
       }),
     ];
 
