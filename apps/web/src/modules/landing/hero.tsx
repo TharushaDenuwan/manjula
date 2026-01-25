@@ -759,7 +759,10 @@ export function Hero() {
                 size="lg"
                 className="bg-[#D4AF37] hover:bg-[#C19A2F] text-[#0F172A] font-bold px-8 py-6 rounded-full shadow-2xl transition-all hover:scale-110 active:scale-95 group"
               >
-                <Link href="/massage#calendar" className="flex items-center gap-3">
+                <Link
+                  href="/massage#calendar"
+                  className="flex items-center gap-3"
+                >
                   <Calendar className="w-6 h-6 transition-transform group-hover:rotate-12" />
                   <span className="text-xl">Jetzt buchen</span>
                 </Link>
@@ -1090,7 +1093,7 @@ export function Hero() {
                   </p>
                   <div className="mt-4 sm:mt-5 md:mt-6 space-y-1.5 sm:space-y-2 text-sm sm:text-base text-[#5f6164] dark:text-gray-300">
                     <p>☎ Telefon: +43 664 88653430</p>
-                    <p>✉ E-Mail: relax@manjula.at</p>
+                    <p>✉ E-Mail: relaxmanjula@gmail.com</p>
                     <p className="flex items-center gap-2">
                       <Calendar className="w-4 h-4" /> Termin nach Vereinbarung
                     </p>

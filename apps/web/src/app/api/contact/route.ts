@@ -130,7 +130,7 @@ export async function POST(req: NextRequest) {
                       Großpesendorf 41, 8211 Ilztal, Österreich
                     </p>
                     <p style="color: #999999; font-size: 12px; margin: 5px 0;">
-                      <a href="mailto:relax@manjula.at" style="color: #D4AF37; text-decoration: none;">relax@manjula.at</a> |
+                      <a href="mailto:relaxmanjula@gmail.com" style="color: #D4AF37; text-decoration: none;">relaxmanjula@gmail.com</a> |
                       <a href="tel:+4366488653430" style="color: #D4AF37; text-decoration: none;">+43 664 88 65 34 30</a>
                     </p>
                   </td>
@@ -177,7 +177,7 @@ export async function POST(req: NextRequest) {
         ---
         Ayurveda-Massage-Praxis „Manjula"
         Großpesendorf 41, 8211 Ilztal, Österreich
-        relax@manjula.at | +43 664 88 65 34 30
+        relaxmanjula@gmail.com | +43 664 88 65 34 30
       `,
     });
 

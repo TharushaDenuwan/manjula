@@ -70,7 +70,9 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h5 className="text-lg font-semibold text-black dark:text-white">Über mich</h5>
+            <h5 className="text-lg font-semibold text-black dark:text-white">
+              Über mich
+            </h5>
             <ul className="space-y-2">
               {[
                 { label: "Home", href: "/" },
@@ -95,7 +97,9 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h5 className="text-lg font-semibold text-black dark:text-white">Kontakt</h5>
+            <h5 className="text-lg font-semibold text-black dark:text-white">
+              Kontakt
+            </h5>
             <div className="space-y-3 text-gray-400 dark:text-gray-300 text-sm">
               <div className="flex items-start space-x-3">
                 <MapPin
@@ -110,7 +114,7 @@ export function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail size={16} className="text-amber-400" />
-                <span>relax@manjula.at</span>
+                <span>relaxmanjula@gmail.com</span>
               </div>
             </div>
           </div>
