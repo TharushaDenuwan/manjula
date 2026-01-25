@@ -632,16 +632,14 @@ export function Hero() {
     setLoading(true);
     try {
       // Save to backend database
-      const response = await fetch("/api/contacts", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
+          ...formData,
+          to: "relaxmanjula@gmail.com",
         }),
       });
 
