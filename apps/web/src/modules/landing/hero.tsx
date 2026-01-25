@@ -515,6 +515,7 @@
 
 "use client";
 import { addContact } from "@/features/admin-contact/actions/add-acontact.action";
+import { sendContactEmail } from "@/features/contact/actions/send-contact-email.action";
 import { Button } from "@repo/ui/components/button";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { Calendar } from "lucide-react";
@@ -632,21 +633,8 @@ export function Hero() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Send email (existing functionality)
-      const emailResponse = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          to: "relaxmanjula@gmail.com",
-        }),
-      });
-
-      if (!emailResponse.ok) {
-        throw new Error("Failed to send email");
-      }
+      // Send email using server action
+      await sendContactEmail(formData);
 
       // Save contact to database
       await addContact({
