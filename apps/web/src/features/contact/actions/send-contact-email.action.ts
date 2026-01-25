@@ -1,5 +1,7 @@
 "use server";
 
+import { getClient } from "@/lib/rpc/server";
+import { revalidatePath } from "next/cache";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -14,6 +16,31 @@ export interface ContactFormData {
 export async function sendContactEmail(data: ContactFormData) {
   try {
     const { name, email, phone, message } = data;
+
+    // 1. Save to Database
+    try {
+      const client = await getClient();
+      const dbResponse = await client.api.contacts.$post({
+        json: {
+          name,
+          email,
+          phone,
+          message,
+        },
+      });
+
+      if (!dbResponse.ok) {
+        const errorText = await dbResponse.text();
+        console.error("❌ Database save failed:", errorText);
+      } else {
+        console.log("✅ Contact saved to database successfully");
+        revalidatePath("/");
+      }
+    } catch (dbError) {
+      console.error("❌ Error saving to database:", dbError);
+    }
+
+    // 2. Send Email
     const recipientEmail = "relaxmanjula@gmail.com";
 
     // Check if Resend API key is configured
@@ -29,7 +56,7 @@ export async function sendContactEmail(data: ContactFormData) {
       "http://localhost:3000";
     const logoUrl = `${baseUrl}/assets/logo.png`;
 
-    // Beautiful email template (copying from the API route)
+    // Beautiful email template
     const emailHtml = `
       <!DOCTYPE html>
       <html lang="de">
@@ -172,13 +199,14 @@ export async function sendContactEmail(data: ContactFormData) {
     });
 
     if (emailResult.error) {
-      console.error("Resend API Error:", emailResult.error);
+      console.error("❌ Resend API Error:", emailResult.error);
       throw new Error(emailResult.error.message || "Email sending failed");
     }
 
+    console.log("✅ Email sent successfully");
     return { success: true };
   } catch (error) {
-    console.error("Error sending email:", error);
-    throw new Error("Failed to send email. Please try again.");
+    console.error("❌ Error in sendContactEmail:", error);
+    throw new Error("Failed to process your request. Please try again.");
   }
 }
