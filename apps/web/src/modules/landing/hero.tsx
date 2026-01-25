@@ -514,6 +514,8 @@
 // }
 
 "use client";
+import { addContact } from "@/features/admin-contact/actions/add-acontact.action";
+import { sendContactEmail } from "@/features/contact/actions/send-contact-email.action";
 import { Button } from "@repo/ui/components/button";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { Calendar } from "lucide-react";
@@ -631,21 +633,8 @@ export function Hero() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Save to backend database
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          to: "relaxmanjula@gmail.com",
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to save contact");
-      }
+      // Send email using server action
+      await sendContactEmail(formData);
 
       setFormData({ name: "", email: "", phone: "", message: "" });
       alert("Nachricht gesendet! Vielen Dank 🙏");
