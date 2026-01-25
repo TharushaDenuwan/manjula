@@ -514,7 +514,6 @@
 // }
 
 "use client";
-import { addContact } from "@/features/admin-contact/actions/add-acontact.action";
 import { sendContactEmail } from "@/features/contact/actions/send-contact-email.action";
 import { Button } from "@repo/ui/components/button";
 import { motion, useAnimation, useInView } from "framer-motion";
@@ -633,16 +632,8 @@ export function Hero() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Send email using server action
+      // Send email and save to database using server action
       await sendContactEmail(formData);
-
-      // Save contact to database
-      await addContact({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        message: formData.message,
-      });
 
       setFormData({ name: "", email: "", phone: "", message: "" });
       alert("Nachricht gesendet! Vielen Dank 🙏");
