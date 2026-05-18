@@ -82,18 +82,11 @@ export default function Gallery() {
     { id: 19, url: "/assets/new/p17.JPG" },
     { id: 20, url: "/assets/new/p18.JPG" },
     { id: 21, url: "/assets/new/p19.jpeg" },
-    { id: 22, url: "/assets/new/p20.jpeg" },
-    { id: 23, url: "/assets/new/p21.jpeg" },
-    { id: 24, url: "/assets/new/p22.jpeg" },
-    { id: 25, url: "/assets/new/p23.jpeg" },
-    { id: 26, url: "/assets/new/p24.jpeg" },
-    { id: 27, url: "/assets/new/p25.jpeg" },
-    { id: 28, url: "/assets/new/p26.jpeg" },
-    { id: 29, url: "/assets/new/p27.jpeg" },
-    { id: 30, url: "/assets/new/p28.jpeg" },
-    { id: 31, url: "/assets/new/p29.jpeg" },
-    { id: 32, url: "/assets/new/p30.jpeg" },
-    { id: 33, url: "/assets/new/p31.jpeg" },
+    { id: 22, url: "/assets/new/p22.jpeg" },
+    { id: 23, url: "/assets/new/p25.jpeg" },
+    { id: 24, url: "/assets/new/p26.jpeg" },
+    { id: 25, url: "/assets/new/p28.jpeg" },
+    { id: 26, url: "/assets/new/p29.jpeg" },
   ];
 
   useEffect(() => {
