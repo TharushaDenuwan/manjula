@@ -81,12 +81,12 @@ export default function Gallery() {
     { id: 18, url: "/assets/new/p15.JPG" },
     { id: 19, url: "/assets/new/p17.JPG" },
     { id: 20, url: "/assets/new/p18.JPG" },
-    { id: 21, url: "/assets/new/p19.jpeg" },
-    { id: 22, url: "/assets/new/p22.jpeg" },
-    { id: 23, url: "/assets/new/p25.jpeg" },
-    { id: 24, url: "/assets/new/p26.jpeg" },
-    { id: 25, url: "/assets/new/p28.jpeg" },
-    { id: 26, url: "/assets/new/p29.jpeg" },
+    // { id: 21, url: "/assets/new/p19.jpeg" },
+    // { id: 22, url: "/assets/new/p22.jpeg" },
+    // { id: 23, url: "/assets/new/p25.jpeg" },
+    // { id: 24, url: "/assets/new/p26.jpeg" },
+    // { id: 25, url: "/assets/new/p28.jpeg" },
+    // { id: 26, url: "/assets/new/p29.jpeg" },
   ];
 
   useEffect(() => {
