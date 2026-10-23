@@ -475,8 +475,8 @@
 //                   transition={{ duration: 0.3 }}
 //                 >
 //                   <iframe
-//                     title="Praxis Manjula Standort - Großpesendorf 41, 8211 Ilztal, Österreich"
-//                     src={`https://www.google.com/maps?q=${encodeURIComponent("Großpesendorf 41, 8211 Ilztal, Austria")}&output=embed`}
+//                     title="Praxis Manjula Standort - Preßguts 29, 8211 Preßguts, Austria"
+//                     src={`https://www.google.com/maps?q=${encodeURIComponent("Preßguts 29, 8211 Preßguts, Austria")}&output=embed`}
 //                     width="100%"
 //                     height="400"
 //                     style={{ border: 0 }}
@@ -1051,8 +1051,8 @@ export function Hero() {
                   transition={{ duration: 0.3 }}
                 >
                   <iframe
-                    title="Praxis Manjula Standort - Großpesendorf 41, 8211 Ilztal, Österreich"
-                    src={`https://www.google.com/maps?q=${encodeURIComponent("Großpesendorf 41, 8211 Ilztal, Austria")}&output=embed`}
+                    title="Praxis Manjula Standort - Preßguts 29, 8211 Preßguts, Austria"
+                    src="https://maps.google.com/maps?q=47.1725082,15.7347368&output=embed"
                     width="100%"
                     height="300"
                     className="sm:h-[350px] md:h-[400px]"
