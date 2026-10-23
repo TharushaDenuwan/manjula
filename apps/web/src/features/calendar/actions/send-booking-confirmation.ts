@@ -121,7 +121,7 @@ export async function sendBookingConfirmation({
                       Ayurveda-Massage-Praxis „Manjula"
                     </p>
                     <p style="color: #999999; font-size: 12px; margin: 5px 0;">
-                      Großpesendorf 41, 8211 Ilztal, Österreich
+                      Preßguts 29, 8211 Preßguts, Austria
                     </p>
                     <p style="color: #999999; font-size: 12px; margin: 5px 0;">
                       <a href="mailto:relaxmanjula@gmail.com" style="color: #D4AF37; text-decoration: none;">relaxmanjula@gmail.com</a> |
@@ -154,7 +154,7 @@ export async function sendBookingConfirmation({
         Wir freuen uns darauf, Sie bald begrüßen zu dürfen!
 
         Ayurveda-Massage-Praxis „Manjula"
-        Großpesendorf 41, 8211 Ilztal, Österreich
+        Preßguts 29, 8211 Preßguts, Austria
         relaxmanjula@gmail.com | +43 664 88 65 34 30
       `,
     });

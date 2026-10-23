@@ -106,7 +106,7 @@ export function Footer() {
                   size={16}
                   className="text-amber-400 flex-shrink-0 mt-1"
                 />
-                <span>Großpesendorf 41, 8211 Ilztal, Österreich</span>
+                <span>Preßguts 29, 8211 Preßguts, Austria</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone size={16} className="text-amber-400" />
